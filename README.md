@@ -66,8 +66,8 @@ nnoremap <silent> ,rn :call neoterm#test#run('current')<cr>
 nnoremap <silent> ,rr :call neoterm#test#rerun()<cr>
 
 " Useful maps
-" closes the current terminal
-nnoremap <silent> ,tc :bd! term://*<cr>
+" closes the all terminal buffers
+nnoremap <silent> ,tc :call neoterm#close_all()<cr>
 " clear terminal
-nnoremap <silent> ,tl :exec "T " . g:neoterm_clear_cmd<cr>
+nnoremap <silent> ,tl :call neoterm#clear()<cr>
 ```

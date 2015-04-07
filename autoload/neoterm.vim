@@ -21,3 +21,14 @@ function! neoterm#exec(list)
 
   call jobsend(g:neoterm_current_id, a:list)
 endfunction
+
+function! neoterm#close_all()
+  let all_buffers = range(0, bufnr('$'))
+  let term_buffers = filter(all_buffers, 'bufname(v:val) =~ "term:\/\/.*"')
+
+  exec 'bw! ' . join(term_buffers, ' ')
+endfunction
+
+function! neoterm#clear()
+  call neoterm#do(g:neoterm_clear_cmd)
+endfunction
