@@ -1,4 +1,18 @@
-aug terminal_setup
+let g:neoterm_last_test_command = ''
+
+if !exists('g:neoterm_clear_cmd')
+  let g:neoterm_clear_cmd = 'clear'
+end
+
+if !exists('g:neoterm_position')
+  let g:neoterm_position = 'horizontal'
+end
+
+if !exists('g:neoterm_automap_keys')
+  let g:neoterm_automap_keys = ',tt'
+end
+
+aug neoterm_setup
   au TermOpen * let g:neoterm_current_id = b:terminal_job_id
   au TermOpen * setlocal nonumber norelativenumber
   au BufUnload term://*
@@ -33,27 +47,10 @@ aug terminal_setup
         \ endif
 aug END
 
-let g:neoterm_last_test_command = ''
-
-if !exists('g:neoterm_clear_cmd')
-  let g:neoterm_clear_cmd = 'clear'
-end
-
-if !exists('g:neoterm_position')
-  let g:neoterm_position = 'horizontal'
-end
-
 command! -nargs=? TTestLib let g:neoterm_test_lib=<q-args>
 command! -nargs=1 Tpos let g:neoterm_position=<q-args>
 
 command! -nargs=+ T call neoterm#do(<q-args>)
-command! -nargs=+ Tmap exec "nnoremap <silent> ,tt :T " . <q-args> . "<cr>"
-
-command! -nargs=+ HT call neoterm#horizontal_term(<q-args>)
-command! -nargs=+ HTmap exec "nnoremap <silent> ,tt :HT " . <q-args> . "<cr>"
-
-command! -nargs=+ VT call neoterm#vertical_term(<q-args>)
-command! -nargs=+ VTmap exec "nnoremap <silent> ,tt :VT " . <q-args> . "<cr>"
-
-command! -range=% REPLSendSelection call neoterm#repl(text#get_visual_lines())
-command! REPLSendLine call neoterm#repl([getline('.')])
+command! -nargs=+ Tmap exec "nnoremap <silent> "
+      \ . g:neoterm_automap_keys .
+      \ " :T " . <q-args> . "<cr>"
