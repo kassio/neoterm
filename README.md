@@ -40,7 +40,8 @@ it's the command: `rspec spec/path/to/file_spec.rb:123`.
 
 ## other useful commands:
 
-* `:T <command>`: runs the given command within a terminal.
+* `:T <command>`: Opens a terminal, or use an opened terminal, and runs the
+                  given command within a terminal.
 * `:Tmap <command>`: maps a the given command to ,tt.
 
 ## example config file:
