@@ -1,5 +1,10 @@
 # neoterm
 
+Use the same terminal for everything. The main reason for this plugin is reuse
+the terminal easily. All commands opens a terminal if it's not open or reuse the
+open terminal.
+REPL commands, opens a terminal and the proper REPL, if it's not opened.
+
 - NeoVim terminal helper functions/commands.
 - Wraps some test libs to run easilly within NeoVim terminal.
 - Wraps some REPL to receive current line or selection.
