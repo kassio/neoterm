@@ -1,5 +1,5 @@
 function! neoterm#test#run(scope)
-  let Fn = function('neoterm#' . g:neoterm_test_lib)
+  let Fn = function('neoterm#test#' . g:neoterm_test_lib)
   let g:neoterm_last_test_command = g:neoterm_clear_cmd . ';' . Fn(a:scope)
 
   call neoterm#exec([g:neoterm_last_test_command, ''])
@@ -13,7 +13,7 @@ function! neoterm#test#rerun()
   endif
 endfunction
 
-function! s:rspec(scope)
+function! neoterm#test#rspec(scope)
   let command = 'rspec'
 
   if a:scope == 'file'
@@ -25,7 +25,7 @@ function! s:rspec(scope)
   return command
 endfunction
 
-function! s:minitest(scope)
+function! neoterm#test#minitest(scope)
   if a:scope == 'all'
     let command = 'rake test'
   elseif a:scope == 'file'
