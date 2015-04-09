@@ -30,8 +30,8 @@ it's the command: `rspec spec/path/to/file_spec.rb:123`.
 
 ### test libs supported
 
-* minitest
 * rspec
+* minitest
 
 ## REPL
 
@@ -48,6 +48,60 @@ it's the command: `rspec spec/path/to/file_spec.rb:123`.
 * `:T <command>`: Opens a terminal, or use an opened terminal, and runs the
                   given command within a terminal.
 * `:Tmap <command>`: maps a the given command to ,tt.
+
+## Contributing
+
+Open a pull request, I'll be glad in review/add new test libs, repls and other
+features to this plugin. :smiley:
+
+### how add a new test lib
+
+A test lib is defined by a function and an autocommand group.
+
+```console
+.nvim/plugged/neoterm/
+▾ autoload/
+  ▾ neoterm/
+    ▾ test/
+        rspec.vim
+▾ ftdetect/
+    rspec.vim
+```
+
+The function (`neoterm#test#<lib_name>#run`) will return the command, by the
+given scope, that will be runned in a terminal window. This function should be
+defined in its own file: `/autoload/neoterm/test/<lib_name>.vim`.
+
+* autoload/neoterm/test/rspec.vim
+```viml
+function! neoterm#test#rspec#run(scope)
+  let command = 'rspec'
+
+  if a:scope == 'file'
+    let command .= ' ' . expand('%:p')
+  elseif a:scope == 'current'
+    let command .= ' ' . expand('%:p') . ':' . line('.')
+  endif
+
+  return command
+endfunction
+```
+
+The autocommand group will detect when the lib should be available. For example,
+the rspec is available when exists a file `spec/spec_helper.rb` on the current
+folder, or when a file that matches with `*_spec.rb` or `*_feature.rb` is
+opened.
+
+* ftdetect/rspec.vim
+```viml
+aug neoterm_test_rspec
+  au VimEnter,BufRead,BufNewFile *_spec.rb,*_feature.rb call neoterm#test#libs#add('rspec')
+  au VimEnter *
+        \ if filereadable('spec/spec_helper.rb') |
+        \   call neoterm#test#libs#add('rspec') |
+        \ endif
+aug END
+```
 
 ## example config file:
 
