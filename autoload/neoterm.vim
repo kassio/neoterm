@@ -23,7 +23,7 @@ function! neoterm#exec(list)
 endfunction
 
 function! neoterm#close_all()
-  let all_buffers = range(0, bufnr('$'))
+  let all_buffers = range(1, bufnr('$'))
   let term_buffers = filter(all_buffers, 'bufname(v:val) =~ "term:\/\/.*"')
 
   exec 'bw! ' . join(term_buffers, ' ')
