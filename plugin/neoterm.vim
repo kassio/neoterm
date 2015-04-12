@@ -1,5 +1,9 @@
 let g:neoterm_last_test_command = ''
 
+if !exists('g:neoterm_size')
+  let g:neoterm_size = 80
+end
+
 if !exists('g:neoterm_test_libs')
   let g:neoterm_test_libs = []
 end

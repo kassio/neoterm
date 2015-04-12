@@ -11,9 +11,9 @@ function! neoterm#exec(list)
   if !exists('g:neoterm_current_id')
     let current_window = winnr()
     if g:neoterm_position == 'horizontal'
-      let split_cmd = "botright new | term"
+      let split_cmd = "botright ".g:neoterm_size."new | term"
     else
-      let split_cmd = "botright vert new | term"
+      let split_cmd = "botright vert ".g:neoterm_size."new | term"
     end
 
     exec split_cmd | exec current_window . "wincmd w | set noim"
