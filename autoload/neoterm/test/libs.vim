@@ -1,5 +1,6 @@
 function! neoterm#test#libs#add(lib)
   if index(g:neoterm_test_libs, a:lib) != 0
+    let b:neoterm_test_lib = a:lib
     let g:neoterm_test_lib = a:lib
     call add(g:neoterm_test_libs, a:lib)
   end
