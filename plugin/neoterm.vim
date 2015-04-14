@@ -1,7 +1,7 @@
 let g:neoterm_last_test_command = ''
 
 if !exists('g:neoterm_size')
-  let g:neoterm_size = 80
+  let g:neoterm_size = ''
 end
 
 if !exists('g:neoterm_test_libs')
