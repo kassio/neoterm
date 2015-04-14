@@ -6,6 +6,10 @@ function! neoterm#repl#selection()
   call <sid>repl_exec(<sid>get_visual_lines())
 endfunction
 
+function! neoterm#repl#all()
+  call <sid>repl_exec(getline(0, line('$')))
+endfunction
+
 function! s:repl_exec(command)
   if exists('g:neoterm_repl_command') && !exists('g:neoterm_repl_loaded')
     call neoterm#do(g:neoterm_repl_command)
