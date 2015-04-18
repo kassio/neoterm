@@ -31,7 +31,9 @@ it's the command: `rspec spec/path/to/file_spec.rb:123`.
 ### test libs supported
 
 * rspec
+* cucumber
 * minitest
+* go-lang test (partially see #8)
 
 ## REPL
 
