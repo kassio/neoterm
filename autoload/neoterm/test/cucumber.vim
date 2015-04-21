@@ -1,5 +1,9 @@
 function! neoterm#test#cucumber#run(scope)
-  let command = 'bundle exec cucumber'
+  if exists('g:neoterm_cucumber_lib_cmd')
+    let command = g:neoterm_cucumber_lib_cmd
+  else
+    let command = 'bundle exec cucumber'
+  end
 
   if a:scope == 'file'
     let command .= ' ' . expand('%:p')

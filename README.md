@@ -31,7 +31,11 @@ it's the command: `rspec spec/path/to/file_spec.rb:123`.
 ### test libs supported
 
 * rspec
+  * You can override the default command (`bundle exec rspec`) using the
+    `g:neoterm_rspec_lib_cmd`
 * cucumber
+  * You can override the default command (`bundle exec cucumber`) using the
+    `g:neoterm_cucumber_lib_cmd`
 * minitest
 * go-lang test (partially see #8)
 
