@@ -38,6 +38,7 @@ it's the command: `rspec spec/path/to/file_spec.rb:123`.
     `g:neoterm_cucumber_lib_cmd`
 * minitest
 * go-lang test ([partially implemented](https://github.com/kassio/neoterm/pull/8))
+* nose ([partially implemented](https://github.com/kassio/neoterm/pull/9))
 
 ## REPL
 
