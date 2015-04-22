@@ -1,5 +1,9 @@
 function! neoterm#test#rspec#run(scope)
-  let command = 'rspec'
+  if exists('g:neoterm_rspec_lib_cmd')
+    let command = g:neoterm_rspec_lib_cmd
+  else
+    let command = 'bundle exec rspec'
+  end
 
   if a:scope == 'file'
     let command .= ' ' . expand('%:p')
