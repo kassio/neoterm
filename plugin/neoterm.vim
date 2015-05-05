@@ -33,7 +33,7 @@ aug neoterm_setup
         \ endif
 aug END
 
-command! -complete=customlist,neoterm#test#libs#autocomplete -nargs=? TTestLib let g:neoterm_test_lib=<q-args>
+command! -complete=customlist,neoterm#test#libs#autocomplete -nargs=? TTestLib call neoterm#test#libs#add(<q-args>)
 command! -nargs=1 Tpos let g:neoterm_position=<q-args>
 
 command! -complete=file -nargs=+ T call neoterm#do(<q-args>)
