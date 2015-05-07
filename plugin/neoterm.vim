@@ -22,6 +22,7 @@ end
 
 aug neoterm_setup
   au TermOpen * let g:neoterm_current_id = b:terminal_job_id
+  au TermOpen * let g:neoterm_buffer_id = bufnr('%')
   au TermOpen * setlocal nonumber norelativenumber
   au BufUnload term://*
         \ if exists('g:neoterm_current_id') |
