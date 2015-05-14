@@ -8,27 +8,9 @@ endfunction
 
 " Loads a terminal, if it is not loaded, and execute a list of commands.
 function! neoterm#exec(list)
-  let current_window = winnr()
+  call <sid>open_terminal_cmd()
 
-  if !exists('g:neoterm_current_id')
-    if g:neoterm_position == 'horizontal'
-      let split_cmd = "botright ".g:neoterm_size."new | term $SHELL"
-    else
-      let split_cmd = "botright vert ".g:neoterm_size."new | term $SHELL"
-    end
-
-    exec split_cmd | exec current_window . "wincmd w | set noim"
-  elseif exists('g:neoterm_buffer_id') && bufwinnr(g:neoterm_buffer_id) == -1
-    if g:neoterm_position == 'horizontal'
-      let split_cmd = "botright ".g:neoterm_size." sbuffer ".g:neoterm_buffer_id
-    else
-      let split_cmd = "botright vert ".g:neoterm_size."sbuffer ".g:neoterm_buffer_id
-    end
-
-    exec split_cmd | exec current_window . "wincmd w | set noim"
-  end
-
-  call jobsend(g:neoterm_current_id, a:list)
+  call jobsend(g:neoterm_terminal_jid, a:list)
 endfunction
 
 function! neoterm#close_all()
@@ -40,4 +22,24 @@ endfunction
 
 function! neoterm#clear()
   call neoterm#do(g:neoterm_clear_cmd)
+endfunction
+
+function! s:open_terminal_cmd()
+  let current_window = winnr()
+
+  if !exists('g:neoterm_terminal_jid')
+    let open_cmd = <sid>split_cmd()." ".g:neoterm_size." new | term $SHELL"
+  elseif bufwinnr(g:neoterm_buffer_id) == -1
+    let open_cmd = <sid>split_cmd()." ".g:neoterm_size." sbuffer ".g:neoterm_buffer_id
+  end
+
+  exec open_cmd | exec current_window . "wincmd w | set noim"
+endfunction
+
+function! s:split_cmd()
+  if g:neoterm_position == "horizontal"
+    return "botright"
+  else
+    return "botright vert"
+  end
 endfunction

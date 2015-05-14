@@ -21,12 +21,12 @@ if !exists('g:neoterm_automap_keys')
 end
 
 aug neoterm_setup
-  au TermOpen * let g:neoterm_current_id = b:terminal_job_id
+  au TermOpen * let g:neoterm_terminal_jid = b:terminal_job_id
   au TermOpen * let g:neoterm_buffer_id = bufnr('%')
   au TermOpen * setlocal nonumber norelativenumber
   au BufUnload term://*
-        \ if exists('g:neoterm_current_id') |
-        \   unlet g:neoterm_current_id |
+        \ if exists('g:neoterm_terminal_jid') |
+        \   unlet g:neoterm_terminal_jid |
         \ endif
   au BufUnload term://*
         \ if exists('g:neoterm_repl_loaded') |
