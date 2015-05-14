@@ -8,9 +8,13 @@ endfunction
 
 " Loads a terminal, if it is not loaded, and execute a list of commands.
 function! neoterm#exec(list)
-  call <sid>open_terminal_cmd()
-
-  call jobsend(g:neoterm_terminal_jid, a:list)
+  if g:neoterm_keep_term_open
+    call <sid>open_terminal_cmd()
+    call jobsend(g:neoterm_terminal_jid, a:list)
+  else
+    let cmd = join(a:list, "\n")
+    exec <sid>split_cmd()." ".g:neoterm_size." new " | call termopen(cmd) | startinsert
+  end
 endfunction
 
 function! neoterm#close_all()

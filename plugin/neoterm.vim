@@ -20,6 +20,10 @@ if !exists('g:neoterm_automap_keys')
   let g:neoterm_automap_keys = ',tt'
 end
 
+if !exists('g:neoterm_keep_term_open')
+  let g:neoterm_keep_term_open = 1
+end
+
 aug neoterm_setup
   au TermOpen * let g:neoterm_terminal_jid = b:terminal_job_id
   au TermOpen * let g:neoterm_buffer_id = bufnr('%')
