@@ -29,15 +29,17 @@ function! neoterm#clear()
 endfunction
 
 function! s:open_terminal_cmd()
-  let current_window = winnr()
+  if !exists('g:neoterm_buffer_id')
+    let current_window = winnr()
 
-  if !exists('g:neoterm_terminal_jid')
-    let open_cmd = <sid>split_cmd()." ".g:neoterm_size." new | term $SHELL"
-  elseif bufwinnr(g:neoterm_buffer_id) == -1
-    let open_cmd = <sid>split_cmd()." ".g:neoterm_size." sbuffer ".g:neoterm_buffer_id
+    if !exists('g:neoterm_terminal_jid')
+      let open_cmd = <sid>split_cmd()." ".g:neoterm_size." new | term $SHELL"
+    elseif bufwinnr(g:neoterm_buffer_id) == -1
+      let open_cmd = <sid>split_cmd()." ".g:neoterm_size." sbuffer ".g:neoterm_buffer_id
+    end
+
+    exec open_cmd | exec current_window . "wincmd w | set noim"
   end
-
-  exec open_cmd | exec current_window . "wincmd w | set noim"
 endfunction
 
 function! s:split_cmd()
