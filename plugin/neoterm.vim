@@ -31,6 +31,7 @@ aug neoterm_setup
   au BufUnload term://*
         \ if exists('g:neoterm_terminal_jid') |
         \   unlet g:neoterm_terminal_jid |
+        \   unlet g:neoterm_buffer_id |
         \ endif
   au BufUnload term://*
         \ if exists('g:neoterm_repl_loaded') |
