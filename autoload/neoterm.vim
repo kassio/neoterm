@@ -33,6 +33,8 @@ function! s:open_terminal_cmd()
     let open_cmd = <sid>split_cmd()." ".g:neoterm_size." new | term $SHELL"
   elseif bufwinnr(g:neoterm_buffer_id) == -1
     let open_cmd = <sid>split_cmd()." ".g:neoterm_size." sbuffer ".g:neoterm_buffer_id
+  else
+    return
   end
 
   let current_window = winnr()
