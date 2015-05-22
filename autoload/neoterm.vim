@@ -1,9 +1,13 @@
 " Executes a command on terminal.
 " Evaluates any "%" inside the command to the full path of the current file.
 function! neoterm#do(command)
-  let command = substitute(a:command, '%', expand('%:p'), 'g')
+  let command = neoterm#expand_cmd(a:command)
 
   call neoterm#exec([command, ''])
+endfunction
+
+function! neoterm#expand_cmd(command)
+  return substitute(a:command, '%', expand('%:p'), 'g')
 endfunction
 
 " Loads a terminal, if it is not loaded, and execute a list of commands.
