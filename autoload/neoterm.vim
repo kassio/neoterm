@@ -23,9 +23,18 @@ endfunction
 
 function! neoterm#close_all()
   let all_buffers = range(1, bufnr('$'))
-  let term_buffers = filter(all_buffers, 'bufname(v:val) =~ "term:\/\/.*"')
 
-  exec 'bw! ' . join(term_buffers, ' ')
+  for b in all_buffers
+    if bufname(b) =~ "term:\/\/.*"
+
+      if g:neoterm_keep_term_open
+        exec bufwinnr(b) . " hide"
+      else
+        exec 'bd! ' . b
+      end
+
+    end
+  endfor
 endfunction
 
 function! neoterm#clear()
