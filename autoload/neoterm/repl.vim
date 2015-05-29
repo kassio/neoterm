@@ -24,7 +24,7 @@ function! s:get_visual_lines()
   let [lnum2, col2] = getpos("'>")[1:2]
 
   let lines = getline(lnum1, lnum2)
-  let lines[-1] = lines[-1][:col2 - 2]
+  let lines[-1] = lines[-1][:col2 - 1]
   let lines[0] = lines[0][col1 - 1:]
 
   return lines
