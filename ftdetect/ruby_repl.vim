@@ -10,7 +10,7 @@ aug neoterm_ruby_repl
         \ if filereadable('config/application.rb') |
         \   call neoterm#repl#set('bundle exec rails console') |
         \ else |
-        \   echo 'No REPL set.' |
+        \   echom 'No REPL set.' |
         \   call neoterm#repl#set('') |
         \ endif
 aug END
