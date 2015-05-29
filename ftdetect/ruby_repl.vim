@@ -1,10 +1,16 @@
 aug neoterm_ruby_repl
+  au VimEnter,BufRead,BufNewFile *.rb,*.erb,Rakefile
+        \ if executable('pry') |
+        \   call neoterm#repl#set('pry') |
+        \ elseif executable('irb') |
+        \   call neoterm#repl#set('irb') |
+        \ end
+
   au VimEnter,BufRead,BufNewFile *
         \ if filereadable('config/application.rb') |
-        \   let g:neoterm_repl_command = 'bundle exec rails console' |
-        \ elseif executable('pry') |
-        \   let g:neoterm_repl_command = 'pry' |
-        \ elseif executable('irb') |
-        \   let g:neoterm_repl_command = 'irb' |
+        \   call neoterm#repl#set('bundle exec rails console') |
+        \ else |
+        \   echo 'No REPL set.' |
+        \   call neoterm#repl#set('') |
         \ endif
 aug END

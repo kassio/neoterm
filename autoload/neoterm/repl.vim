@@ -1,3 +1,9 @@
+function! neoterm#repl#set(value)
+  if !exists('g:neoterm_repl_command')
+    let g:neoterm_repl_command = a:value
+  end
+endfunction
+
 function! neoterm#repl#line()
   call <sid>repl_exec([getline('.')])
 endfunction
@@ -11,7 +17,7 @@ function! neoterm#repl#all()
 endfunction
 
 function! s:repl_exec(command)
-  if exists('g:neoterm_repl_command') && !exists('g:neoterm_repl_loaded')
+  if !exists('g:neoterm_repl_loaded')
     call neoterm#do(g:neoterm_repl_command)
     let g:neoterm_repl_loaded = 1
   end
