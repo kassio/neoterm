@@ -39,6 +39,8 @@ aug neoterm_setup
         \ endif
 aug END
 
+command! -range=% TREPLSendFile call neoterm#repl#selection(<line1>, <line2>)
+command! -range TREPLSend call neoterm#repl#selection(<line1>, <line2>)
 command! -complete=customlist,neoterm#test#libs#autocomplete -nargs=? TTestLib call neoterm#test#libs#add(<q-args>)
 command! -nargs=1 Tpos let g:neoterm_position=<q-args>
 

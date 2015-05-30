@@ -42,8 +42,8 @@ it's the command: `rspec spec/path/to/file_spec.rb:123`.
 
 ## REPL
 
-* `neoterm#repl#line()`: sends the current line to a REPL in a terminal.
-* `neoterm#repl#selection()`: sends the current selection to a REPL in a terminal.
+* `TREPLSend`: sends the current line or the selection to a REPL in a terminal.
+* `TREPLSendFile`: sends the current file to a REPL in a terminal.
 
 ### REPL supported
 
@@ -117,8 +117,9 @@ let g:neoterm_clear_cmd = "clear; printf '=%.0s' {1..80}; clear"
 let g:neoterm_position = 'vertical'
 let g:neoterm_automap_keys = ',tt'
 
-nnoremap <silent> <f9> :call neoterm#repl#line()<cr>
-vnoremap <silent> <f9> :call neoterm#repl#selection()<cr>
+nnoremap <silent> <f10> :TREPLSendFile<cr>
+nnoremap <silent> <f9> :TREPLSend<cr>
+vnoremap <silent> <f9> :TREPLSend<cr>
 
 " run set test lib
 nnoremap <silent> ,rt :call neoterm#test#run('all')<cr>

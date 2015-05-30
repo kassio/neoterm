@@ -8,12 +8,8 @@ function! neoterm#repl#line()
   call <sid>repl_exec([getline('.')])
 endfunction
 
-function! neoterm#repl#selection()
-  call <sid>repl_exec(<sid>get_visual_lines())
-endfunction
-
-function! neoterm#repl#all()
-  call <sid>repl_exec(getline(0, line('$')))
+function! neoterm#repl#selection(line1, line2)
+  call <sid>repl_exec(getline(a:line1, a:line2))
 endfunction
 
 function! s:repl_exec(command)
