@@ -22,10 +22,12 @@ function! neoterm#exec(list)
 endfunction
 
 function! s:open_terminal_cmd()
-  if !exists('g:neoterm_terminal_jid')
-    let open_cmd = <sid>split_cmd()." +term\ $SHELL"
-  if bufwinnr(g:neoterm_buffer_id) == -1
+  if exists('g:neoterm_buffer_id') &&
+        \ bufwinnr(g:neoterm_buffer_id) == -1 &&
+        \ bufexists(g:neoterm_buffer_id) > 0
     let open_cmd = <sid>split_cmd()." +b".g:neoterm_buffer_id
+  elseif !exists('g:neoterm_terminal_jid')
+    let open_cmd = <sid>split_cmd()." +term\ $SHELL"
   else
     return
   end
