@@ -26,15 +26,19 @@ function! neoterm#close_all()
 
   for b in all_buffers
     if bufname(b) =~ "term:\/\/.*"
-
-      if g:neoterm_keep_term_open
-        exec bufwinnr(b) . " hide"
-      else
-        exec 'bd! ' . b
-      end
-
+      call <sid>close_term_buffer(b)
     end
   endfor
+endfunction
+
+function! s:close_term_buffer(buffer)
+  if g:neoterm_keep_term_open
+    if bufwinnr(b) > 0 " check if the buffer is visible
+      exec bufwinnr(b) . " hide"
+    end
+  else
+    exec 'bd! ' . b
+  end
 endfunction
 
 function! neoterm#clear()
