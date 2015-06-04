@@ -17,7 +17,7 @@ function! neoterm#exec(list)
     call jobsend(g:neoterm_terminal_jid, a:list)
   else
     let cmd = join(a:list, "\n")
-    exec <sid>split_cmd()." ".g:neoterm_size." new " | call termopen(cmd) | startinsert
+    exec <sid>split_cmd() | call termopen(cmd) | startinsert
   end
 endfunction
 
@@ -43,9 +43,9 @@ endfunction
 
 function! s:open_terminal_cmd()
   if !exists('g:neoterm_terminal_jid')
-    let open_cmd = <sid>split_cmd()." ".g:neoterm_size." new | term $SHELL"
+    let open_cmd = <sid>split_cmd()." +term\ $SHELL"
   elseif bufwinnr(g:neoterm_buffer_id) == -1
-    let open_cmd = <sid>split_cmd()." ".g:neoterm_size." sbuffer ".g:neoterm_buffer_id
+    let open_cmd = <sid>split_cmd()." +b".g:neoterm_buffer_id
   else
     return
   end
@@ -56,8 +56,8 @@ endfunction
 
 function! s:split_cmd()
   if g:neoterm_position == "horizontal"
-    return "botright"
+    return "botright ".g:neoterm_size." new"
   else
-    return "botright vert"
+    return "botright vert".g:neoterm_size." new"
   end
 endfunction
