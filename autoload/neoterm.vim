@@ -21,6 +21,27 @@ function! neoterm#exec(list)
   end
 endfunction
 
+function! s:open_terminal_cmd()
+  if !exists('g:neoterm_terminal_jid')
+    let open_cmd = <sid>split_cmd()." +term\ $SHELL"
+  if bufwinnr(g:neoterm_buffer_id) == -1
+    let open_cmd = <sid>split_cmd()." +b".g:neoterm_buffer_id
+  else
+    return
+  end
+
+  let current_window = winnr()
+  exec open_cmd | exec current_window . "wincmd w | set noim"
+endfunction
+
+function! s:split_cmd()
+  if g:neoterm_position == "horizontal"
+    return "botright ".g:neoterm_size." new"
+  else
+    return "botright vert".g:neoterm_size." new"
+  end
+endfunction
+
 function! neoterm#close_all()
   let all_buffers = range(1, bufnr('$'))
 
@@ -43,25 +64,4 @@ endfunction
 
 function! neoterm#clear()
   call neoterm#do(g:neoterm_clear_cmd)
-endfunction
-
-function! s:open_terminal_cmd()
-  if !exists('g:neoterm_terminal_jid')
-    let open_cmd = <sid>split_cmd()." +term\ $SHELL"
-  elseif bufwinnr(g:neoterm_buffer_id) == -1
-    let open_cmd = <sid>split_cmd()." +b".g:neoterm_buffer_id
-  else
-    return
-  end
-
-  let current_window = winnr()
-  exec open_cmd | exec current_window . "wincmd w | set noim"
-endfunction
-
-function! s:split_cmd()
-  if g:neoterm_position == "horizontal"
-    return "botright ".g:neoterm_size." new"
-  else
-    return "botright vert".g:neoterm_size." new"
-  end
 endfunction
