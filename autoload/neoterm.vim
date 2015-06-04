@@ -56,11 +56,11 @@ endfunction
 
 function! s:close_term_buffer(buffer)
   if g:neoterm_keep_term_open
-    if bufwinnr(b) > 0 " check if the buffer is visible
-      exec bufwinnr(b) . " hide"
+    if bufwinnr(a:buffer) > 0 " check if the buffer is visible
+      exec bufwinnr(a:buffer) . " hide"
     end
   else
-    exec 'bd! ' . b
+    exec 'bd! ' . a:buffer
   end
 endfunction
 
