@@ -65,5 +65,9 @@ function! s:close_term_buffer(buffer)
 endfunction
 
 function! neoterm#clear()
-  call neoterm#do(g:neoterm_clear_cmd)
+  call neoterm#exec(["\<c-l>"])
+endfunction
+
+function! neoterm#kill()
+  call neoterm#exec(["\<c-c>"])
 endfunction

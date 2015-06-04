@@ -113,8 +113,7 @@ aug END
 ## example config file:
 
 ```viml
-let g:neoterm_clear_cmd = "clear; printf '=%.0s' {1..80}; clear"
-let g:neoterm_position = 'vertical'
+let g:neoterm_position = 'horizontal'
 let g:neoterm_automap_keys = ',tt'
 
 nnoremap <silent> <f10> :TREPLSendFile<cr>
@@ -128,8 +127,18 @@ nnoremap <silent> ,rn :call neoterm#test#run('current')<cr>
 nnoremap <silent> ,rr :call neoterm#test#rerun()<cr>
 
 " Useful maps
-" closes the all terminal buffers
-nnoremap <silent> ,tc :call neoterm#close_all()<cr>
+" hide/close all terminals
+nnoremap <silent> ,th :call neoterm#close_all()<cr>
 " clear terminal
 nnoremap <silent> ,tl :call neoterm#clear()<cr>
+" kills the current job (send a <c-c>)
+nnoremap <silent> ,tc :call neoterm#kill()<cr>
+
+" Rails commands
+command! Troutes :T rake routes
+command! -nargs=+ Troute :T rake routes | grep <args>
+command! Tmigrate :T rake db:migrate
+
+" Git commands
+command! -nargs=+ Tg :T git <args>
 ```
