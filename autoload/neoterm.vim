@@ -13,7 +13,7 @@ endfunction
 " Loads a terminal, if it is not loaded, and execute a list of commands.
 function! neoterm#exec(list)
   if g:neoterm_keep_term_open
-    call <sid>open_terminal_cmd()
+    call neoterm#open()
     call jobsend(g:neoterm_terminal_jid, a:list)
   else
     let cmd = join(a:list, "\n")
@@ -21,7 +21,7 @@ function! neoterm#exec(list)
   end
 endfunction
 
-function! s:open_terminal_cmd()
+function! neoterm#open()
   if exists('g:neoterm_buffer_id') &&
         \ bufwinnr(g:neoterm_buffer_id) == -1 &&
         \ bufexists(g:neoterm_buffer_id) > 0
