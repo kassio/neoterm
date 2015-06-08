@@ -45,6 +45,7 @@ command! -complete=customlist,neoterm#test#libs#autocomplete -nargs=? TTestLib c
 command! -nargs=1 Tpos let g:neoterm_position=<q-args>
 
 command! -complete=shellcmd Topen call neoterm#open()
+command! -complete=shellcmd Tclose call neoterm#close_all()
 command! -complete=shellcmd -nargs=+ T call neoterm#do(<q-args>)
 command! -complete=shellcmd -nargs=+ Tmap exec "nnoremap <silent> "
       \ . g:neoterm_automap_keys .
