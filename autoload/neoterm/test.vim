@@ -3,13 +3,12 @@ function! neoterm#test#run(scope)
   let g:neoterm_last_test_command = g:neoterm_clear_cmd . ';' . test_command
 
   echo test_command
-
-  call neoterm#exec([g:neoterm_last_test_command, ''])
+  silent call neoterm#exec([g:neoterm_last_test_command, ''])
 endfunction
 
 function! neoterm#test#rerun()
   if exists('g:neoterm_last_test_command')
-    call neoterm#exec([g:neoterm_last_test_command, ''])
+    silent call neoterm#exec([g:neoterm_last_test_command, ''])
   else
     echo 'No test has been runned.'
   endif

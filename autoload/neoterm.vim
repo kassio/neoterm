@@ -3,7 +3,7 @@
 function! neoterm#do(command)
   let command = neoterm#expand_cmd(a:command)
 
-  call neoterm#exec([command, ''])
+  silent call neoterm#exec([command, ''])
 endfunction
 
 function! neoterm#expand_cmd(command)
@@ -65,9 +65,9 @@ function! s:close_term_buffer(buffer)
 endfunction
 
 function! neoterm#clear()
-  call neoterm#exec(["\<c-l>"])
+  silent call neoterm#exec(["\<c-l>"])
 endfunction
 
 function! neoterm#kill()
-  call neoterm#exec(["\<c-c>"])
+  silent call neoterm#exec(["\<c-c>"])
 endfunction
