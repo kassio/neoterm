@@ -1,3 +1,14 @@
+" Loads a terminal, if it is not loaded, and execute a list of commands.
+function! neoterm#exec(list)
+  if g:neoterm_keep_term_open
+    call neoterm#open()
+    call jobsend(g:neoterm_terminal_jid, a:list)
+  else
+    let cmd = join(a:list, "\n")
+    exec <sid>split_cmd() | call termopen(cmd) | startinsert
+  end
+endfunction
+
 " Executes a command on terminal.
 " Evaluates any "%" inside the command to the full path of the current file.
 function! neoterm#do(command)
@@ -8,17 +19,6 @@ endfunction
 
 function! neoterm#expand_cmd(command)
   return substitute(a:command, '%', expand('%:p'), 'g')
-endfunction
-
-" Loads a terminal, if it is not loaded, and execute a list of commands.
-function! neoterm#exec(list)
-  if g:neoterm_keep_term_open
-    call neoterm#open()
-    call jobsend(g:neoterm_terminal_jid, a:list)
-  else
-    let cmd = join(a:list, "\n")
-    exec <sid>split_cmd() | call termopen(cmd) | startinsert
-  end
 endfunction
 
 function! neoterm#open()
