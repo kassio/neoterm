@@ -1,3 +1,7 @@
+if !has("nvim")
+    finish
+endif
+
 let g:neoterm_last_test_command = ''
 
 if !exists('g:neoterm_size')
