@@ -1,9 +1,8 @@
 function! neoterm#test#run(scope)
-  let test_command = <sid>get_test_command(a:scope)
-  let g:neoterm_last_test_command = g:neoterm_clear_cmd . ';' . test_command
+  let g:neoterm_last_test_command = <sid>get_test_command(a:scope)
 
-  echo test_command
-  silent call neoterm#exec([g:neoterm_last_test_command, ''])
+  echo g:neoterm_last_test_command
+  silent call neoterm#exec([g:neoterm_clear_cmd, g:neoterm_last_test_command, ''])
 endfunction
 
 function! neoterm#test#rerun()
