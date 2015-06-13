@@ -1,3 +1,5 @@
+let s:neoterm_term_opts = { 'name': 'NEOTERM' }
+
 " Loads a terminal, if it is not loaded, and execute a list of commands.
 function! neoterm#exec(list)
   if g:neoterm_keep_term_open
@@ -5,7 +7,7 @@ function! neoterm#exec(list)
     call jobsend(g:neoterm_terminal_jid, a:list)
   else
     exec <sid>split_cmd()
-    call termopen(extend([&sh, &shcf], a:list), { 'name': 'NEOTERM' })
+    call termopen(extend([&sh, &shcf], a:list), s:neoterm_term_opts)
     startinsert
   end
 endfunction
@@ -23,16 +25,19 @@ function! neoterm#expand_cmd(command)
 endfunction
 
 function! neoterm#open()
+  let current_window = winnr()
+
   if !exists('g:neoterm_terminal_jid') " there is no neoterm running
-    let open_cmd = <sid>split_cmd()." +call\\ termopen(&sh,\\{'name':'NEOTERM'})"
+    let opts = escape(string(s:neoterm_term_opts), ' {}')
+    exec <sid>split_cmd()." +call\\ termopen(&sh,".opts.")"
+
   elseif !<sid>tab_has_neoterm() " there is no neoterm on current tab
-    let open_cmd = <sid>split_cmd()." +b".g:neoterm_buffer_id
+    exec <sid>split_cmd()." +b".g:neoterm_buffer_id
+
   else " neoterm is already running on current tab
     return
   end
 
-  let current_window = winnr()
-  exec open_cmd
   exec current_window . "wincmd w | set noim"
 endfunction
 
