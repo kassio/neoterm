@@ -4,9 +4,8 @@ function! neoterm#exec(list)
     call neoterm#open()
     call jobsend(g:neoterm_terminal_jid, a:list)
   else
-    let cmd = join(a:list, "\n")
     exec <sid>split_cmd()
-    call termopen(cmd, { 'name': 'NEOTERM' })
+    call termopen(extend([&sh, &shcf], a:list), { 'name': 'NEOTERM' })
     startinsert
   end
 endfunction
@@ -24,13 +23,11 @@ function! neoterm#expand_cmd(command)
 endfunction
 
 function! neoterm#open()
-  if exists('g:neoterm_buffer_id') &&
-        \ bufwinnr(g:neoterm_buffer_id) == -1 &&
-        \ bufexists(g:neoterm_buffer_id) > 0
-    let open_cmd = <sid>split_cmd()." +b".g:neoterm_buffer_id
-  elseif !exists('g:neoterm_terminal_jid')
+  if !exists('g:neoterm_terminal_jid') " there is no neoterm running
     let open_cmd = <sid>split_cmd()." +call\\ termopen(&sh,\\{'name':'NEOTERM'})"
-  else
+  elseif !<sid>tab_has_neoterm() " there is no neoterm on current tab
+    let open_cmd = <sid>split_cmd()." +b".g:neoterm_buffer_id
+  else " neoterm is already running on current tab
     return
   end
 
@@ -47,6 +44,12 @@ function! s:split_cmd()
   end
 endfunction
 
+function! s:tab_has_neoterm()
+  return exists('g:neoterm_buffer_id') &&
+        \ bufexists(g:neoterm_buffer_id) > 0 &&
+        \ bufwinnr(g:neoterm_buffer_id) != -1
+endfunction
+
 function! neoterm#close_all()
   let all_buffers = range(1, bufnr('$'))
 
@@ -60,10 +63,10 @@ endfunction
 function! s:close_term_buffer(buffer)
   if g:neoterm_keep_term_open
     if bufwinnr(a:buffer) > 0 " check if the buffer is visible
-      exec bufwinnr(a:buffer) . " hide"
+      exec bufwinnr(a:buffer) . "hide"
     end
   else
-    exec 'bd! ' . a:buffer
+    exec bufwinnr(a:buffer) . "close"
   end
 endfunction
 
