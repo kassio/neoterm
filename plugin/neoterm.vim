@@ -25,18 +25,13 @@ if !exists('g:neoterm_keep_term_open')
 end
 
 aug neoterm_setup
-  au TermOpen * let g:neoterm_terminal_jid = b:terminal_job_id
-  au TermOpen * let g:neoterm_buffer_id = bufnr('%')
-  au TermOpen * setlocal nonumber norelativenumber
-  au BufUnload term://*
-        \ if exists('g:neoterm_terminal_jid') |
-        \   unlet g:neoterm_terminal_jid |
-        \   unlet g:neoterm_buffer_id |
-        \ endif
-  au BufUnload term://*
-        \ if exists('g:neoterm_repl_loaded') |
-        \   unlet g:neoterm_repl_loaded |
-        \ endif
+  au TermOpen *neoterm let g:neoterm_terminal_jid = b:terminal_job_id
+  au TermOpen *neoterm let g:neoterm_buffer_id = bufnr('%')
+  au TermOpen *neoterm setlocal nonumber norelativenumber
+  au BufUnload,BufDelete,BufWipeout term://*:neoterm
+        \ unlet! g:neoterm_terminal_jid |
+        \ unlet! g:neoterm_buffer_id |
+        \ unlet! g:neoterm_repl_loaded |
 aug END
 
 command! -range=% TREPLSendFile call neoterm#repl#selection(<line1>, <line2>)

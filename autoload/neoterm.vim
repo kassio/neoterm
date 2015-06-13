@@ -5,7 +5,7 @@ function! neoterm#exec(list)
     call jobsend(g:neoterm_terminal_jid, a:list)
   else
     let cmd = join(a:list, "\n")
-    exec <sid>split_cmd() | call termopen(cmd) | startinsert
+    exec <sid>split_cmd() | call termopen(cmd, { 'name': 'neoterm' }) | startinsert
   end
 endfunction
 
@@ -27,7 +27,7 @@ function! neoterm#open()
         \ bufexists(g:neoterm_buffer_id) > 0
     let open_cmd = <sid>split_cmd()." +b".g:neoterm_buffer_id
   elseif !exists('g:neoterm_terminal_jid')
-    let open_cmd = <sid>split_cmd()." +term\ $SHELL"
+    let open_cmd = <sid>split_cmd()." +call\\ termopen(&sh,\\{'name':'neoterm'})"
   else
     return
   end
