@@ -1,5 +1,5 @@
 if !has("nvim")
-    finish
+  finish
 endif
 
 let g:neoterm_last_test_command = ''
