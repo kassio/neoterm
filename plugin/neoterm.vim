@@ -29,10 +29,10 @@ if !exists('g:neoterm_keep_term_open')
 end
 
 aug neoterm_setup
-  au TermOpen *neoterm let g:neoterm_terminal_jid = b:terminal_job_id
-  au TermOpen *neoterm let g:neoterm_buffer_id = bufnr('%')
-  au TermOpen *neoterm setlocal nonumber norelativenumber
-  au BufUnload,BufDelete,BufWipeout term://*:neoterm
+  au TermOpen *NEOTERM let g:neoterm_terminal_jid = b:terminal_job_id
+  au TermOpen *NEOTERM let g:neoterm_buffer_id = bufnr('%')
+  au TermOpen *NEOTERM setlocal nonumber norelativenumber
+  au BufUnload,BufDelete,BufWipeout term://*:NEOTERM
         \ unlet! g:neoterm_terminal_jid |
         \ unlet! g:neoterm_buffer_id |
         \ unlet! g:neoterm_repl_loaded |
