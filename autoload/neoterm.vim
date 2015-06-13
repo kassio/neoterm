@@ -5,7 +5,9 @@ function! neoterm#exec(list)
     call jobsend(g:neoterm_terminal_jid, a:list)
   else
     let cmd = join(a:list, "\n")
-    exec <sid>split_cmd() | call termopen(cmd, { 'name': 'neoterm' }) | startinsert
+    exec <sid>split_cmd()
+    call termopen(cmd, { 'name': 'neoterm' })
+    startinsert
   end
 endfunction
 
@@ -33,7 +35,8 @@ function! neoterm#open()
   end
 
   let current_window = winnr()
-  exec open_cmd | exec current_window . "wincmd w | set noim"
+  exec open_cmd
+  exec current_window . "wincmd w | set noim"
 endfunction
 
 function! s:split_cmd()
