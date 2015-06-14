@@ -24,6 +24,12 @@ if !exists('g:neoterm_keep_term_open')
   let g:neoterm_keep_term_open = 1
 end
 
+let g:neoterm_statusline = ''
+
+hi! NeotermTestRunning ctermfg=11 ctermbg=0
+hi! NeotermTestSuccess ctermfg=2 ctermbg=0
+hi! NeotermTestFailure ctermfg=1 ctermbg=0
+
 aug neoterm_setup
   au TermOpen *NEOTERM let g:neoterm_terminal_jid = b:terminal_job_id
   au TermOpen *NEOTERM let g:neoterm_buffer_id = bufnr('%')
