@@ -21,7 +21,7 @@ function! neoterm#open(...)
   if !exists('g:neoterm_terminal_jid') " there is no neoterm running
     exec <sid>split_cmd()
     call termopen([&sh], opts)
-  elseif !<sid>tab_has_neoterm() " there is no neoterm on current tab
+  elseif !<sid>tab_has_neoterm() " neoturm is running but not on current tab
     exec <sid>split_cmd()
     exec "buffer ".g:neoterm_buffer_id
   end
@@ -61,13 +61,13 @@ function! neoterm#close_all()
 
   for b in all_buffers
     if bufname(b) =~ "term:\/\/.*NEOTERM"
-      call <sid>close_term_buffer(b)
+      call neoterm#close_buffer(b)
     end
   endfor
 endfunction
 
 " Internal: Closes/Hides a given buffer.
-function! s:close_term_buffer(buffer)
+function! neoterm#close_buffer(buffer)
   if g:neoterm_keep_term_open
     if bufwinnr(a:buffer) > 0 " check if the buffer is visible
       exec bufwinnr(a:buffer) . "hide"
