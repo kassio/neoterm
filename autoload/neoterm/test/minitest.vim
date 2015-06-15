@@ -27,27 +27,20 @@ function! s:minitest_get_current()
   endif
 endfunction
 
-" 8 runs, 11 assertions, 1 failure, no errors, no skips
-" 8 runs, 11 assertions, no failures, no errors, no skips
 function! neoterm#test#minitest#result(line)
   let counters = matchlist(
         \ a:line,
-        \ '\(\d\+\|no\) failures\?, \(\d\+\|no\) errors\?, \(\d\+\|no\) skips\?'
+        \ '\(\d\+\|no\) failures\?, \(\d\+\|no\) errors\?'
         \ )
 
   if !empty(counters)
     let failures = counters[1]
     let errors = counters[2]
-    let skips = counters[3]
 
     if failures == 'no' && errors == 'no'
       let g:neoterm_statusline = 'SUCCESS'
     else
       let g:neoterm_statusline = 'FAILED'
-    end
-
-    if skips != 'no'
-      let g:neoterm_statusline .= '*'
     end
   end
 endfunction

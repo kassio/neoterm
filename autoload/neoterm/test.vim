@@ -1,40 +1,29 @@
 " Public: Runs the current test lib with the given scope.
 function! neoterm#test#run(scope)
   let g:neoterm_last_test_command = <sid>get_test_command(a:scope)
-  " silent call neoterm#exec([g:neoterm_clear_cmd, g:neoterm_last_test_command, ''])
-
-  new
-  call termopen(
-        \   [&sh, &shcf, g:neoterm_last_test_command],
-        \   {
-        \     'name': 'NEOTERM-TEST',
-        \     'on_stdout': function('s:test_result'),
-        \     'on_stderr': function('s:test_result'),
-        \     'on_exit': function('s:test_result')
-        \   }
-        \ )
-  let g:neoterm_statusline = 'RUNNING'
+  call <sid>run(g:neoterm_last_test_command)
 endfunction
 
 " Public: Re-run the last test command.
 function! neoterm#test#rerun()
   if exists('g:neoterm_last_test_command')
-    "silent call neoterm#exec([g:neoterm_last_test_command, ''])
-
-    new
-    call termopen(
-          \   [&sh, &shcf, g:neoterm_last_test_command],
-          \   {
-          \     'name': 'NEOTERM-TEST',
-          \     'on_stdout': function('s:test_result'),
-          \     'on_stderr': function('s:test_result'),
-          \     'on_exit': function('s:test_result')
-          \   }
-          \ )
-    let g:neoterm_statusline = 'RUNNING'
+    call <sid>run(g:neoterm_last_test_command)
   else
     echo 'No test has been runned.'
   endif
+endfunction
+
+function! s:run(command)
+  let g:neoterm_statusline = 'RUNNING'
+
+  call neoterm#exec(
+        \ [g:neoterm_clear_cmd, a:command, ''],
+        \   {
+        \     'on_stdout': function('s:test_result'),
+        \     'on_stderr': function('s:test_result'),
+        \     'on_exit': function('s:test_result')
+        \   }
+        \ )
 endfunction
 
 " Internal: Get the command with the current test lib.

@@ -1,50 +1,32 @@
-let s:neoterm_term_opts = { 'name': 'NEOTERM' }
-
 " Internal: Loads a terminal, if it is not loaded, and execute a list of
 " commands.
-function! neoterm#exec(list)
+function! neoterm#exec(list, ...)
+  let current_window = winnr()
+
+  call neoterm#open(get(a:, '1', {}))
+  call jobsend(g:neoterm_terminal_jid, a:list)
+
   if g:neoterm_keep_term_open
-    call neoterm#open()
-    call jobsend(g:neoterm_terminal_jid, a:list)
+    silent exec current_window . "wincmd w | set noinsertmode"
   else
-    exec <sid>split_cmd()
-    call termopen(extend([&sh, &shcf], a:list), s:neoterm_term_opts)
+    call jobsend(g:neoterm_terminal_jid, ["\<c-d>"])
     startinsert
   end
 endfunction
 
-" Public: Executes a command on terminal.
-" Evaluates any "%" inside the command to the full path of the current file.
-function! neoterm#do(command)
-  let command = neoterm#expand_cmd(a:command)
-
-  silent call neoterm#exec([command, ''])
-endfunction
-
-" Internal: Expands "%" in commands to current file full path.
-function! neoterm#expand_cmd(command)
-  return substitute(a:command, '%', expand('%:p'), 'g')
-endfunction
-
 " Internal: Creates a new neoterm buffer, or opens if it already exists.
-function! neoterm#open()
-  let current_window = winnr()
+function! neoterm#open(...)
+  let opts = extend({ 'name': 'NEOTERM' }, get(a:, '1', {}))
 
   if !exists('g:neoterm_terminal_jid') " there is no neoterm running
-    let opts = escape(string(s:neoterm_term_opts), ' {}')
-    exec <sid>split_cmd()." +call\\ termopen(&sh,".opts.")"
-
+    exec <sid>split_cmd()
+    call termopen([&sh], opts)
   elseif !<sid>tab_has_neoterm() " there is no neoterm on current tab
-    exec <sid>split_cmd()." +b".g:neoterm_buffer_id
-
-  else " neoterm is already running on current tab
-    return
+    exec <sid>split_cmd()
+    exec "buffer ".g:neoterm_buffer_id
   end
-
-  exec current_window . "wincmd w | set noim"
 endfunction
 
-" Internal: Creates the command to split a new buffer for newterm.
 function! s:split_cmd()
   if g:neoterm_position == "horizontal"
     return "botright ".g:neoterm_size." new"
@@ -58,6 +40,19 @@ function! s:tab_has_neoterm()
   return exists('g:neoterm_buffer_id') &&
         \ bufexists(g:neoterm_buffer_id) > 0 &&
         \ bufwinnr(g:neoterm_buffer_id) != -1
+endfunction
+
+" Public: Executes a command on terminal.
+" Evaluates any "%" inside the command to the full path of the current file.
+function! neoterm#do(command)
+  let command = neoterm#expand_cmd(a:command)
+
+  call neoterm#exec([command, ''])
+endfunction
+
+" Internal: Expands "%" in commands to current file full path.
+function! neoterm#expand_cmd(command)
+  return substitute(a:command, '%', expand('%:p'), 'g')
 endfunction
 
 " Internal: Closes/Hides all neoterm buffers.
