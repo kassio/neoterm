@@ -45,7 +45,9 @@ function! s:test_result(job_id, data, event)
     let g:neoterm_statusline = a:data == '0' ? 'SUCCESS' : 'FAILED'
   else
     let Fn = function('neoterm#test#' . g:neoterm_test_lib . '#result')
-    call Fn(a:data[0])
+    for line in a:data
+      call Fn(line)
+    endfor
   end
 endfunction
 
