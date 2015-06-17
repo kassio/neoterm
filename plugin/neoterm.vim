@@ -33,6 +33,18 @@ if !exists('g:neoterm_raise_when_tests_fail')
   let g:neoterm_raise_when_tests_fail = 0
 end
 
+if !exists('g:neoterm_test_status_format')
+  let g:neoterm_test_status_format = '[%s]'
+end
+
+if !exists('g:neoterm_test_status')
+  let g:neoterm_test_status = {
+        \ 'running': 'RUNNING',
+        \ 'success': 'SUCCESS',
+        \ 'failed': 'FAILED'
+        \ }
+end
+
 hi! NeotermTestRunning ctermfg=11 ctermbg=0
 hi! NeotermTestSuccess ctermfg=2 ctermbg=0
 hi! NeotermTestFailure ctermfg=1 ctermbg=0

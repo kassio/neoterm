@@ -15,7 +15,7 @@ endfunction
 
 function! s:run(command)
   let should_hide = !neoterm#tab_has_neoterm()
-  let g:neoterm_statusline = 'RUNNING'
+  let g:neoterm_statusline = g:neoterm_test_status.running
 
   call neoterm#exec(
         \ [g:neoterm_clear_cmd, a:command, ''],
@@ -47,7 +47,9 @@ endfunction
 
 function! s:test_result(job_id, data, event)
   if a:event == 'exit'
-    let g:neoterm_statusline = a:data == '0' ? 'SUCCESS' : 'FAILED'
+    let g:neoterm_statusline = a:data == '0' ?
+          \ g:neoterm_test_status.success :
+          \ g:neoterm_test_status.failed
   else
     let Fn = function('neoterm#test#' . g:neoterm_test_lib . '#result')
     for line in a:data
@@ -58,19 +60,20 @@ function! s:test_result(job_id, data, event)
   call <sid>raise_term_buffer()
 endfunction
 
-function! neoterm#test#statusline(...)
-  let result = !empty(a:000) ? a:1 : ''
-
+function! neoterm#test#status(status)
   redrawstatus!
-  if g:neoterm_statusline =~? result
-    return '['.g:neoterm_statusline.']'
+
+  if g:neoterm_statusline == g:neoterm_test_status[a:status]
+    return printf(g:neoterm_test_status_format, g:neoterm_statusline)
   else
     return ''
   end
 endfunction
 
 function! s:raise_term_buffer()
-  if g:neoterm_statusline == 'FAILED' && g:neoterm_raise_when_tests_fail
+  if g:neoterm_statusline == g:neoterm_test_status.failed
+        \ && g:neoterm_raise_when_tests_fail
+
     let current_window = winnr()
     call neoterm#open()
     silent exec current_window . "wincmd w | set noinsertmode"

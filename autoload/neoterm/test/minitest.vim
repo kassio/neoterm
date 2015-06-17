@@ -38,9 +38,9 @@ function! neoterm#test#minitest#result(line)
     let errors = counters[2]
 
     if str2nr(failures) == 0 && str2nr(errors) == 0
-      let g:neoterm_statusline = 'SUCCESS'
+      let g:neoterm_statusline = g:neoterm_test_status.success
     else
-      let g:neoterm_statusline = 'FAILED'
+      let g:neoterm_statusline = g:neoterm_test_status.failed
     end
   end
 endfunction
