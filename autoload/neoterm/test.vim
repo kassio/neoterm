@@ -54,6 +54,8 @@ function! s:test_result(job_id, data, event)
       call Fn(line)
     endfor
   end
+
+  call <sid>raise_term_buffer()
 endfunction
 
 function! neoterm#test#statusline(...)
@@ -64,5 +66,13 @@ function! neoterm#test#statusline(...)
     return '['.g:neoterm_statusline.']'
   else
     return ''
+  end
+endfunction
+
+function! s:raise_term_buffer()
+  if g:neoterm_statusline == 'FAILED' && g:neoterm_raise_when_tests_fail
+    let current_window = winnr()
+    call neoterm#open()
+    silent exec current_window . "wincmd w | set noinsertmode"
   end
 endfunction
