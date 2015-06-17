@@ -21,7 +21,7 @@ function! neoterm#open(...)
   if !exists('g:neoterm_terminal_jid') " there is no neoterm running
     exec <sid>split_cmd()
     call termopen([&sh], opts)
-  elseif !<sid>tab_has_neoterm() " neoturm is running but not on current tab
+  elseif !neoterm#tab_has_neoterm() " neoturm is running but not on current tab
     exec <sid>split_cmd()
     exec "buffer ".g:neoterm_buffer_id
   end
@@ -36,7 +36,7 @@ function! s:split_cmd()
 endfunction
 
 " Internal: Verifies if neoterm is open for current tab.
-function! s:tab_has_neoterm()
+function! neoterm#tab_has_neoterm()
   return exists('g:neoterm_buffer_id') &&
         \ bufexists(g:neoterm_buffer_id) > 0 &&
         \ bufwinnr(g:neoterm_buffer_id) != -1

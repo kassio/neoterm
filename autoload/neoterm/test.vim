@@ -14,6 +14,7 @@ function! neoterm#test#rerun()
 endfunction
 
 function! s:run(command)
+  let should_hide = !neoterm#tab_has_neoterm()
   let g:neoterm_statusline = 'RUNNING'
 
   call neoterm#exec(
@@ -24,6 +25,10 @@ function! s:run(command)
         \     'on_exit': function('s:test_result')
         \   }
         \ )
+
+  if should_hide
+    call neoterm#close_buffer(g:neoterm_buffer_id)
+  end
 endfunction
 
 " Internal: Get the command with the current test lib.
