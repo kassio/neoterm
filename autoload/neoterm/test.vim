@@ -54,6 +54,7 @@ endfunction
 function! neoterm#test#statusline(...)
   let result = !empty(a:000) ? a:1 : ''
 
+  redrawstatus!
   if g:neoterm_statusline =~? result
     return '['.g:neoterm_statusline.']'
   else

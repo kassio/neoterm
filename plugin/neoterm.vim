@@ -3,6 +3,7 @@ if !has("nvim")
 endif
 
 let g:neoterm_last_test_command = ''
+let g:neoterm_statusline = ''
 
 if !exists('g:neoterm_size')
   let g:neoterm_size = ''
@@ -23,8 +24,6 @@ end
 if !exists('g:neoterm_keep_term_open')
   let g:neoterm_keep_term_open = 1
 end
-
-let g:neoterm_statusline = ''
 
 hi! NeotermTestRunning ctermfg=11 ctermbg=0
 hi! NeotermTestSuccess ctermfg=2 ctermbg=0
