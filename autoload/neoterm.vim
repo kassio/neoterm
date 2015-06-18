@@ -59,7 +59,7 @@ function! neoterm#close_all()
   let all_buffers = range(1, bufnr('$'))
 
   for b in all_buffers
-    if bufname(b) =~ "term:\/\/.*"
+    if bufname(b) =~ "term:\/\/.*NEOTERM"
       call <sid>close_term_buffer(b)
     end
   endfor
