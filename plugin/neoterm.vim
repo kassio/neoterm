@@ -12,10 +12,6 @@ if !exists('g:neoterm_test_libs')
   let g:neoterm_test_libs = []
 end
 
-if !exists('g:neoterm_clear_cmd')
-  let g:neoterm_clear_cmd = 'clear'
-end
-
 if !exists('g:neoterm_position')
   let g:neoterm_position = 'horizontal'
 end

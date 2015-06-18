@@ -1,0 +1,120 @@
+*neoterm* *neoterm.txt*   A neovim's terminal with steroids
+
+	,____,  ,___,____,  ,___, ,_________,____,______,  ,___, ,___,
+	!     \ !   !  ,_! /  _  \!         !  ,_!\      \ !    V    !
+	!   .  \!   !  !_,/  / \  \--,   ,--!  !_, !  !)  !!         !
+	!   !\  `   !  ,_!  +   +  ! !   !  !  ,_! !     / !   !V!   !
+	!   ! \     !  !_,\  \_/  /  !   !  !  !_, !  .  \ !   ! !   !
+	!___!  \____!____! \_____/   !___!  !____! !__|\__\!___! !___!
+
+
+===============================================================================
+CONTENTS                                                      *neoterm-contents*
+
+	1. Intro ............................................... *neoterm-intro*
+		1.1 What is neoterm? ................  *neoterm-what-is-neoterm*
+	2. Commands ......................................... *neoterm-commands*
+	3. Functions ....................................... *neoterm-functions*
+	4. Options ........................................... *neoterm-options*
+	5. About ............................................... *neoterm-about*
+	6. Credits ........................................... *neoterm-credits*
+
+===============================================================================
+1. Intro                                                         *neoterm-intro*
+
+1.1 What is neoterm?                                   *neoterm-what-is-neoterm*
+
+neoterm is a neovim's terminal wrapper, its main goal is give an easier way to
+user interact with neovim's terminal.
+
+===============================================================================
+2. Commands                                      *neoterm-cmds* *neoterm-commands*
+
+:T <command>                                                                *:T*
+
+Executes the given command on a neoterm terminal split. If there is a `%` in
+the given command, this will be expanded to the current file path.
+
+
+:Tmap <command>                                                          *:Tmap*
+
+Maps the given command, everytime that the mapping is executed the command is
+sent to a neoterm terminal buffer.
+
+The default mapping is `,tt`, it can be changed in |g:neoterm_automap_keys|
+
+
+:Tpos <position>                                                         *:Tpos*
+
+Changes the position where the neoterm terminal buffer will be opened. Values
+accepted: `horizontal` and `vertical`. The default position is `horizontal`,
+but it can be changed in |g:neoterm_position|
+
+
+:TTestLib <test-lib>                                                 *:TTestLib*
+
+Chooses, or changes, the current test lib.
+
+
+:TREPLSend                                                          *:TREPLSend*
+
+Sends the current selection, or current line, to a REPL.
+
+:TREPLSendFile                                                  *:TREPLSendFile*
+
+Sends the current selection, or current file, to a REPL.
+
+:Topen                                                                  *:Topen*
+
+Opens a new, or the current, neoterm terminal split.
+
+
+:Tclose                                                                *:Tclose*
+
+Closes, or hides, the current neoterm terminal split. To change if the
+terminal will be kept in backgroun you need to change |g:neoterm_keep_term_open|
+
+===============================================================================
+3. Functions                                                 *neoterm-functions*
+
+:call neoterm#do(<command>)                                       *neoterm#do()*
+
+Executes the given command on a neoterm terminal split. If there is a `%` in
+the given command, this will be expanded to the current file path.
+The command |:T| executes this function.
+
+
+:call neoterm#test#run(<scope>)                             *neoterm#test#run()*
+
+Executes the current test lib with the given scope. The scopes may be: `all`,
+`file` and `current`.
+
+	1. `all`: Run all tests.
+	2. `file`: Run the current test file.
+	3. `current`: Run the nearest cursor test.
+
+===============================================================================
+4. Options                      *neoterm-vars* *neoterm-variables* *neoterm-options*
+
+                                                                *g:neoterm_size*
+
+Set the neoterm terminal split size. The default, empty string, will use half
+of the current window.
+Default value: `''`.
+
+
+                                                            *g:neoterm_position*
+
+Set the neoterm split position. Accepted values: `horizontal` and `vertical`.
+Default value: `horizontal`.
+                                                        *g:neoterm_automap_keys*
+
+Key combination to be used with |:Tmap|.
+Default value: `,tt`.
+                                                      *g:neoterm_keep_term_open*
+
+Set it a neoterm terminal will be kept running in background.
+Default value: `1`.
+
+
+vim: fo= ts=8 sw=8 noet nosta nosr ft=help
