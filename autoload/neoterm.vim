@@ -1,9 +1,9 @@
 " Internal: Loads a terminal, if it is not loaded, and execute a list of
 " commands.
-function! neoterm#exec(list, ...)
+function! neoterm#exec(list)
   let current_window = winnr()
 
-  call neoterm#open(get(a:, '1', {}))
+  call neoterm#open()
   call jobsend(g:neoterm_terminal_jid, a:list)
 
   if g:neoterm_keep_term_open
@@ -15,15 +15,18 @@ function! neoterm#exec(list, ...)
 endfunction
 
 " Internal: Creates a new neoterm buffer, or opens if it already exists.
-function! neoterm#open(...)
-  return neoterm#show() || neoterm#new(get(a:, '1', {}))
+function! neoterm#open()
+  return neoterm#show() || neoterm#new()
 endfunction
 
 " Internal: Creates a new neoterm buffer if there is no one.
 "
 " Returns: 1 if a new terminal was created, 0 otherwise.
-function! neoterm#new(opts)
-  let opts = extend({ 'name': 'NEOTERM' }, a:opts)
+function! neoterm#new()
+  let opts = extend(
+        \ { 'name': 'NEOTERM' },
+        \ neoterm#test#handlers()
+        \ )
 
   if !exists('g:neoterm_terminal_jid') " there is no neoterm running
     exec <sid>split_cmd()

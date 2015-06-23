@@ -17,14 +17,7 @@ function! s:run(command)
   let should_hide = !neoterm#tab_has_neoterm() && g:neoterm_run_tests_bg
   let g:neoterm_statusline = g:neoterm_test_status.running
 
-  call neoterm#exec(
-        \ [g:neoterm_clear_cmd, a:command, ''],
-        \   {
-        \     'on_stdout': function('s:test_result'),
-        \     'on_stderr': function('s:test_result'),
-        \     'on_exit': function('s:test_result')
-        \   }
-        \ )
+  call neoterm#exec(["\<c-l>", a:command, ''])
 
   if should_hide
     call neoterm#close_buffer(g:neoterm_buffer_id)
@@ -43,6 +36,15 @@ function! s:get_test_command(scope)
   end
 
   return Fn(a:scope)
+endfunction
+
+" Internal: Builds the dictionary with all test event handlers.
+function! neoterm#test#handlers()
+  return  {
+        \   'on_stdout': function('s:test_result'),
+        \   'on_stderr': function('s:test_result'),
+        \   'on_exit': function('s:test_result')
+        \ }
 endfunction
 
 function! s:test_result(job_id, data, event)
