@@ -14,7 +14,7 @@ function! neoterm#test#rerun()
 endfunction
 
 function! s:run(command)
-  let should_hide = !neoterm#tab_has_neoterm()
+  let should_hide = !neoterm#tab_has_neoterm() && g:neoterm_run_tests_bg
   let g:neoterm_statusline = g:neoterm_test_status.running
 
   call neoterm#exec(
