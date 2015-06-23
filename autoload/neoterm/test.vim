@@ -47,7 +47,13 @@ function! neoterm#test#handlers()
         \ }
 endfunction
 
+" TODO: doc
 function! s:test_result(job_id, data, event)
+  " Only change statusline if tests were running
+  if g:neoterm_statusline != g:neoterm_test_status.running
+    return
+  end
+
   if a:event == 'exit'
     let g:neoterm_statusline = a:data == '0' ?
           \ g:neoterm_test_status.success :
