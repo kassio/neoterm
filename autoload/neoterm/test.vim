@@ -51,10 +51,14 @@ function! s:test_result(job_id, data, event)
           \ g:neoterm_test_status.success :
           \ g:neoterm_test_status.failed
   else
-    let Fn = function('neoterm#test#' . g:neoterm_test_lib . '#result')
-    for line in a:data
-      call Fn(line)
-    endfor
+    try
+      let Fn = function('neoterm#test#' . g:neoterm_test_lib . '#result')
+      for line in a:data
+        call Fn(line)
+      endfor
+    catch 'E117'
+      return
+    endtry
   end
 
   call <sid>raise_term_buffer()
