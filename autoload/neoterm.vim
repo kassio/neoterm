@@ -16,14 +16,34 @@ endfunction
 
 " Internal: Creates a new neoterm buffer, or opens if it already exists.
 function! neoterm#open(...)
-  let opts = extend({ 'name': 'NEOTERM' }, get(a:, '1', {}))
+  return neoterm#show() || neoterm#new(get(a:, '1', {}))
+endfunction
+
+" Internal: Creates a new neoterm buffer if there is no one.
+"
+" Returns: 1 if a new terminal was created, 0 otherwise.
+function! neoterm#new(opts)
+  let opts = extend({ 'name': 'NEOTERM' }, a:opts)
 
   if !exists('g:neoterm_terminal_jid') " there is no neoterm running
     exec <sid>split_cmd()
     call termopen([&sh], opts)
-  elseif !neoterm#tab_has_neoterm() " neoturm is running but not on current tab
+    return 1
+  else
+    return 0
+  end
+endfunction
+
+" Internal: Open a new split with the current neoterm buffer if there is one.
+"
+" Returns: 1 if a neoterm split is opened, 0 otherwise.
+function! neoterm#show()
+  if exists('g:neoterm_terminal_jid') && !neoterm#tab_has_neoterm()
     exec <sid>split_cmd()
     exec "buffer ".g:neoterm_buffer_id
+    return 1
+  else
+    return 0
   end
 endfunction
 

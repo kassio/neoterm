@@ -75,7 +75,7 @@ function! s:raise_term_buffer()
         \ && g:neoterm_raise_when_tests_fail
 
     let current_window = winnr()
-    call neoterm#open()
+    call neoterm#show()
     silent exec current_window . "wincmd w | set noinsertmode"
   end
 endfunction
