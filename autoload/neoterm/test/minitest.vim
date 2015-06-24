@@ -26,3 +26,21 @@ function! s:minitest_get_current()
     endif
   endif
 endfunction
+
+function! neoterm#test#minitest#result_handler(line)
+  let counters = matchlist(
+        \ a:line,
+        \ '\(\d\+\|no\) failures\?, \(\d\+\|no\) errors\?'
+        \ )
+
+  if !empty(counters)
+    let failures = counters[1]
+    let errors = counters[2]
+
+    if str2nr(failures) == 0 && str2nr(errors) == 0
+      let g:neoterm_statusline = g:neoterm_test_status.success
+    else
+      let g:neoterm_statusline = g:neoterm_test_status.failed
+    end
+  end
+endfunction

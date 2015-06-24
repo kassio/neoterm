@@ -1,18 +1,27 @@
 " Public: Runs the current test lib with the given scope.
 function! neoterm#test#run(scope)
   let g:neoterm_last_test_command = <sid>get_test_command(a:scope)
-
-  echo g:neoterm_last_test_command
-  silent call neoterm#exec([g:neoterm_clear_cmd, g:neoterm_last_test_command, ''])
+  call <sid>run(g:neoterm_last_test_command)
 endfunction
 
 " Public: Re-run the last test command.
 function! neoterm#test#rerun()
   if exists('g:neoterm_last_test_command')
-    silent call neoterm#exec([g:neoterm_last_test_command, ''])
+    call <sid>run(g:neoterm_last_test_command)
   else
     echo 'No test has been runned.'
   endif
+endfunction
+
+function! s:run(command)
+  let should_hide = !neoterm#tab_has_neoterm() && g:neoterm_run_tests_bg
+  let g:neoterm_statusline = g:neoterm_test_status.running
+
+  call neoterm#exec(["\<c-l>", a:command, ''])
+
+  if should_hide
+    call neoterm#close_buffer(g:neoterm_buffer_id)
+  end
 endfunction
 
 " Internal: Get the command with the current test lib.
@@ -27,4 +36,59 @@ function! s:get_test_command(scope)
   end
 
   return Fn(a:scope)
+endfunction
+
+" Internal: Builds the dictionary with all test event handlers.
+function! neoterm#test#handlers()
+  return  {
+        \   'on_stdout': function('s:test_result_handler'),
+        \   'on_stderr': function('s:test_result_handler'),
+        \   'on_exit': function('s:test_result_handler')
+        \ }
+endfunction
+
+" Internal: Handle the test results using the current test library test
+" result's handler.
+function! s:test_result_handler(job_id, data, event)
+  " Only change statusline if tests were running
+  if g:neoterm_statusline != g:neoterm_test_status.running
+    return
+  end
+
+  if a:event == 'exit'
+    let g:neoterm_statusline = a:data == '0' ?
+          \ g:neoterm_test_status.success :
+          \ g:neoterm_test_status.failed
+  else
+    try
+      let Fn = function('neoterm#test#' . g:neoterm_test_lib . '#result_handler')
+      for line in a:data
+        call Fn(line)
+      endfor
+    catch 'E117'
+      return
+    endtry
+  end
+
+  call <sid>raise_term_buffer()
+endfunction
+
+function! neoterm#test#status(status)
+  redrawstatus!
+
+  if g:neoterm_statusline == g:neoterm_test_status[a:status]
+    return printf(g:neoterm_test_status_format, g:neoterm_statusline)
+  else
+    return ''
+  end
+endfunction
+
+function! s:raise_term_buffer()
+  if g:neoterm_statusline == g:neoterm_test_status.failed
+        \ && g:neoterm_raise_when_tests_fail
+
+    let current_window = winnr()
+    call neoterm#show()
+    silent exec current_window . "wincmd w | set noinsertmode"
+  end
 endfunction
