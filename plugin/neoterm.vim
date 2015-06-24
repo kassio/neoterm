@@ -25,22 +25,18 @@ if !exists('g:neoterm_keep_term_open')
   let g:neoterm_keep_term_open = 1
 end
 
-" TODO: doc
 if !exists('g:neoterm_run_tests_bg')
   let g:neoterm_run_tests_bg = 0
 end
 
-" TODO: doc
 if !exists('g:neoterm_raise_when_tests_fail')
   let g:neoterm_raise_when_tests_fail = 0
 end
 
-" TODO: doc
 if !exists('g:neoterm_test_status_format')
   let g:neoterm_test_status_format = '[%s]'
 end
 
-" TODO: doc
 if !exists('g:neoterm_test_status')
   let g:neoterm_test_status = {
         \ 'running': 'RUNNING',
@@ -66,7 +62,6 @@ aug END
 command! -range=% TREPLSendFile call neoterm#repl#selection(<line1>, <line2>)
 command! -range TREPLSend call neoterm#repl#selection(<line1>, <line2>)
 command! -complete=customlist,neoterm#test#libs#autocomplete -nargs=? TTestLib call neoterm#test#libs#add(<q-args>)
-" TODO: doc
 command! TTestClearStatus let g:neoterm_statusline=''
 command! -nargs=1 Tpos let g:neoterm_position=<q-args>
 

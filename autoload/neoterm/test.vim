@@ -41,14 +41,15 @@ endfunction
 " Internal: Builds the dictionary with all test event handlers.
 function! neoterm#test#handlers()
   return  {
-        \   'on_stdout': function('s:test_result'),
-        \   'on_stderr': function('s:test_result'),
-        \   'on_exit': function('s:test_result')
+        \   'on_stdout': function('s:test_result_handler'),
+        \   'on_stderr': function('s:test_result_handler'),
+        \   'on_exit': function('s:test_result_handler')
         \ }
 endfunction
 
-" TODO: doc
-function! s:test_result(job_id, data, event)
+" Internal: Handle the test results using the current test library test
+" result's handler.
+function! s:test_result_handler(job_id, data, event)
   " Only change statusline if tests were running
   if g:neoterm_statusline != g:neoterm_test_status.running
     return
@@ -60,7 +61,7 @@ function! s:test_result(job_id, data, event)
           \ g:neoterm_test_status.failed
   else
     try
-      let Fn = function('neoterm#test#' . g:neoterm_test_lib . '#result')
+      let Fn = function('neoterm#test#' . g:neoterm_test_lib . '#result_handler')
       for line in a:data
         call Fn(line)
       endfor

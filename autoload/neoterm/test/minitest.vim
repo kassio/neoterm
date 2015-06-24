@@ -27,7 +27,7 @@ function! s:minitest_get_current()
   endif
 endfunction
 
-function! neoterm#test#minitest#result(line)
+function! neoterm#test#minitest#result_handler(line)
   let counters = matchlist(
         \ a:line,
         \ '\(\d\+\|no\) failures\?, \(\d\+\|no\) errors\?'

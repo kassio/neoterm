@@ -14,7 +14,7 @@ function! neoterm#test#rspec#run(scope)
   return command
 endfunction
 
-function! neoterm#test#rspec#result(line)
+function! neoterm#test#rspec#result_handler(line)
   let counters = matchlist(
         \ a:line,
         \ '\(\d\+\|no\) failures\?'

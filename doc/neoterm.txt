@@ -56,6 +56,11 @@ but it can be changed in |g:neoterm_position|
 Chooses, or changes, the current test lib.
 
 
+:TTestClearStatus                                            *:TTestClearStatus*
+
+Clear the test result status on statusline.
+
+
 :TREPLSend                                                          *:TREPLSend*
 
 Sends the current selection, or current line, to a REPL.
@@ -113,8 +118,27 @@ Key combination to be used with |:Tmap|.
 Default value: `,tt`.
                                                       *g:neoterm_keep_term_open*
 
-Set it a neoterm terminal will be kept running in background.
+When set, neoterm terminal will be kept running in background.
 Default value: `1`.
 
+                                                        *g:neoterm_run_tests_bg*
+
+When set, the neoterm will not open the term split to run tests.
+Default value: `0`.
+
+                                               *g:neoterm_raise_when_tests_fail*
+
+When set, the neoterm open the term split if the tests broken.
+Default value: `0`.
+
+                                                  *g:neoterm_test_status_format*
+
+This string will be used to format the string used in the statusline.
+Default value: `[%s]`.
+
+                                                         *g:neoterm_test_status*
+
+Defines the strings/symbols/emojis used in each test status.
+Default value: `{` `'running'``:` `'RUNNING'``,` `'success'``:` `'SUCCESS'``,` `'failed'``:` `'FAILED'` `}`
 
 vim: fo= ts=8 sw=8 noet nosta nosr ft=help
