@@ -7,6 +7,9 @@ REPL commands, opens a terminal and the proper REPL, if it's not opened.
 
 - NeoVim terminal helper functions/commands.
 - Wraps some test libs to run easilly within NeoVim terminal.
+  - Running, Success, Failed: status on statusline supported (matching the test
+    result #25):
+    ![test-status-line](https://cloud.githubusercontent.com/assets/120483/8212291/425189d2-14f1-11e5-8059-822eda0b702c.gif)
 - Wraps some REPL to receive current line or selection.
 
 ## test libs
@@ -33,10 +36,12 @@ it's the command: `rspec spec/path/to/file_spec.rb:123`.
 * rspec
   * You can override the default command (`bundle exec rspec`) using the
     `g:neoterm_rspec_lib_cmd`
+  * Status in statusline supported
 * cucumber
   * You can override the default command (`bundle exec cucumber`) using the
     `g:neoterm_cucumber_lib_cmd`
 * minitest
+  * Status in statusline supported
 * go-lang test ([partially implemented](https://github.com/kassio/neoterm/pull/8))
 * nose ([partially implemented](https://github.com/kassio/neoterm/pull/9))
 
