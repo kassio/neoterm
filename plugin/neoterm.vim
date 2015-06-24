@@ -47,7 +47,7 @@ end
 
 hi! NeotermTestRunning ctermfg=11 ctermbg=0
 hi! NeotermTestSuccess ctermfg=2 ctermbg=0
-hi! NeotermTestFailure ctermfg=1 ctermbg=0
+hi! NeotermTestFailed ctermfg=1 ctermbg=0
 
 aug neoterm_setup
   au TermOpen term://*:NEOTERM let g:neoterm_terminal_jid = b:terminal_job_id
