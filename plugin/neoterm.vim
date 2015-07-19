@@ -5,6 +5,10 @@ endif
 let g:neoterm_last_test_command = ''
 let g:neoterm_statusline = ''
 
+if !exists('g:neoterm_shell')
+  let g:neoterm_shell = &sh
+end
+
 if !exists('g:neoterm_size')
   let g:neoterm_size = ''
 end

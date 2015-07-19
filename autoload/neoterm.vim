@@ -30,7 +30,7 @@ function! neoterm#new()
 
   if !exists('g:neoterm_terminal_jid') " there is no neoterm running
     exec <sid>split_cmd()
-    call termopen([&sh], opts)
+    call termopen([g:neoterm_shell], opts)
     return 1
   else
     return 0
