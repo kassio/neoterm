@@ -7,10 +7,11 @@ REPL commands, opens a terminal and the proper REPL, if it's not opened.
 
 - NeoVim terminal helper functions/commands.
 - Wraps some test libs to run easilly within NeoVim terminal.
-  - Running, Success, Failed: status on statusline supported (matching the test
-    result #25):
+  - Running, Success, Failed: status on statusline supported (matching the test result #25):
     ![test-status-line](https://cloud.githubusercontent.com/assets/120483/8212291/425189d2-14f1-11e5-8059-822eda0b702c.gif)
 - Wraps some REPL to receive current line or selection.
+- Many terminals support
+  ![many-terms](https://cloud.githubusercontent.com/assets/120483/8921869/fe459572-34b1-11e5-93c9-c3b6f3b44719.gif)
 
 ## test libs
 

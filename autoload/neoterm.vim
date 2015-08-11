@@ -1,65 +1,38 @@
-" Internal: Loads a terminal, if it is not loaded, and execute a list of
-" commands.
-function! neoterm#exec(list)
-  let current_window = winnr()
+" Internal: Creates a new neoterm buffer.
+function! neoterm#new(...)
+  if !has_key(g:neoterm, "term")
+    exec "source " . globpath(&rtp, "autoload/neoterm.term.vim")
+  end
 
-  call neoterm#open()
-  call jobsend(g:neoterm_terminal_jid, a:list)
+  let current_window = g:neoterm.split()
+  let handlers = len(a:000) ? a:1 : {}
+
+  let instance = g:neoterm.term.new(g:neoterm.next_id(), handlers)
+  let g:neoterm.instances[instance.id] = instance
+  let b:neoterm_id = instance.id
+
+  call instance.mappings()
 
   if g:neoterm_keep_term_open
     silent exec current_window . "wincmd w | set noinsertmode"
   else
-    call jobsend(g:neoterm_terminal_jid, ["\<c-d>"])
     startinsert
   end
 endfunction
 
 " Internal: Creates a new neoterm buffer, or opens if it already exists.
 function! neoterm#open()
-  return neoterm#show() || neoterm#new()
-endfunction
-
-" Internal: Creates a new neoterm buffer if there is no one.
-"
-" Returns: 1 if a new terminal was created, 0 otherwise.
-function! neoterm#new()
-  let opts = neoterm#test#handlers()
-
-  if !exists('g:neoterm_terminal_jid') " there is no neoterm running
-    exec <sid>split_cmd()
-    call termopen(g:neoterm_shell . ";#:NEOTERM", opts)
-    return 1
-  else
-    return 0
+  if !neoterm#tab_has_neoterm()
+    if !g:neoterm.has_any()
+      call neoterm#new()
+    else
+      call g:neoterm.last().open()
+    end
   end
 endfunction
 
-" Internal: Open a new split with the current neoterm buffer if there is one.
-"
-" Returns: 1 if a neoterm split is opened, 0 otherwise.
-function! neoterm#show()
-  if exists('g:neoterm_terminal_jid') && !neoterm#tab_has_neoterm()
-    exec <sid>split_cmd()
-    exec "buffer ".g:neoterm_buffer_id
-    return 1
-  else
-    return 0
-  end
-endfunction
-
-function! s:split_cmd()
-  if g:neoterm_position == "horizontal"
-    return "botright ".g:neoterm_size." new"
-  else
-    return "botright vert".g:neoterm_size." new"
-  end
-endfunction
-
-" Internal: Verifies if neoterm is open for current tab.
-function! neoterm#tab_has_neoterm()
-  return exists('g:neoterm_buffer_id') &&
-        \ bufexists(g:neoterm_buffer_id) > 0 &&
-        \ bufwinnr(g:neoterm_buffer_id) != -1
+function! neoterm#close()
+  call g:neoterm.last().close()
 endfunction
 
 " Public: Executes a command on terminal.
@@ -67,43 +40,48 @@ endfunction
 function! neoterm#do(command)
   let command = neoterm#expand_cmd(a:command)
 
-  call neoterm#exec([command, ''])
+  call neoterm#exec([command, ""])
 endfunction
 
-" Internal: Expands "%" in commands.
+" Internal: Loads a terminal, if it is not loaded, and execute a list of
+" commands.
+function! neoterm#exec(command)
+  call neoterm#open()
+  call g:neoterm.last().exec(a:command)
+endfunction
+
+function! neoterm#map_for(command)
+  exec "nnoremap <silent> "
+        \ . g:neoterm_automap_keys .
+        \ " :T " . neoterm#expand_cmd(a:command) . "<cr>"
+endfunction
+
+" Internal: Expands "%" in commands to current file full path.
 function! neoterm#expand_cmd(command)
   let command = substitute(a:command, '%\(:[phtre]\)\+', '\=expand(submatch(0))', 'g')
   return substitute(command, '%', expand('%:p'), 'g')
 endfunction
 
-" Internal: Closes/Hides all neoterm buffers.
-function! neoterm#close_all()
-  let all_buffers = range(1, bufnr('$'))
-
-  for b in all_buffers
-    if bufname(b) =~ "term:\/\/.*NEOTERM"
-      call neoterm#close_buffer(b)
-    end
-  endfor
-endfunction
-
-" Internal: Closes/Hides a given buffer.
-function! neoterm#close_buffer(buffer)
-  if g:neoterm_keep_term_open
-    if bufwinnr(a:buffer) > 0 " check if the buffer is visible
-      exec bufwinnr(a:buffer) . "hide"
-    end
-  else
-    exec bufwinnr(a:buffer) . "close"
+" Internal: Open a new split with the current neoterm buffer if there is one.
+"
+" Returns: 1 if a neoterm split is opened, 0 otherwise.
+function! neoterm#tab_has_neoterm()
+  if g:neoterm.has_any()
+    let buffer_id = g:neoterm.last().buffer_id
+    return bufexists(buffer_id) > 0 && bufwinnr(buffer_id) != -1
   end
 endfunction
 
 " Internal: Clear the current neoterm buffer. (Send a <C-l>)
 function! neoterm#clear()
-  silent call neoterm#exec(["\<c-l>"])
+  silent call g:neoterm.last().clear()
 endfunction
 
 " Internal: Kill current process on neoterm. (Send a <C-c>)
 function! neoterm#kill()
-  silent call neoterm#exec(["\<c-c>"])
+  silent call g:neoterm.last().kill()
+endfunction
+
+function! neoterm#list()
+  echo keys(g:neoterm.instances)
 endfunction

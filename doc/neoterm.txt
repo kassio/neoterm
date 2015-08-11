@@ -13,6 +13,7 @@ CONTENTS                                                      *neoterm-contents*
 
 	1. Intro ............................................... |neoterm-intro|
 		1.1 What is neoterm? ................  |neoterm-what-is-neoterm|
+		1.2 Many terms support ...........  |neoterm-many-terms-support|
 	2. Commands ......................................... |neoterm-commands|
 	3. Functions ....................................... |neoterm-functions|
 	4. Options ........................................... |neoterm-options|
@@ -26,6 +27,19 @@ CONTENTS                                                      *neoterm-contents*
 neoterm is a neovim's terminal wrapper, its main goal is give an easier way to
 user interact with neovim's terminal.
 
+
+1.2 Many terms support
+
+neoterm is capable to control more than one term by time. To open a new term
+users can use |:Tnew| command. Each neoterm's term has an `ID` (neoterm job's
+name are always `neoterm-ID`). Also, each neoterm's term has its own set of
+commands suffixed by its `ID`, for instance `:T1` `command` will always send
+the command to neoterm `1`.
+
+Besides all suffixed command the user always have the canonical commands, the
+same set of commands without any suffix. Those commands will always be
+executed in the last neoterm's term.
+
 ===============================================================================
 2. Commands                                      *neoterm-cmds* *neoterm-commands*
 
@@ -33,6 +47,11 @@ user interact with neovim's terminal.
 
 Executes the given command on a neoterm terminal split. If there is a `%` in
 the given command, this will be expanded to the current file path.
+
+
+:Tnew                                                                    *:Tnew*
+
+Opens a new term buffer.
 
 
 :Tmap <command>                                                          *:Tmap*
@@ -50,6 +69,11 @@ accepted: `horizontal` and `vertical`. The default position is `horizontal`,
 but it can be changed in |g:neoterm_position|
 
 
+:TTestSetTerm <term-id>                                          *:TTestSetTerm*
+
+Chooses, or changes, the current term to run the tests.
+
+
 :TTestLib <test-lib>                                                 *:TTestLib*
 
 Chooses, or changes, the current test lib.
@@ -58,6 +82,11 @@ Chooses, or changes, the current test lib.
 :TTestClearStatus                                            *:TTestClearStatus*
 
 Clear the test result status on statusline.
+
+
+:TREPLSetTerm <term-id>                                          *:TREPLSetTerm*
+
+Chooses, or changes, the current term to run the REPL commands.
 
 
 :TREPLSend                                                          *:TREPLSend*
