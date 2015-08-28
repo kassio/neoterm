@@ -73,7 +73,7 @@ function! neoterm#do(command)
   call neoterm#exec([command, ''])
 endfunction
 
-" Internal: Expands "%" in commands
+" Internal: Expands "%" in commands.
 function! neoterm#expand_cmd(command)
   let command = substitute(a:command, '%\(:[phtre]\)\+', '\=expand(submatch(0))', 'g')
   return substitute(command, '%', expand('%:p'), 'g')
