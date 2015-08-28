@@ -73,9 +73,10 @@ function! neoterm#do(command)
   call neoterm#exec([command, ''])
 endfunction
 
-" Internal: Expands "%" in commands to current file full path.
+" Internal: Expands "%" in commands.
 function! neoterm#expand_cmd(command)
-  return substitute(a:command, '%', expand('%:p'), 'g')
+  let command = substitute(a:command, '%\(:[phtre]\)\+', '\=expand(submatch(0))', 'g')
+  return substitute(command, '%', expand('%:p'), 'g')
 endfunction
 
 " Internal: Closes/Hides all neoterm buffers.
