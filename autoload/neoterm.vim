@@ -23,14 +23,11 @@ endfunction
 "
 " Returns: 1 if a new terminal was created, 0 otherwise.
 function! neoterm#new()
-  let opts = extend(
-        \ { 'name': 'NEOTERM' },
-        \ neoterm#test#handlers()
-        \ )
+  let opts = neoterm#test#handlers()
 
   if !exists('g:neoterm_terminal_jid') " there is no neoterm running
     exec <sid>split_cmd()
-    call termopen([g:neoterm_shell], opts)
+    call termopen(g:neoterm_shell . ";#:NEOTERM", opts)
     return 1
   else
     return 0
