@@ -54,10 +54,10 @@ hi! NeotermTestSuccess ctermfg=2 ctermbg=0
 hi! NeotermTestFailed ctermfg=1 ctermbg=0
 
 aug neoterm_setup
-  au TermOpen term://*:NEOTERM let g:neoterm_terminal_jid = b:terminal_job_id
-  au TermOpen term://*:NEOTERM let g:neoterm_buffer_id = bufnr('%')
-  au TermOpen term://*:NEOTERM setlocal nonumber norelativenumber
-  au BufUnload,BufDelete,BufWipeout term://*:NEOTERM
+  au TermOpen term://*NEOTERM let g:neoterm_terminal_jid = b:terminal_job_id
+  au TermOpen term://*NEOTERM let g:neoterm_buffer_id = bufnr('%')
+  au TermOpen term://*NEOTERM setlocal nonumber norelativenumber
+  au BufUnload,BufDelete,BufWipeout term://*NEOTERM
         \ unlet! g:neoterm_terminal_jid |
         \ unlet! g:neoterm_buffer_id |
         \ unlet! g:neoterm_repl_loaded |
