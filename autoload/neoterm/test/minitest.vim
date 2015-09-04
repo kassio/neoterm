@@ -16,7 +16,7 @@ function! s:minitest_get_current()
   if nearest_test != 0
     return matchstr(getline(nearest_test), "test_.*")
   else
-    let nearest_test = search("\\(test\\|it\\)\\s", 'nb')
+    let nearest_test = search("^\\s*\\(test\\|it\\)\\s", 'nb')
 
     if nearest_test
       let test_string = split(getline(nearest_test), '["'']')[1]
