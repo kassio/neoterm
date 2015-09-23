@@ -16,8 +16,7 @@ CONTENTS                                                      *neoterm-contents*
 	2. Commands ......................................... |neoterm-commands|
 	3. Functions ....................................... |neoterm-functions|
 	4. Options ........................................... |neoterm-options|
-	5. About ............................................... |neoterm-about|
-	6. Credits ........................................... |neoterm-credits|
+	5. Statusline...................................... |neoterm-statusline|
 
 ===============================================================================
 1. Intro                                                         *neoterm-intro*
@@ -140,5 +139,17 @@ Default value: `[%s]`.
 
 Defines the strings/symbols/emojis used in each test status.
 Default value: `{` `'running'``:` `'RUNNING'``,` `'success'``:` `'SUCCESS'``,` `'failed'``:` `'FAILED'` `}`
+
+===============================================================================
+4. Statusline                                    *neoterm-statusline* *statusline*
+
+To set you neoterm on your statusline, you must add the following:
+>
+    set statusline+=%#NeotermTestRunning#%{neoterm#test#status('running')}%*
+    set statusline+=%#NeotermTestSuccess#%{neoterm#test#status('success')}%*
+    set statusline+=%#NeotermTestFailed#%{neoterm#test#status('failed')}%*
+<
+The status values used on statusline may be configurated using
+|g:neoterm_test_status_format| and |g:neoterm_test_status|.
 
 vim: fo= ts=8 sw=8 noet nosta nosr ft=help
