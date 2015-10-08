@@ -1,6 +1,28 @@
+let g:neoterm.repl = {}
+
+function! g:neoterm.repl.instance()
+  if !has_key(self, "instance_id")
+    if !g:neoterm.has_any()
+      call neoterm#new(neoterm#test#handlers())
+    end
+
+    call neoterm#repl#term(g:neoterm.last_id)
+  end
+
+  return g:neoterm.instances[self.instance_id]
+endfunction
+
+function! neoterm#repl#term(id)
+  if has_key(g:neoterm.instances, a:id)
+    let g:neoterm.repl.instance_id = a:id
+  else
+    echoe "There is no ".a:id." term."
+  end
+endfunction
+
 " Internal: Sets the current REPL command.
 function! neoterm#repl#set(value)
-  if !exists('g:neoterm_repl_command')
+  if !exists("g:neoterm_repl_command")
     let g:neoterm_repl_command = a:value
   end
 endfunction
@@ -25,10 +47,5 @@ endfunction
 
 " Internal: Open the REPL, if needed, and executes the given command.
 function! s:repl_exec(command)
-  if !exists('g:neoterm_repl_loaded')
-    call neoterm#do(g:neoterm_repl_command)
-    let g:neoterm_repl_loaded = 1
-  end
-
-  call neoterm#exec(add(a:command, ''))
+  call g:neoterm.repl.instance().exec(add(a:command, ""))
 endfunction
