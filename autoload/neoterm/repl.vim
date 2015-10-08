@@ -23,7 +23,6 @@ endfunction
 " Internal: Sets the current REPL command.
 function! neoterm#repl#set(value)
   let g:neoterm_repl_command = a:value
-  let g:neoterm_repl_loaded = 0
 endfunction
 
 " Internal: Executes the current selection within a REPL.
