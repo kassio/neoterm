@@ -22,9 +22,8 @@ endfunction
 
 " Internal: Sets the current REPL command.
 function! neoterm#repl#set(value)
-  if !exists("g:neoterm_repl_command")
-    let g:neoterm_repl_command = a:value
-  end
+  let g:neoterm_repl_command = a:value
+  let g:neoterm_repl_loaded = 0
 endfunction
 
 " Internal: Executes the current selection within a REPL.
@@ -47,5 +46,10 @@ endfunction
 
 " Internal: Open the REPL, if needed, and executes the given command.
 function! s:repl_exec(command)
+  if !exists('g:neoterm_repl_loaded')
+    call g:neoterm.repl.instance().do(g:neoterm_repl_command)
+    let g:neoterm_repl_loaded = 1
+  end
+
   call g:neoterm.repl.instance().exec(add(a:command, ""))
 endfunction
