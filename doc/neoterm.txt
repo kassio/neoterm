@@ -126,6 +126,12 @@ Executes the current test lib with the given scope. The scopes may be: `all`,
 	2. `file`: Run the current test file.
 	3. `current`: Run the nearest cursor test.
 
+
+:call neoterm#test#rerun()                                *neoterm#test#rerun()*
+
+Executes the last test command ran. The last test command is recorde on
+`g:neoterm.test.last_command`.
+
 ===============================================================================
 4. Options                      *neoterm-vars* *neoterm-variables* *neoterm-options*
 
