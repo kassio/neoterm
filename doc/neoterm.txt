@@ -105,10 +105,16 @@ Opens a new, or the current, neoterm terminal split.
 :Tclose                                                                *:Tclose*
 
 Closes, or hides, the current neoterm terminal split. To change if the
-terminal will be kept in backgroun you need to change |g:neoterm_keep_term_open|
+terminal will be kept in background you need to change |g:neoterm_keep_term_open|
 
 ===============================================================================
 3. Functions                                                 *neoterm-functions*
+
+:call neoterm#close()                                          *neoterm#close()*
+
+Closes, or hides, the current neoterm terminal split according to
+|g:neoterm_keep_term_open|.
+
 
 :call neoterm#do(<command>)                                       *neoterm#do()*
 
