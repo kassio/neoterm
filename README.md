@@ -45,6 +45,9 @@ it's the command: `rspec spec/path/to/file_spec.rb:123`.
   * Status in statusline supported
 * go-lang test ([partially implemented](https://github.com/kassio/neoterm/pull/8))
 * nose ([partially implemented](https://github.com/kassio/neoterm/pull/9))
+* npm
+  * You can override the default command (`npm test`) using the
+    `g:neoterm_npm_lib_cmd`
 
 ## REPL
 
