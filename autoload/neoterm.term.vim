@@ -41,7 +41,11 @@ endfunction
 
 function! g:neoterm.term.close()
   if bufwinnr(self.buffer_id) > 0
-    exec bufwinnr(self.buffer_id) . "hide"
+    if g:neoterm_keep_term_open
+      exec bufwinnr(self.buffer_id) . "hide"
+    else
+      exec bufwinnr(self.buffer_id) . "bdelete"
+    end
   end
 endfunction
 
