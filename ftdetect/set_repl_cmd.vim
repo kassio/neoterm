@@ -21,4 +21,9 @@ aug set_repl_cmd
         \ elseif executable('python') |
         \   call neoterm#repl#set('python') |
         \ end
+  " JavaScript
+  au VimEnter,BufRead,BufNewFile *.js,
+        \ if executable('node') |
+        \   call neoterm#repl#set('node') |
+        \ end
 aug END
