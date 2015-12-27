@@ -17,17 +17,17 @@ REPL commands, opens a terminal and the proper REPL, if it's not opened.
 
 Run test libs with 3 different scopes:
 
-* all (`neoterm#test_runner('all')`):
+* all (`neoterm#test#run('all')`):
 
 Run all tests from the current project. For a Rails project with rspec, it's the
 command: `rspec`.
 
-* file (`neoterm#test_runner('file')`):
+* file (`neoterm#test#run('file')`):
 
 Run the current test file. For a Rails project with rspec, it's the command:
 `rspec spec/path/to/file_spec.rb`.
 
-* current (`neoterm#test_runner('current')`):
+* current (`neoterm#test#run('current')`):
 
 Run the nearst test in the current test file. For a Rails project with rspec,
 it's the command: `rspec spec/path/to/file_spec.rb:123`.
