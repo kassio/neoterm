@@ -13,7 +13,7 @@ aug set_repl_cmd
         \   call neoterm#repl#set('bundle exec rails console') |
         \ else |
         \   call neoterm#repl#set('') |
-        \ endif
+        \ end
   " Python
   au VimEnter,BufRead,BufNewFile *.py,
         \ if executable('ipython') |
