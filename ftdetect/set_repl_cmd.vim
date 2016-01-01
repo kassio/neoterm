@@ -27,5 +27,5 @@ aug set_repl_cmd
         \ if executable('node') |
         \   call neoterm#repl#set('node') |
         \ end
-        \ endif
+        \ end
 aug END
