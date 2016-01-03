@@ -23,10 +23,14 @@ function! g:neoterm.last()
   end
 endfunction
 
-function! g:neoterm.split()
+function! g:neoterm.new_split()
   let current_window = winnr()
 
-  exec g:neoterm.split_cmd()
+  if g:neoterm_position == "horizontal"
+    exec "botright".g:neoterm_size." new"
+  else
+    exec "botright vert".g:neoterm_size." new"
+  end
 
   return current_window
 endfunction
@@ -34,17 +38,13 @@ endfunction
 function! g:neoterm.split_with(buffer)
   let current_window = winnr()
 
-  exec g:neoterm.split_cmd() . " +buffer".a:buffer
+  if g:neoterm_position == "horizontal"
+    exec "botright ".g:neoterm_size." split"
+  else
+    exec "botright ".g:neoterm_size." vsplit"
+  end
 
   return current_window
-endfunction
-
-function! g:neoterm.split_cmd()
-  if g:neoterm_position == "horizontal"
-    return "botright ".g:neoterm_size." new"
-  else
-    return "botright vert".g:neoterm_size." new"
-  end
 endfunction
 
 let g:neoterm_statusline = ""

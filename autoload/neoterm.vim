@@ -4,7 +4,7 @@ function! neoterm#new(...)
     exec "source " . globpath(&rtp, "autoload/neoterm.term.vim")
   end
 
-  let current_window = g:neoterm.split()
+  let current_window = g:neoterm.new_split()
   let handlers = len(a:000) ? a:1 : {}
 
   let instance = g:neoterm.term.new(g:neoterm.next_id(), handlers)
