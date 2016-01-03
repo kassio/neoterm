@@ -28,9 +28,7 @@ function! g:neoterm.term.mappings()
 endfunction
 
 function! g:neoterm.term.open()
-  let current_window = g:neoterm.split()
-
-  exec "buffer " . self.buffer_id
+  let current_window = g:neoterm.split_with(self.buffer_id)
 
   if g:neoterm_keep_term_open
     silent exec current_window . "wincmd w | set noinsertmode"
