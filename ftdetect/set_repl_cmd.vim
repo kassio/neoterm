@@ -22,10 +22,8 @@ aug set_repl_cmd
         \   call neoterm#repl#set('python') |
         \ end
   " JavaScript
-  autocmd BufEnter
-        \ if &filetype == "javascript" |
-        \ if executable('node') |
+  autocmd BufEnter *
+        \ if &filetype == "javascript" && executable("node") |
         \   call neoterm#repl#set('node') |
-        \ end
         \ end
 aug END
