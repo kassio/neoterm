@@ -42,8 +42,12 @@ function! s:run(command)
   call g:neoterm.test.instance().exec([a:command, ""])
   let g:neoterm_statusline = g:neoterm_test_status.running
 
-  if should_hide
-    call g:neoterm.test.instance().close()
+  if !neoterm#tab_has_neoterm()
+    if g:neoterm_run_tests_bg
+      call g:neoterm.test.instance().close()
+    else
+      call g:neoterm.test.instance().open()
+    end
   end
 endfunction
 
