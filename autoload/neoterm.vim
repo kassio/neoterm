@@ -20,6 +20,18 @@ function! neoterm#new(...)
   end
 endfunction
 
+function! neoterm#toggle()
+  if neoterm#tab_has_neoterm()
+    call g:neoterm.last().close()
+  else
+    if g:neoterm.has_any()
+      call g:neoterm.last().open()
+    else
+      call neoterm#new()
+    end
+  end
+endfunction
+
 " Internal: Creates a new neoterm buffer, or opens if it already exists.
 function! neoterm#open()
   if !neoterm#tab_has_neoterm()
