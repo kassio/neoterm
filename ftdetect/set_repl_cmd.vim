@@ -13,7 +13,7 @@ aug set_repl_cmd
         \   call neoterm#repl#set('bundle exec rails console') |
         \ else |
         \   call neoterm#repl#set('') |
-        \ end
+        \ endif
   " Python
   au VimEnter,BufRead,BufNewFile *.py,
         \ if executable('ipython') |
@@ -22,8 +22,8 @@ aug set_repl_cmd
         \   call neoterm#repl#set('python') |
         \ end
   " JavaScript
-  autocmd BufEnter *
-        \ if &filetype == "javascript" && executable("node") |
+  au VimEnter,BufRead,BufNewFile *.js,
+        \ if executable('node') |
         \   call neoterm#repl#set('node') |
         \ end
 aug END
