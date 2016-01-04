@@ -39,9 +39,9 @@ function! g:neoterm.split_with(buffer)
   let current_window = winnr()
 
   if g:neoterm_position == "horizontal"
-    exec "botright ".g:neoterm_size." split"
+    exec "botright ".g:neoterm_size."split +b".a:buffer
   else
-    exec "botright ".g:neoterm_size." vsplit"
+    exec "botright ".g:neoterm_size."vsplit +b".a:buffer
   end
 
   return current_window
