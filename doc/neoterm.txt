@@ -107,6 +107,11 @@ Opens a new, or the current, neoterm terminal split.
 Closes, or hides, the current neoterm terminal split. To change if the
 terminal will be kept in background you need to change |g:neoterm_keep_term_open|
 
+
+:Ttoggle                                                              *:Ttoggle*
+
+Toggles the last window in the current tab.
+
 ===============================================================================
 3. Functions                                                 *neoterm-functions*
 
