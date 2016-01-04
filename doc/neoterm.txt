@@ -173,7 +173,12 @@ Default value: `0`.
 
                                                *g:neoterm_raise_when_tests_fail*
 
-When set, the neoterm open the term split if the tests broken.
+When set, the neoterm will open the its window if the tests break.
+Default value: `0`.
+
+                                            *g:neoterm_close_when_tests_succeed*
+
+When set, the neoterm will close its current window if the tests succeed.
 Default value: `0`.
 
                                                   *g:neoterm_test_status_format*

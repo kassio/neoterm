@@ -99,6 +99,7 @@ function! s:test_result_handler(job_id, data, event)
 
   redrawstatus!
   call <sid>raise_term_buffer()
+  call <sid>close_term_buffer()
 endfunction
 
 function! neoterm#test#status(status)
@@ -115,6 +116,16 @@ function! s:raise_term_buffer()
           \ && g:neoterm_raise_when_tests_fail
 
       call g:neoterm.test.instance().open()
+    end
+  end
+endfunction
+
+function! s:close_term_buffer()
+  if neoterm#tab_has_neoterm()
+    if g:neoterm_statusline == g:neoterm_test_status.success
+          \ && g:neoterm_close_when_tests_succeed
+
+      call g:neoterm.test.instance().close()
     end
   end
 endfunction

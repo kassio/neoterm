@@ -81,6 +81,10 @@ if !exists("g:neoterm_raise_when_tests_fail")
   let g:neoterm_raise_when_tests_fail = 0
 end
 
+if !exists("g:neoterm_close_when_tests_succeed")
+  let g:neoterm_close_when_tests_succeed = 0
+end
+
 if !exists("g:neoterm_test_status_format")
   let g:neoterm_test_status_format = "[%s]"
 end
