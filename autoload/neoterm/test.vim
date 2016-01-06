@@ -22,27 +22,25 @@ endfunction
 
 " Public: Runs the current test lib with the given scope.
 function! neoterm#test#run(scope)
-  let g:neoterm.test.last_command = <sid>get_test_command(a:scope)
-  call <sid>run(g:neoterm.test.last_command)
+  let g:neoterm.test.last_command = s:get_test_command(a:scope)
+  call s:run(g:neoterm.test.last_command)
 endfunction
 
 " Public: Re-run the last test command.
 function! neoterm#test#rerun()
   if exists("g:neoterm.test.last_command")
-    call <sid>run(g:neoterm.test.last_command)
+    call s:run(g:neoterm.test.last_command)
   else
     echoe "No test has been runned."
   end
 endfunction
 
 function! s:run(command)
-  let should_hide = !neoterm#tab_has_neoterm() && g:neoterm_run_tests_bg
-
   call g:neoterm.test.instance().clear()
   call g:neoterm.test.instance().exec([a:command, ""])
   let g:neoterm_statusline = g:neoterm_test_status.running
 
-  if !neoterm#tab_has_neoterm() && !g:neoterm_run_tests_bg
+  if !g:neoterm_run_tests_bg && !neoterm#tab_has_neoterm()
     call g:neoterm.test.instance().open()
   end
 endfunction
@@ -94,8 +92,8 @@ function! s:test_result_handler(job_id, data, event)
   end
 
   redrawstatus!
-  call <sid>raise_term_buffer()
-  call <sid>close_term_buffer()
+  call s:raise_term_buffer()
+  call s:close_term_buffer()
 endfunction
 
 function! neoterm#test#status(status)
