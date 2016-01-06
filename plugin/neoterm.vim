@@ -23,30 +23,6 @@ function! g:neoterm.last()
   end
 endfunction
 
-function! g:neoterm.new_split()
-  let current_window = winnr()
-
-  if g:neoterm_position == "horizontal"
-    exec "botright".g:neoterm_size." new"
-  else
-    exec "botright vert".g:neoterm_size." new"
-  end
-
-  return current_window
-endfunction
-
-function! g:neoterm.split_with(buffer)
-  let current_window = winnr()
-
-  if g:neoterm_position == "horizontal"
-    exec "botright ".g:neoterm_size."split +b".a:buffer
-  else
-    exec "botright ".g:neoterm_size."vsplit +b".a:buffer
-  end
-
-  return current_window
-endfunction
-
 let g:neoterm_statusline = ""
 
 if !exists("g:neoterm_shell")

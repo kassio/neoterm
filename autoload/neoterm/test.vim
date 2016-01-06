@@ -3,7 +3,7 @@ let g:neoterm.test = {}
 function! g:neoterm.test.instance()
   if !has_key(self, "instance_id")
     if !g:neoterm.has_any()
-      call neoterm#new(neoterm#test#handlers())
+      call neoterm#window#create(neoterm#test#handlers(), 'test')
     end
 
     call neoterm#test#term(g:neoterm.last_id)

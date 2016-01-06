@@ -1,15 +1,17 @@
 let g:neoterm.term = {}
 
-function! g:neoterm.term.new(id, handlers)
-  let name = ";#neoterm-".a:id
+function! g:neoterm.term.new(handlers)
+  let id = g:neoterm.next_id()
+  let name = ";#neoterm-".id
   let instance = extend(copy(self), {
-        \ "id": a:id,
+        \ "id": id,
         \ })
 
   let instance.handlers = a:handlers
 
   let instance.job_id = termopen(g:neoterm_shell . name, instance)
   let instance.buffer_id = bufnr("")
+  let g:neoterm.instances[instance.id] = instance
 
   return instance
 endfunction
@@ -28,13 +30,7 @@ function! g:neoterm.term.mappings()
 endfunction
 
 function! g:neoterm.term.open()
-  let current_window = g:neoterm.split_with(self.buffer_id)
-
-  if g:neoterm_keep_term_open
-    silent exec current_window . "wincmd w | set noinsertmode"
-  else
-    startinsert
-  end
+  call neoterm#window#reopen(self.buffer_id)
 endfunction
 
 function! g:neoterm.term.close()
