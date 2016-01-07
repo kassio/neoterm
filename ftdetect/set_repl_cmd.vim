@@ -11,8 +11,6 @@ aug set_repl_cmd
   au VimEnter,BufRead,BufNewFile *
         \ if filereadable('config/application.rb') |
         \   call neoterm#repl#set('bundle exec rails console') |
-        \ else |
-        \   call neoterm#repl#set('') |
         \ endif
   " Python
   au VimEnter,BufRead,BufNewFile *.py,
@@ -26,4 +24,11 @@ aug set_repl_cmd
         \ if &filetype == 'javascript' && executable('node') |
         \   call neoterm#repl#set('node') |
         \ end
+  " Elixir
+  au VimEnter,BufRead,BufNewFile *
+        \ if filereadable('config/config.exs') |
+        \   call neoterm#repl#set('iex -S mix') |
+        \ elseif &filetype == 'elixir' |
+        \   call neoterm#repl#set('iex') |
+        \ endif
 aug END
