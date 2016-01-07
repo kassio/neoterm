@@ -50,6 +50,7 @@ it's the command: `rspec spec/path/to/file_spec.rb:123`.
 * npm
   * You can override the default command (`npm test`) using the
     `g:neoterm_npm_lib_cmd`
+* elixir
 
 ## REPL
 
