@@ -166,6 +166,11 @@ Default value: `,tt`.
 When set, neoterm terminal will be kept running in background.
 Default value: `1`.
 
+                                                       *g:neoterm_split_on_tnew*
+
+When set, |:Tnew| command will create the neoterm in a splitted window.
+Default value: `1`.
+
                                                         *g:neoterm_run_tests_bg*
 
 When set, the neoterm will not open the term split to run tests.

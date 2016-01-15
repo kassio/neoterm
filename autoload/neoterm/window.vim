@@ -3,8 +3,12 @@ function! neoterm#window#create(handlers, source)
     exec "source " . globpath(&rtp, "autoload/neoterm.term.vim")
   end
 
-  call s:new_split()
-  call s:term_creator(a:handlers)
+  if a:source == 'tnew' && !g:neoterm_split_on_tnew
+    call s:term_creator(a:handlers)
+  else
+    call s:new_split()
+    call s:term_creator(a:handlers)
+  end
 
   if a:source == 'test' && g:neoterm_run_tests_bg
     hide

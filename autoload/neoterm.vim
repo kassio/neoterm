@@ -4,6 +4,10 @@ function! neoterm#new(...)
   call neoterm#window#create(handlers, '')
 endfunction
 
+function! neoterm#tnew()
+  call neoterm#window#create({}, 'tnew')
+endfunction
+
 function! neoterm#toggle()
   if neoterm#tab_has_neoterm()
     call g:neoterm.last().close()

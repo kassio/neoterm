@@ -49,6 +49,10 @@ if !exists("g:neoterm_keep_term_open")
   let g:neoterm_keep_term_open = 1
 end
 
+if !exists("g:neoterm_split_on_tnew")
+  let g:neoterm_split_on_tnew = 1
+end
+
 if !exists("g:neoterm_run_tests_bg")
   let g:neoterm_run_tests_bg = 0
 end
@@ -82,7 +86,7 @@ aug neoterm_setup
   au TermOpen term://*neoterm* setlocal nonumber norelativenumber
 aug END
 
-command! -bar -complete=shellcmd Tnew silent call neoterm#new()
+command! -bar -complete=shellcmd Tnew silent call neoterm#tnew()
 command! -bar -complete=shellcmd Topen silent call neoterm#open()
 command! -bar -complete=shellcmd Tclose silent call neoterm#close()
 command! -bar -complete=shellcmd Ttoggle silent call neoterm#toggle()
