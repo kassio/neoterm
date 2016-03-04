@@ -57,16 +57,20 @@ it's the command: `rspec spec/path/to/file_spec.rb:123`.
 * `TREPLSend`: sends the current line or the selection to a REPL in a terminal.
 * `TREPLSendFile`: sends the current file to a REPL in a terminal.
 
-### REPL supported
+### REPLs supported
 
-* `irb`
-* `bundle exec rails console`
+* Ruby: `pry` and `irb`
+* Rails: `bundle exec rails console`
+* Python: `ipython` and `python`
+* JavaScript: `node`
+* Elixir: `iex`
+* Julia: `julia`
 
 ## other useful commands:
 
 * `:T <command>`: Opens a terminal, or use an opened terminal, and runs the
                   given command within a terminal.
-* `:Tmap <command>`: maps a the given command to ,tt.
+* `:Tmap <command>`: maps a the given command to `,tt`.
 
 ## Contributing
 

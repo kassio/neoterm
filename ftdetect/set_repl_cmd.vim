@@ -31,4 +31,9 @@ aug set_repl_cmd
         \ elseif &filetype == 'elixir' |
         \   call neoterm#repl#set('iex') |
         \ endif
+  " Julia
+  au VimEnter,BufRead,BufNewFile *.jl,
+        \ if executable('julia') |
+        \   call neoterm#repl#set('julia') |
+        \ end
 aug END
