@@ -196,6 +196,11 @@ Default value: `[%s]`.
 Defines the strings/symbols/emojis used in each test status.
 Default value: `{` `'running'``:` `'RUNNING'``,` `'success'``:` `'SUCCESS'``,` `'failed'``:` `'FAILED'` `}`
 
+                                                   *g:neoterm_use_relative_path*
+
+When set, tests will be run using the relative path.
+Default value: 0
+
 ===============================================================================
 4. Statusline                                    *neoterm-statusline* *statusline*
 
