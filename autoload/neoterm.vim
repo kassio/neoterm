@@ -59,7 +59,14 @@ endfunction
 " Internal: Expands "%" in commands to current file full path.
 function! neoterm#expand_cmd(command)
   let command = substitute(a:command, '%\(:[phtre]\)\+', '\=expand(submatch(0))', 'g')
-  return substitute(command, '%', expand('%:p'), 'g')
+
+  if g:neoterm_use_relative_path
+    let path = expand('%')
+  else
+    let path = expand('%:p')
+  end
+
+  return substitute(command, '%', path, 'g')
 endfunction
 
 " Internal: Open a new split with the current neoterm buffer if there is one.
