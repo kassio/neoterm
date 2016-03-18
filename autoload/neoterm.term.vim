@@ -89,6 +89,7 @@ function! g:neoterm.term.destroy()
   end
 
   if has_key(g:neoterm.instances, self.id)
+    call self.close()
     call remove(g:neoterm.instances, self.id)
   end
 endfunction
