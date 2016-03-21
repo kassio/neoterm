@@ -65,6 +65,7 @@ it's the command: `rspec spec/path/to/file_spec.rb:123`.
 * JavaScript: `node`
 * Elixir: `iex`
 * Julia: `julia`
+* Idris: `idris`
 
 ## other useful commands:
 
