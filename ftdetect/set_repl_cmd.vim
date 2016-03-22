@@ -36,4 +36,9 @@ aug set_repl_cmd
         \ if executable('julia') |
         \   call neoterm#repl#set('julia') |
         \ end
+  " Idris
+  au VimEnter,BufRead,BufNewFile *.idr,*.lidr,
+        \ if executable('idris') |
+        \   call neoterm#repl#set('idris') |
+        \ end
 aug END
