@@ -128,6 +128,13 @@ the given command, this will be expanded to the current file path.
 The command |:T| executes this function.
 
 
+:call neoterm#exec([<command>, ""])                             *neoterm#exec()*
+
+Executes the given command list on a neoterm terminal split. The argument
+follows the same pattern that |jobsend()| second argument.
+
+
+
 :call neoterm#test#run(<scope>)                             *neoterm#test#run()*
 
 Executes the current test lib with the given scope. The scopes may be: `all`,
