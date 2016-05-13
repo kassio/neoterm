@@ -28,7 +28,7 @@ neoterm is a neovim's terminal wrapper, its main goal is give an easier way to
 user interact with neovim's terminal.
 
 
-1.2 Many terms support
+1.2 Many terms support                              *neoterm-many-terms-support*
 
 neoterm is capable to control more than one term by time. To open a new term
 users can use |:Tnew| command. Each neoterm's term has an `ID` (neoterm job's
