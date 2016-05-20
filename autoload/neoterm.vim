@@ -32,7 +32,9 @@ function! neoterm#open()
 endfunction
 
 function! neoterm#close()
-  call g:neoterm.last().close()
+  if g:neoterm.has_any()
+    call g:neoterm.last().close()
+  end
 endfunction
 
 " Public: Executes a command on terminal.
