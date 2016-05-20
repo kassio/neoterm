@@ -1,6 +1,8 @@
-if !has("nvim")
+if !has("nvim") || get(g:, 'neoterm_loaded', 0)
   finish
 endif
+
+let g:neoterm_loaded = 1
 
 let g:neoterm = {
       \ "last_id": 0,
