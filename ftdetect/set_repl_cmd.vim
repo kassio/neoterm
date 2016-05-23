@@ -3,10 +3,8 @@ if has('nvim')
     au!
     " Ruby
     au VimEnter,BufRead,BufNewFile *.rb,*.erb,Rakefile
-          \ if executable('pry') |
-          \   call neoterm#repl#set('pry') |
-          \ elseif executable('irb') |
-          \   call neoterm#repl#set('irb') |
+          \ if executable(g:neoterm_repl_ruby)
+          \   call neoterm#repl#set(g:neoterm_repl_ruby) |
           \ end
     " Rails
     au VimEnter,BufRead,BufNewFile *

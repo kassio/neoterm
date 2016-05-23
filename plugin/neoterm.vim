@@ -83,6 +83,10 @@ if !exists("g:neoterm_use_relative_path")
   let g:neoterm_use_relative_path = 0
 end
 
+if !exists("g:neoterm_repl_ruby")
+  let g:neoterm_repl_ruby = "irb"
+end
+
 hi! NeotermTestRunning ctermfg=11 ctermbg=0
 hi! NeotermTestSuccess ctermfg=2 ctermbg=0
 hi! NeotermTestFailed ctermfg=1 ctermbg=0

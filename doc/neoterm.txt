@@ -208,6 +208,11 @@ Default value: `{` `'running'``:` `'RUNNING'``,` `'success'``:` `'SUCCESS'``,` `
 When set, tests will be run using the relative path.
 Default value: 0
 
+                                                           *g:neoterm_repl_ruby*
+
+Sets what ruby REPl will be used.
+Default value: irb
+
 ===============================================================================
 4. Statusline                                    *neoterm-statusline* *statusline*
 
