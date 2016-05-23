@@ -3,7 +3,7 @@ if has('nvim')
     au!
     " Ruby
     au VimEnter,BufRead,BufNewFile *.rb,*.erb,Rakefile
-          \ if executable(g:neoterm_repl_ruby)
+          \ if executable(g:neoterm_repl_ruby) |
           \   call neoterm#repl#set(g:neoterm_repl_ruby) |
           \ end
     " Rails
