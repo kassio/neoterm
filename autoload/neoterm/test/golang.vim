@@ -1,10 +1,10 @@
 function! neoterm#test#golang#run(scope)
   let command = 'go test'
 
-  if a:scope == 'file'
-    let msg = '"neoterm: [golang] file testing not implemented"'
-    echo msg
-    return "echo " . msg
+  if a:scope == 'all'
+    let command .= ' ./...'
+  elseif a:scope == 'file'
+    let command .= ' ./$(dirname $file)'
   elseif a:scope == 'current'
     " Sameway to find the function name as in vim-go's :GoTestFunc
     let linenum = search("^func", "bcnW")
