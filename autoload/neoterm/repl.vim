@@ -1,15 +1,28 @@
-let g:neoterm.repl = {}
+let g:neoterm.repl = {
+      \ "loaded": 0
+      \ }
 
 function! g:neoterm.repl.instance()
   if !has_key(self, "instance_id")
     if !g:neoterm.has_any()
-      call neoterm#new(neoterm#test#handlers())
+      call neoterm#new(neoterm#repl#handlers())
     end
 
     call neoterm#repl#term(g:neoterm.last_id)
   end
 
   return g:neoterm.instances[self.instance_id]
+endfunction
+
+function! neoterm#repl#handlers()
+  return  {
+        \   "on_exit": function("s:test_result_handler")
+        \ }
+endfunction
+
+
+function! s:test_result_handler(job_id, data, event)
+  let g:neoterm.repl.loaded = 0
 endfunction
 
 function! neoterm#repl#term(id)
@@ -40,14 +53,14 @@ function! neoterm#repl#selection(...)
     let lines = getline(a:1, a:2)
   end
 
-  call <sid>repl_exec(lines)
+  call g:neoterm.repl.exec(lines)
 endfunction
 
 " Internal: Open the REPL, if needed, and executes the given command.
-function! s:repl_exec(command)
-  if !exists('g:neoterm_repl_loaded')
-    call g:neoterm.repl.instance().do(g:neoterm_repl_command)
-    let g:neoterm_repl_loaded = 1
+function! g:neoterm.repl.exec(command)
+  if !self.loaded
+    call self.instance().do(g:neoterm_repl_command)
+    let self.loaded = 1
   end
 
   call g:neoterm.repl.instance().exec(add(a:command, ""))

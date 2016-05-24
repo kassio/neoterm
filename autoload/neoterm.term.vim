@@ -38,7 +38,7 @@ function! g:neoterm.term.close()
     if g:neoterm_keep_term_open
       exec bufwinnr(self.buffer_id) . "hide"
     else
-      exec bufwinnr(self.buffer_id) . "bdelete"
+      exec self.buffer_id . "bdelete!"
     end
   end
 endfunction
