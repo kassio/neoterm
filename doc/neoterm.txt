@@ -173,6 +173,11 @@ Default value: `,tt`.
 When set, neoterm terminal will be kept running in background.
 Default value: `1`.
 
+                                                          *g:neoterm_autoinsert*
+
+When set, neoterm will opens in insert mode.
+Default value: `0`.
+
                                                        *g:neoterm_split_on_tnew*
 
 When set, |:Tnew| command will create the neoterm in a splitted window.

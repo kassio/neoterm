@@ -12,6 +12,8 @@ function! neoterm#window#create(handlers, source)
 
   if a:source == 'test' && g:neoterm_run_tests_bg
     hide
+  elseif g:neoterm_autoinsert
+    startinsert
   elseif g:neoterm_keep_term_open
     wincmd p
   else

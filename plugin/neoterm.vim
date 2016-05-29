@@ -51,6 +51,10 @@ if !exists("g:neoterm_keep_term_open")
   let g:neoterm_keep_term_open = 1
 end
 
+if !exists("g:neoterm_autoinsert")
+  let g:neoterm_autoinsert = 0
+end
+
 if !exists("g:neoterm_split_on_tnew")
   let g:neoterm_split_on_tnew = 1
 end
