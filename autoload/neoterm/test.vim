@@ -110,6 +110,10 @@ function! s:raise_term_buffer()
           \ && g:neoterm_raise_when_tests_fail
 
       call g:neoterm.test.instance().open()
+
+      if g:neoterm_focus_when_tests_fail
+        call g:neoterm.test.instance().focus()
+      end
     end
   end
 endfunction
