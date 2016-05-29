@@ -93,6 +93,7 @@ function! s:test_result_handler(job_id, data, event)
 
   redrawstatus!
   call s:raise_term_buffer()
+  call s:focus_term_buffer()
   call s:close_term_buffer()
 endfunction
 
@@ -110,11 +111,14 @@ function! s:raise_term_buffer()
           \ && g:neoterm_raise_when_tests_fail
 
       call g:neoterm.test.instance().open()
-
-      if g:neoterm_focus_when_tests_fail
-        call g:neoterm.test.instance().focus()
-      end
     end
+  end
+endfunction
+
+function! s:focus_term_buffer()
+  if g:neoterm_statusline == g:neoterm_test_status.failed
+        \ && g:neoterm_focus_when_tests_fail
+    call g:neoterm.test.instance().focus()
   end
 endfunction
 

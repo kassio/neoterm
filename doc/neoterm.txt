@@ -190,9 +190,7 @@ Default value: `0`.
 
                                                *g:neoterm_focus_when_tests_fail*
 
-When |g:neoterm_raise_when_tests_fail| is set, and
-|g:neoterm_focus_when_tests_fail| is also set, the neoterm window will open
-with focus (normal mode).
+When set, the neoterm window will get focused (normal mode).
 Default value: `0`.
 
                                             *g:neoterm_close_when_tests_succeed*
