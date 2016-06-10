@@ -35,6 +35,11 @@ if has('nvim')
           \ if executable('julia') |
           \   call neoterm#repl#set('julia') |
           \ end
+    " R
+    au VimEnter,BufRead,BufNewFile *.R,*.Rmd
+          \ if executable('R') |
+          \   call neoterm#repl#set('R') |
+          \ end
     " Idris
     au VimEnter,BufRead,BufNewFile *.idr,*.lidr,
           \ if executable('idris') |
