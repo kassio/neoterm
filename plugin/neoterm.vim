@@ -28,7 +28,7 @@ endfunction
 let g:neoterm_statusline = ""
 
 if !exists("g:neoterm_shell")
-  let g:neoterm_shell = &sh
+  let g:neoterm_shell = &shellcmd . ' ' . substitute(&shellcmdflag, '[-/]c', '', '')
 end
 
 if !exists("g:neoterm_size")
