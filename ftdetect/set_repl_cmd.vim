@@ -14,7 +14,7 @@ if has('nvim')
     " Python
     au VimEnter,BufRead,BufNewFile *.py,
           \ if executable('ipython') |
-          \   call neoterm#repl#set('ipython') |
+          \   call neoterm#repl#set('ipython --no-autoindent') |
           \ elseif executable('python') |
           \   call neoterm#repl#set('python') |
           \ end
