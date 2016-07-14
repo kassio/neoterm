@@ -29,9 +29,9 @@ let g:neoterm_statusline = ""
 
 if !exists("g:neoterm_shell")
   if exists('&shellcmdflag')
-    let g:neoterm_shell = &shellcmd . ' ' . substitute(&shellcmdflag, '[-/]c', '', '')
+    let g:neoterm_shell = &shell . ' ' . substitute(&shellcmdflag, '[-/]c', '', '')
   else
-    let g:neoterm_shell = &shellcmd
+    let g:neoterm_shell = &shell
   end
 end
 
