@@ -96,4 +96,6 @@ function! g:neoterm.term.destroy()
     call self.close()
     call remove(g:neoterm.instances, self.id)
   end
+
+  let g:neoterm.last_id = get(keys(g:neoterm.instances), -1)
 endfunction
