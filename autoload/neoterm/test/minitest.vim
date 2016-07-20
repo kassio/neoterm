@@ -1,10 +1,12 @@
 function! neoterm#test#minitest#run(scope)
+  let path = g:neoterm_use_relative_path ? expand('%') : expand('%:p')
+
   if a:scope == 'all'
     let command = 'rake test'
   elseif a:scope == 'file'
-    let command = 'ruby -Ilib:test ' . expand('%:p')
+    let command = 'ruby -Ilib:test ' . path
   elseif a:scope == 'current'
-    let command = 'ruby -Ilib:test ' . expand('%:p') . ' -n /' . <sid>minitest_get_current() . '/'
+    let command = 'ruby -Ilib:test ' . path . ' -n /' . <sid>minitest_get_current() . '/'
   endif
 
   return command

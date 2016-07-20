@@ -1,4 +1,6 @@
 function! neoterm#test#cucumber#run(scope)
+  let path = g:neoterm_use_relative_path ? expand('%') : expand('%:p')
+
   if exists('g:neoterm_cucumber_lib_cmd')
     let command = g:neoterm_cucumber_lib_cmd
   else
@@ -6,9 +8,9 @@ function! neoterm#test#cucumber#run(scope)
   end
 
   if a:scope == 'file'
-    let command .= ' ' . expand('%:p')
+    let command .= ' ' . path
   elseif a:scope == 'current'
-    let command .= ' ' . expand('%:p') . ':' . line('.')
+    let command .= ' ' . path . ':' . line('.')
   endif
 
   return command

@@ -100,12 +100,13 @@ defined in its own file: `/autoload/neoterm/test/<lib_name>.vim`.
 * autoload/neoterm/test/rspec.vim
 ```viml
 function! neoterm#test#rspec#run(scope)
+  let path = g:neoterm_use_relative_path ? expand('%') : expand('%:p')
   let command = 'rspec'
 
   if a:scope == 'file'
-    let command .= ' ' . expand('%:p')
+    let command .= ' ' . path
   elseif a:scope == 'current'
-    let command .= ' ' . expand('%:p') . ':' . line('.')
+    let command .= ' ' . path . ':' . line('.')
   endif
 
   return command

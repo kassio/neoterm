@@ -1,10 +1,11 @@
 function! neoterm#test#elixir#run(scope)
   let command = 'mix test'
+  let path = g:neoterm_use_relative_path ? expand('%') : expand('%:p')
 
   if a:scope == 'file'
-    let command .= ' ' . expand('%:p')
+    let command .= ' ' . path
   elseif a:scope == 'current'
-    let command .= ' ' . expand('%:p') . ':' . line('.')
+    let command .= ' ' . path . ':' . line('.')
   endif
 
   return command

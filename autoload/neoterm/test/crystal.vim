@@ -1,10 +1,11 @@
 function! neoterm#test#crystal#run(scope)
   let command = 'crystal spec'
+  let path = g:neoterm_use_relative_path ? expand('%') : expand('%:p')
 
   if a:scope == 'file'
-    let command .= ' ' . expand('%')
+    let command .= ' ' . path
   elseif a:scope == 'current'
-    let command .= ' ' . expand('%') . ':' . line('.')
+    let command .= ' ' . path . ':' . line('.')
   endif
 
   return command
