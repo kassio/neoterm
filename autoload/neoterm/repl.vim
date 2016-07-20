@@ -28,6 +28,7 @@ endfunction
 function! neoterm#repl#term(id)
   if has_key(g:neoterm.instances, a:id)
     let g:neoterm.repl.instance_id = a:id
+    let g:neoterm.repl.loaded = 1
   else
     echoe "There is no ".a:id." term."
   end
