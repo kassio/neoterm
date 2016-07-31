@@ -223,6 +223,13 @@ Default value: 0
 Sets what ruby REPl will be used.
 Default value: irb
 
+                                                         *g:neoterm_repl_python*
+
+Sets what python REPL will be used, and any arguments to be passed to it.
+Defaults to an empty string, in which case NeoTerm will fall back to IPython
+followed by Python.
+Default value: (empty)
+
 ===============================================================================
 4. Statusline                                    *neoterm-statusline* *statusline*
 
