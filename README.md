@@ -67,6 +67,7 @@ it's the command: `rspec spec/path/to/file_spec.rb:123`.
 * Julia: `julia`
 * R / R Markdown: `R`
 * Idris: `idris`
+* PARI/GP: `gp`
 
 ## other useful commands:
 
