@@ -38,6 +38,11 @@ if has('nvim')
           \ if executable('julia') |
           \   call neoterm#repl#set('julia') |
           \ end
+    " PARI/GP
+    au VimEnter,BufRead,BufNewFile *.gp,
+          \ if executable('gp') |
+          \   call neoterm#repl#set('gp') |
+          \ end
     " R
     au VimEnter,BufRead,BufNewFile *.R,*.Rmd
           \ if executable('R') |
