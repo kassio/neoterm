@@ -13,7 +13,10 @@ if has('nvim')
           \ endif
     " Python
     au VimEnter,BufRead,BufNewFile *.py,
-          \ if executable('ipython') |
+          \ let s:argList = split(g:neoterm_repl_python) |
+          \ if len(s:argList) > 0 && executable(s:argList[0]) |
+          \   call neoterm#repl#set(g:neoterm_repl_python) |
+          \ elseif executable('ipython') |
           \   call neoterm#repl#set('ipython --no-autoindent') |
           \ elseif executable('python') |
           \   call neoterm#repl#set('python') |
