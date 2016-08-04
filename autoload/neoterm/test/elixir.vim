@@ -5,10 +5,20 @@ function! neoterm#test#elixir#run(scope)
   if a:scope == 'file'
     let command .= ' ' . path
   elseif a:scope == 'current'
-    let command .= ' ' . path . ':' . line('.')
+    let command .= ' ' . s:current(path)
   endif
 
   return command
+endfunction
+
+function! s:current(path)
+  let line = getline('.')
+
+  if line =~ 'describe'
+    return '--only describe:"' . matchstr(line, 'describe\s*"\zs.*\ze"') . '"'
+  else
+    return a:path . ':' . line('.')
+  end
 endfunction
 
 function! neoterm#test#elixir#result_handler(line)
