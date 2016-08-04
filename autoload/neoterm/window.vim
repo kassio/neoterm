@@ -1,4 +1,6 @@
 function! neoterm#window#create(handlers, source)
+  let win_id = exists('*win_getid') ? win_getid() : 0
+
   if !has_key(g:neoterm, "term")
     exec "source " . globpath(&rtp, "autoload/neoterm.term.vim")
   end
@@ -15,7 +17,11 @@ function! neoterm#window#create(handlers, source)
   elseif g:neoterm_autoinsert
     startinsert
   elseif g:neoterm_keep_term_open
-    wincmd p
+    if win_id
+      call win_gotoid(win_id)
+    else
+      wincmd p
+    end
   else
     startinsert
   end
@@ -40,11 +46,17 @@ function! s:term_creator(handlers)
 endfunction
 
 function! neoterm#window#reopen(buffer_id)
+  let win_id = exists('*win_getid') ? win_getid() : 0
+
   if g:neoterm_position == "horizontal"
     exec "botright ".g:neoterm_size."split +buffer".a:buffer_id
   else
     exec "botright ".g:neoterm_size."vsplit +buffer".a:buffer_id
   end
 
-  wincmd p
+  if win_id
+    call win_gotoid(win_id)
+  else
+    wincmd p
+  end
 endfunction
