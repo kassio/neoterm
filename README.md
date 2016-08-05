@@ -69,6 +69,23 @@ it's the command: `rspec spec/path/to/file_spec.rb:123`.
 * Idris: `idris`
 * PARI/GP: `gp`
 
+The REPL is set using the filetype plugin so make sure to set
+```viml
+filetype plugin on
+```
+
+Most standard file extensions for the above REPLs are picked up by Neovim's default
+filetype plugins. However, there are two exceptions:
+* Julia `.jl` files, which are detected as `filetipe=lisp`
+* Idris `.idr`, `.lidr` files which are not recognised as any filetype
+To fix this, either install a suitable plugin for the language or add something like
+the following to your `init.vim`:
+```viml
+au VimEnter,BufRead,BufNewFile *.jl set filetype=julia
+au VimEnter,BufRead,BufNewFile *.idr set filetype=idris
+au VimEnter,BufRead,BufNewFile *.lidr set filetype=lidris
+```
+
 ## other useful commands:
 
 * `:T <command>`: Opens a terminal, or use an opened terminal, and runs the
