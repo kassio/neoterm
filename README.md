@@ -66,7 +66,9 @@ it's the command: `rspec spec/path/to/file_spec.rb:123`.
 * Elixir: `iex`
 * Julia: `julia`
 * R / R Markdown: `R`
+* Haskell: `ghci`
 * Idris: `idris`
+* GNU Octave: `octave`
 * PARI/GP: `gp`
 
 The REPL is set using the filetype plugin so make sure to set

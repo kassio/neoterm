@@ -45,10 +45,20 @@ if has('nvim')
           \ if executable('R') |
           \   call neoterm#repl#set('R') |
           \ end
+    " Octave
+    au FileType octave
+          \ if executable('octave') |
+          \   call neoterm#repl#set('octave') |
+          \ end
     " Idris
     au FileType idris,lidris
           \ if executable('idris') |
           \   call neoterm#repl#set('idris') |
+          \ end
+    " Haskell
+    au FileType haskell
+          \ if executable('ghci') |
+          \   call neoterm#repl#set('ghci') |
           \ end
   aug END
 end
