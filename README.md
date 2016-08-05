@@ -71,6 +71,7 @@ it's the command: `rspec spec/path/to/file_spec.rb:123`.
 * GNU Octave: `octave`
 * PARI/GP: `gp`
 
+### Troubleshooting
 The REPL is set using the filetype plugin so make sure to set
 ```viml
 filetype plugin on
