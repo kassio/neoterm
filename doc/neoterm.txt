@@ -231,7 +231,7 @@ followed by Python.
 Default value: (empty)
 
 ===============================================================================
-4. Statusline                                    *neoterm-statusline* *statusline*
+5. Statusline                                    *neoterm-statusline* *statusline*
 
 To set you neoterm on your statusline, you must add the following:
 >
