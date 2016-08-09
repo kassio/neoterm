@@ -31,7 +31,7 @@ endfunction
 
 function! s:format_test_name(name)
   return substitute(tolower(a:name), ' ', '_', 'g')
-end
+endfunction
 
 function! neoterm#test#minitest#result_handler(line)
   let counters = matchlist(
