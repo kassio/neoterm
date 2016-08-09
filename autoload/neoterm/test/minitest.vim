@@ -6,13 +6,13 @@ function! neoterm#test#minitest#run(scope)
   elseif a:scope == 'file'
     let command = 'ruby -Ilib:test ' . path
   elseif a:scope == 'current'
-    let command = 'ruby -Ilib:test ' . path . ' -n /' . <sid>minitest_get_current() . '/'
+    let command = 'ruby -Ilib:test ' . path . ' -n /' . s:format_test_name(neoterm#test#minitest#get_current()) . '/'
   endif
 
   return command
 endfunction
 
-function! s:minitest_get_current()
+function! neoterm#test#minitest#get_current()
   let nearest_test = search("def\ test_", "nb")
 
   if nearest_test != 0
@@ -24,10 +24,14 @@ function! s:minitest_get_current()
       let test_string = split(getline(nearest_test), '["'']')[1]
       let test_string = escape(test_string, '#')
 
-      return substitute(tolower(test_string), ' ', '_', 'g')
+      return test_string
     endif
   endif
 endfunction
+
+function! s:format_test_name(name)
+  return substitute(tolower(a:name), ' ', '_', 'g')
+end
 
 function! neoterm#test#minitest#result_handler(line)
   let counters = matchlist(

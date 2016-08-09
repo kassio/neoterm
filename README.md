@@ -44,6 +44,12 @@ it's the command: `rspec spec/path/to/file_spec.rb:123`.
     `g:neoterm_cucumber_lib_cmd`
 * minitest
   * Status in statusline supported
+* rake
+  * it's like minitest but it doesn't support minitest status and uses rake
+  commands like the following:
+    * all: `rake test`
+    * file: `rake test TEST=file`
+    * current: `rake test TEST=file TESTOPTS="--name=\"/test name/\""
 * go-lang test ([partially implemented](https://github.com/kassio/neoterm/pull/8))
 * nose ([partially implemented](https://github.com/kassio/neoterm/pull/9))
 * Cargo ([partially implemented](https://github.com/kassio/neoterm/pull/59))
