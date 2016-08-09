@@ -13,6 +13,8 @@ function! g:neoterm.term.new(handlers)
   let instance.buffer_id = bufnr("")
   let g:neoterm.instances[instance.id] = instance
 
+  let b:term_title = 'neoterm-'.id
+
   return instance
 endfunction
 
