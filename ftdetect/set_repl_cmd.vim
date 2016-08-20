@@ -50,6 +50,11 @@ if has('nvim')
           \ if executable('octave') |
           \   call neoterm#repl#set('octave') |
           \ end
+    " MATLAB
+    au FileType matlab
+          \ if executable('matlab') |
+          \   call neoterm#repl#set('matlab -nodesktop -nosplash') |
+          \ end
     " Idris
     au FileType idris,lidris
           \ if executable('idris') |
