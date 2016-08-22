@@ -75,6 +75,7 @@ it's the command: `rspec spec/path/to/file_spec.rb:123`.
 * Haskell: `ghci`
 * Idris: `idris`
 * GNU Octave: `octave`
+* MATLAB: `matlab -nodesktop -nosplash`
 * PARI/GP: `gp`
 
 ### Troubleshooting
