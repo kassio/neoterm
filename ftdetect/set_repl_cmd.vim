@@ -49,10 +49,7 @@ if has('nvim')
     au FileType octave
           \ if executable('octave') |
           \   if executable('octave-cli') |
-          \     if !exists("g:neoterm_octave_qt") |
-          \       let g:neoterm_octave_qt = 0 |
-          \     end |
-          \     if g:neoterm_octave_qt |
+          \     if g:neoterm_repl_octave_qt |
           \       call neoterm#repl#set('octave --no-gui') |
           \     else |
           \       call neoterm#repl#set('octave-cli') |
