@@ -48,7 +48,15 @@ if has('nvim')
     " Octave
     au FileType octave
           \ if executable('octave') |
-          \   call neoterm#repl#set('octave') |
+          \   if executable('octave-cli') |
+          \     if g:neoterm_repl_octave_qt |
+          \       call neoterm#repl#set('octave --no-gui') |
+          \     else |
+          \       call neoterm#repl#set('octave-cli') |
+          \     end |
+          \   else |
+          \     call neoterm#repl#set('octave') |
+          \   end |
           \ end
     " MATLAB
     au FileType matlab

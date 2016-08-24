@@ -75,6 +75,7 @@ it's the command: `rspec spec/path/to/file_spec.rb:123`.
 * Haskell: `ghci`
 * Idris: `idris`
 * GNU Octave: `octave`
+  * For Octave 4.0.0 and later, you can enable Qt widgets (dialogs, plots, etc.) using `g:neoterm_repl_octave_qt = 1`
 * MATLAB: `matlab -nodesktop -nosplash`
 * PARI/GP: `gp`
 
