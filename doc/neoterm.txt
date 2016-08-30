@@ -230,6 +230,14 @@ Defaults to an empty string, in which case NeoTerm will fall back to IPython
 followed by Python.
 Default value: (empty)
 
+                                                      *g:neoterm_repl_octave_qt*
+
+When set, the Octave REPL will use Qt widgets for plots, dialogs, etc.
+Internally, this means the REPL is set to `octave` `--no-gui`. Otherwise the
+REPL is set to `octave-cli`. This setting is for Octave 4 and has no effect
+for Octave 3 users.
+Default value: `0`
+
 ===============================================================================
 5. Statusline                                    *neoterm-statusline* *statusline*
 
