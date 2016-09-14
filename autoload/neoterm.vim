@@ -91,6 +91,6 @@ function! neoterm#kill()
   silent call g:neoterm.last().kill()
 endfunction
 
-function! neoterm#list()
-  echo keys(g:neoterm.instances)
+function! neoterm#list(arg_lead, cmd_line, cursor_pos)
+  return filter(keys(g:neoterm.instances), 'v:val =~? "'. a:arg_lead. '"')
 endfunction
