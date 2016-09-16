@@ -165,8 +165,8 @@ let g:neoterm_position = 'horizontal'
 let g:neoterm_automap_keys = ',tt'
 
 nnoremap <silent> <f10> :TREPLSendFile<cr>
-nnoremap <silent> <f9> :TREPLSend<cr>
-vnoremap <silent> <f9> :TREPLSend<cr>
+nnoremap <silent> <f9> :TREPLSendLine<cr>
+vnoremap <silent> <f9> :TREPLSendSelection<cr>
 
 " run set test lib
 nnoremap <silent> ,rt :call neoterm#test#run('all')<cr>

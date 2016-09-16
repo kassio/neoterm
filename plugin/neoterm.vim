@@ -126,8 +126,9 @@ command! -nargs=1 Tpos let g:neoterm_position=<q-args>
 
 " REPL
 command! -bar -complete=customlist,neoterm#list -nargs=1 TREPLSetTerm silent call neoterm#repl#term(<q-args>)
-command! -range=% TREPLSendFile silent call neoterm#repl#selection(<line1>, <line2>)
-command! -range TREPLSend silent call neoterm#repl#selection(<line1>, <line2>)
+command! -range=% TREPLSendFile silent call neoterm#repl#line(<line1>, <line2>)
+command! -range TREPLSendSelection silent call neoterm#repl#selection()
+command! -range TREPLSendLine silent call neoterm#repl#line(<line1>, <line2>)
 
 " Test
 command! -complete=customlist,neoterm#list -nargs=1 TTestSetTerm silent call neoterm#test#term(<q-args>)

@@ -40,20 +40,18 @@ function! neoterm#repl#set(value)
 endfunction
 
 " Internal: Executes the current selection within a REPL.
-function! neoterm#repl#selection(...)
-  if getpos("'>") != [0, 0, 0, 0]
-    let [lnum1, col1] = getpos("'<")[1:2]
-    let [lnum2, col2] = getpos("'>")[1:2]
-    call setpos("'>", [0, 0, 0, 0])
-    call setpos("'<", [0, 0, 0, 0])
+function! neoterm#repl#selection()
+  let [lnum1, col1] = getpos("'<")[1:2]
+  let [lnum2, col2] = getpos("'>")[1:2]
+  let lines = getline(lnum1, lnum2)
+  let lines[-1] = lines[-1][:col2 - 1]
+  let lines[0] = lines[0][col1 - 1:]
+  call g:neoterm.repl.exec(lines)
+endfunction
 
-    let lines = getline(lnum1, lnum2)
-    let lines[-1] = lines[-1][:col2 - 1]
-    let lines[0] = lines[0][col1 - 1:]
-  else
-    let lines = getline(a:1, a:2)
-  end
-
+" Internal: Executes the current line within a REPL.
+function! neoterm#repl#line(...)
+  let lines = getline(a:1, a:2)
   call g:neoterm.repl.exec(lines)
 endfunction
 
