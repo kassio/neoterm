@@ -78,6 +78,7 @@ it's the command: `rspec spec/path/to/file_spec.rb:123`.
   * For Octave 4.0.0 and later, you can enable Qt widgets (dialogs, plots, etc.) using `g:neoterm_repl_octave_qt = 1`
 * MATLAB: `matlab -nodesktop -nosplash`
 * PARI/GP: `gp`
+* PHP: `psysh` and `php`
 
 ### Troubleshooting
 The REPL is set using the filetype plugin so make sure to set
