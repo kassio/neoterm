@@ -89,13 +89,17 @@ Clear the test result status on statusline.
 Chooses, or changes, the current term to run the REPL commands.
 
 
-:TREPLSend                                                          *:TREPLSend*
-
-Sends the current selection, or current line, to a REPL.
-
 :TREPLSendFile                                                  *:TREPLSendFile*
 
 Sends the current selection, or current file, to a REPL.
+
+:TREPLSendLine                                                  *:TREPLSendLine*
+
+Sends the current line to a REPL.
+
+:TREPLSendSelection                                        *:TREPLSendSelection*
+
+Sends the current selection to a REPL.
 
 :Topen                                                                  *:Topen*
 
