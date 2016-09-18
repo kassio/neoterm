@@ -73,5 +73,14 @@ if has('nvim')
           \ if executable('ghci') |
           \   call neoterm#repl#set('ghci') |
           \ end
+    au FileType php
+          \ let s:argList = split(g:neoterm_repl_php) |
+          \ if len(s:argList) > 0 && executable(s:argList[0]) |
+          \   call neoterm#repl#set(g:neoterm_repl_php) |
+          \ elseif executable('psysh') |
+          \   call neoterm#repl#set('psysh') |
+          \ elseif executable('php') |
+          \   call neoterm#repl#set('php -a') |
+          \ end
   aug END
 end
