@@ -7,7 +7,6 @@
 	!   ! \     !  !_,\  \_/  /  !   !  !  !_, !  .  \ !   ! !   !
 	!___!  \____!____! \_____/   !___!  !____! !__|\__\!___! !___!
 
-
 ===============================================================================
 CONTENTS                                                      *neoterm-contents*
 
@@ -26,7 +25,6 @@ CONTENTS                                                      *neoterm-contents*
 
 neoterm is a neovim's terminal wrapper, its main goal is give an easier way to
 user interact with neovim's terminal.
-
 
 1.2 Many terms support                              *neoterm-many-terms-support*
 
@@ -48,11 +46,9 @@ executed in the last neoterm's term.
 Executes the given command on a neoterm terminal split. If there is a `%` in
 the given command, this will be expanded to the current file path.
 
-
 :Tnew                                                                    *:Tnew*
 
 Opens a new term buffer.
-
 
 :Tmap <command>                                                          *:Tmap*
 
@@ -61,33 +57,27 @@ sent to a neoterm terminal buffer.
 
 The default mapping is `,tt`, it can be changed in |g:neoterm_automap_keys|
 
-
 :Tpos <position>                                                         *:Tpos*
 
 Changes the position where the neoterm terminal buffer will be opened. Values
 accepted: `horizontal` and `vertical`. The default position is `horizontal`,
 but it can be changed in |g:neoterm_position|
 
-
 :TTestSetTerm <term-id>                                          *:TTestSetTerm*
 
 Chooses, or changes, the current term to run the tests.
-
 
 :TTestLib <test-lib>                                                 *:TTestLib*
 
 Chooses, or changes, the current test lib.
 
-
 :TTestClearStatus                                            *:TTestClearStatus*
 
 Clear the test result status on statusline.
 
-
 :TREPLSetTerm <term-id>                                          *:TREPLSetTerm*
 
 Chooses, or changes, the current term to run the REPL commands.
-
 
 :TREPLSendFile                                                  *:TREPLSendFile*
 
@@ -105,12 +95,10 @@ Sends the current selection to a REPL.
 
 Opens a new, or the current, neoterm terminal split.
 
-
 :Tclose                                                                *:Tclose*
 
 Closes, or hides, the current neoterm terminal split. To change if the
 terminal will be kept in background you need to change |g:neoterm_keep_term_open|
-
 
 :Ttoggle                                                              *:Ttoggle*
 
@@ -124,20 +112,16 @@ Toggles the last window in the current tab.
 Closes, or hides, the current neoterm terminal split according to
 |g:neoterm_keep_term_open|.
 
-
 :call neoterm#do(<command>)                                       *neoterm#do()*
 
 Executes the given command on a neoterm terminal split. If there is a `%` in
 the given command, this will be expanded to the current file path.
 The command |:T| executes this function.
 
-
 :call neoterm#exec([<command>, ""])                             *neoterm#exec()*
 
 Executes the given command list on a neoterm terminal split. The argument
 follows the same pattern that |jobsend()| second argument.
-
-
 
 :call neoterm#test#run(<scope>)                             *neoterm#test#run()*
 
@@ -147,7 +131,6 @@ Executes the current test lib with the given scope. The scopes may be: `all`,
 	1. `all`: Run all tests.
 	2. `file`: Run the current test file.
 	3. `current`: Run the nearest cursor test.
-
 
 :call neoterm#test#rerun()                                *neoterm#test#rerun()*
 
@@ -162,7 +145,6 @@ Executes the last test command ran. The last test command is recorde on
 Set the neoterm terminal split size. The default, empty string, will use half
 of the current window.
 Default value: `''`.
-
 
                                                             *g:neoterm_position*
 
@@ -248,7 +230,6 @@ Sets what php REPL will be used, and any arguments to be passed to it.
 Defaults to an empty string, in which case NeoTerm will fall back to psysh
 followed by php.
 Default value: (empty)
-
 
 ===============================================================================
 5. Statusline                                    *neoterm-statusline* *statusline*
