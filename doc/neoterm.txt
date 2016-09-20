@@ -199,6 +199,17 @@ Default value: `[%s]`.
 Defines the strings/symbols/emojis used in each test status.
 Default value: `{` `'running'``:` `'RUNNING'``,` `'success'``:` `'SUCCESS'``,` `'failed'``:` `'FAILED'` `}`
 
+                                                     *g:neoterm_test_before_all*
+
+Set a function to be run before loading the terminal for the tests.
+Default value: (empty)
+Example: >
+    " Defines environment variable TEST=1 before running the tests
+    function! BeforeAll()
+      T export TESTING=1
+    endfunction
+    let g:neoterm_test_before_all="BeforeAll"
+<
                                                    *g:neoterm_use_relative_path*
 
 When set, tests will be run using the relative path.
