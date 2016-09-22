@@ -64,5 +64,5 @@ function! g:neoterm.repl.exec(command)
     let self.loaded = 1
   end
 
-  call g:neoterm.repl.instance().exec(add(a:command, ""))
+  call g:neoterm.repl.instance().exec(add(a:command, "\r"))
 endfunction
