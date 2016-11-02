@@ -242,6 +242,11 @@ Defaults to an empty string, in which case NeoTerm will fall back to psysh
 followed by php.
 Default value: (empty)
 
+                                                              *g:neoterm_eof*
+
+Sets how neoterm will send the `EOF` character to terminal.
+Default value: ""
+
 ===============================================================================
 5. Statusline                                    *neoterm-statusline* *statusline*
 

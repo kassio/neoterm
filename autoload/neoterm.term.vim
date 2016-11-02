@@ -50,7 +50,7 @@ function! g:neoterm.term.close()
 endfunction
 
 function! g:neoterm.term.do(command)
-  call self.exec([a:command, ""])
+  call self.exec([a:command, g:neoterm_eof])
 endfunction
 
 function! g:neoterm.term.exec(command)

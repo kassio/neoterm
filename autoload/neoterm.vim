@@ -42,7 +42,7 @@ endfunction
 function! neoterm#do(command)
   let command = neoterm#expand_cmd(a:command)
 
-  call neoterm#exec([command, ""])
+  call neoterm#exec([command, g:neoterm_eof])
 endfunction
 
 " Internal: Loads a terminal, if it is not loaded, and execute a list of

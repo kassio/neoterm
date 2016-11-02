@@ -111,6 +111,10 @@ if !exists("g:neoterm_repl_php")
   let g:neoterm_repl_php = ""
 end
 
+if !exists("g:neoterm_eof")
+  let g:neoterm_eof = ""
+end
+
 hi! NeotermTestRunning ctermfg=11 ctermbg=0
 hi! NeotermTestSuccess ctermfg=2 ctermbg=0
 hi! NeotermTestFailed ctermfg=1 ctermbg=0

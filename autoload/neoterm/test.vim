@@ -43,7 +43,7 @@ endfunction
 
 function! s:run(command)
   call g:neoterm.test.instance().clear()
-  call g:neoterm.test.instance().exec([a:command, ""])
+  call g:neoterm.test.instance().exec([a:command, g:neoterm_eof])
   let g:neoterm_statusline = g:neoterm_test_status.running
 
   if !g:neoterm_run_tests_bg && !neoterm#tab_has_neoterm()
