@@ -212,7 +212,8 @@ Example: >
 <
                                                    *g:neoterm_use_relative_path*
 
-When set, tests will be run using the relative path.
+When set, the `%` will always be expanded to the file relative path, instead
+of its absolute path.
 Default value: 0
 
                                                            *g:neoterm_repl_ruby*
