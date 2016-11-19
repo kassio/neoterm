@@ -3,6 +3,8 @@ function! neoterm#test#rspec#run(scope)
 
   if exists('g:neoterm_rspec_lib_cmd')
     let command = g:neoterm_rspec_lib_cmd
+  elseif filereadable('./bin/rspec')
+    let command = './bin/rspec'
   else
     let command = 'bundle exec rspec'
   end
