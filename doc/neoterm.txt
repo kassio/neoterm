@@ -251,7 +251,7 @@ Default value: ""
                                                               *g:neoterm_no_clear*
 
 When set, the neoterm will keep scrollback history between test runs.
-Default value: `0`.
+Default value: (empty)
 
 ===============================================================================
 5. Statusline                                    *neoterm-statusline* *statusline*

@@ -115,10 +115,6 @@ if !exists("g:neoterm_eof")
   let g:neoterm_eof = ""
 end
 
-if !exists("g:neoterm_no_clear")
-  let g:neoterm_no_clear = 0
-end
-
 hi! NeotermTestRunning ctermfg=11 ctermbg=0
 hi! NeotermTestSuccess ctermfg=2 ctermbg=0
 hi! NeotermTestFailed ctermfg=1 ctermbg=0
