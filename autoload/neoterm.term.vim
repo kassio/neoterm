@@ -58,9 +58,7 @@ function! g:neoterm.term.exec(command)
 endfunction
 
 function! g:neoterm.term.clear()
-  if !exists("g:neoterm_no_clear")
-    call self.exec("\<c-l>")
-  end
+  call self.exec("\<c-l>")
 endfunction
 
 function! g:neoterm.term.kill()
