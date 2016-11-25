@@ -248,6 +248,11 @@ Default value: (empty)
 Sets how neoterm will send the `EOF` character to terminal.
 Default value: ""
 
+                                                              *g:neoterm_no_clear*
+
+When set, the neoterm will keep scrollback history between test runs.
+Default value: `0`.
+
 ===============================================================================
 5. Statusline                                    *neoterm-statusline* *statusline*
 
