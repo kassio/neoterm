@@ -103,6 +103,14 @@ if !exists("g:neoterm_repl_python")
   let g:neoterm_repl_python = ""
 end
 
+if !exists("g:neoterm_repl_python_cpaste")
+  let g:neoterm_repl_python_cpaste = 1
+end
+
+if !exists("g:neoterm_repl_python_cpaste_timings")
+  let g:neoterm_repl_python_cpaste_timings = 50
+end
+
 if !exists("g:neoterm_repl_octave_qt")
   let g:neoterm_repl_octave_qt = 0
 end
@@ -113,6 +121,10 @@ end
 
 if !exists("g:neoterm_eof")
   let g:neoterm_eof = ""
+end
+
+if !exists("g:neoterm_repl_startup_time")
+  let g:neoterm_repl_startup_time = 3000
 end
 
 hi! NeotermTestRunning ctermfg=11 ctermbg=0
