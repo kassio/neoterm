@@ -43,6 +43,10 @@ if !exists("g:neoterm_test_libs")
   let g:neoterm_test_libs = []
 end
 
+if !exists("g:neoterm_test_lib")
+  let g:neoterm_test_lib = 'minitest'
+end
+
 if !exists("g:neoterm_position")
   let g:neoterm_position = "horizontal"
 end
@@ -140,5 +144,5 @@ command! -range TREPLSendLine silent call neoterm#repl#line(<line1>, <line2>)
 
 " Test
 command! -complete=customlist,neoterm#list -nargs=1 TTestSetTerm silent call neoterm#test#term(<q-args>)
-command! -complete=customlist,neoterm#test#libs#autocomplete -nargs=? TTestLib silent call neoterm#test#libs#add(<q-args>)
+command! -complete=customlist,neoterm#test#libs#autocomplete -nargs=? TTestLib silent call neoterm#test#libs#current(<q-args>)
 command! TTestClearStatus silent let g:neoterm_statusline=""
