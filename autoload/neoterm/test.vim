@@ -42,7 +42,9 @@ function! neoterm#test#rerun()
 endfunction
 
 function! s:run(command)
-  call g:neoterm.test.instance().clear()
+  if !exists("g:neoterm_no_clear")
+    call g:neoterm.test.instance().clear()
+  end
   call g:neoterm.test.instance().exec([a:command, g:neoterm_eof])
   let g:neoterm_statusline = g:neoterm_test_status.running
 
