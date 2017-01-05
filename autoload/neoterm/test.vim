@@ -2,6 +2,9 @@ let g:neoterm.test = {}
 
 function! g:neoterm.test.instance()
   if !has_key(self, "instance_id")
+    echohl WarningMsg
+          \ | echo 'NEOTERM TEST FEATURE IS DEPRECATED AND WILL BE REMOVED ON 05/FEB/2017, PLEASE CONSIDER TO REPLACE IT WITH `vim-test`'
+          \ | echohl None
     if exists("g:neoterm_test_before_all")
       let BeforeAll = function(g:neoterm_test_before_all)
       echom 'neoterm hooked(BeforeAll)'
