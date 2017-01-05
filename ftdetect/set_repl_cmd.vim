@@ -72,7 +72,7 @@ if has('nvim')
     au FileType haskell
           \ if executable('stack') |
           \ call neoterm#repl#set('stack ghci') |
-          \ elif executable('ghci') |
+          \ elseif executable('ghci') |
           \   call neoterm#repl#set('ghci') |
           \ end
     au FileType php
