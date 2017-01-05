@@ -44,7 +44,9 @@ if !exists("g:neoterm_test_libs")
 end
 
 if !exists("g:neoterm_test_lib_primary")
-  let g:neoterm_test_lib_primary = 'minitest'
+  let g:neoterm_test_lib_primary = {
+        \ 'ruby': 'minitest'
+        \ }
 end
 
 if !exists("g:neoterm_position")
