@@ -6,7 +6,7 @@ open terminal.
 REPL commands, opens a terminal and the proper REPL, if it's not opened.
 
 - NeoVim terminal helper functions/commands.
-- ~Wraps some test libs to run easilly within NeoVim terminal.~ *DEPRECATED will be removed on 05/Feb/2017*
+- ~~Wraps some test libs to run easilly within NeoVim terminal.~~ *DEPRECATED will be removed on 05/Feb/2017*
 - Wraps some REPL to receive current line or selection.
 - Many terminals support:
   - ![many-terms](https://cloud.githubusercontent.com/assets/120483/8921869/fe459572-34b1-11e5-93c9-c3b6f3b44719.gif)
