@@ -14,16 +14,8 @@ function! neoterm#window#create(handlers, source)
 
   if a:source == 'test' && g:neoterm_run_tests_bg
     hide
-  elseif g:neoterm_autoinsert
-    startinsert
-  elseif g:neoterm_keep_term_open
-    if win_id
-      call win_gotoid(win_id)
-    else
-      wincmd p
-    end
   else
-    startinsert
+    call s:after_open(win_id)
   end
 endfunction
 
@@ -54,11 +46,15 @@ function! neoterm#window#reopen(buffer_id)
     exec "botright ".g:neoterm_size."vsplit +buffer".a:buffer_id
   end
 
+  call s:after_open(win_id)
+endfunction
+
+function! s:after_open(win_id)
   if g:neoterm_autoinsert
     startinsert
   else
-    if win_id
-      call win_gotoid(win_id)
+    if a:win_id
+      call win_gotoid(a:win_id)
     else
       wincmd p
     end
