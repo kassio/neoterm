@@ -128,7 +128,7 @@ command! -bar -complete=shellcmd Tnew silent call neoterm#tnew()
 command! -bar -complete=shellcmd Topen silent call neoterm#open()
 command! -bar -complete=shellcmd Tclose silent call neoterm#close()
 command! -bar -complete=shellcmd Ttoggle silent call neoterm#toggle()
-command! -bar -complete=shellcmd -nargs=+ T silent call neoterm#do(<q-args>)
+command! -complete=shellcmd -nargs=+ T silent call neoterm#do(<q-args>)
 command! -complete=shellcmd -nargs=+ Tmap silent call neoterm#map_for(<q-args>)
 command! -nargs=1 Tpos let g:neoterm_position=<q-args>
 
