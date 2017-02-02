@@ -54,9 +54,13 @@ function! neoterm#window#reopen(buffer_id)
     exec "botright ".g:neoterm_size."vsplit +buffer".a:buffer_id
   end
 
-  if win_id
-    call win_gotoid(win_id)
+  if g:neoterm_autoinsert
+    startinsert
   else
-    wincmd p
+    if win_id
+      call win_gotoid(win_id)
+    else
+      wincmd p
+    end
   end
 endfunction
