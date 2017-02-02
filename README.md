@@ -6,58 +6,17 @@ open terminal.
 REPL commands, opens a terminal and the proper REPL, if it's not opened.
 
 - NeoVim terminal helper functions/commands.
-- ~~Wraps some test libs to run easilly within NeoVim terminal.~~ *DEPRECATED will be removed on 05/Feb/2017*
 - Wraps some REPL to receive current line or selection.
 - Many terminals support:
   - ![many-terms](https://cloud.githubusercontent.com/assets/120483/8921869/fe459572-34b1-11e5-93c9-c3b6f3b44719.gif)
 
 
-## test libs (DEPRECATED - will be removed on 05/Feb/2017)
+## test libs (removed on 05/Feb/2017)
 
-*This feature will be removed on 05/Feb/2017, please consider to use the
+*This feature was removed on 05/Feb/2017, please consider to use the
 vim-test with `neoterm` strategy to replace this feature*
 
-Run test libs with 3 different scopes:
-
-* all (`neoterm#test#run('all')`):
-
-Run all tests from the current project. For a Rails project with rspec, it's the
-command: `rspec`.
-
-* file (`neoterm#test#run('file')`):
-
-Run the current test file. For a Rails project with rspec, it's the command:
-`rspec spec/path/to/file_spec.rb`.
-
-* current (`neoterm#test#run('current')`):
-
-Run the nearst test in the current test file. For a Rails project with rspec,
-it's the command: `rspec spec/path/to/file_spec.rb:123`.
-
-### test libs supported
-
-* rspec
-  * You can override the default command (`bundle exec rspec`) using the
-    `g:neoterm_rspec_lib_cmd`
-  * Status in statusline supported
-* cucumber
-  * You can override the default command (`bundle exec cucumber`) using the
-    `g:neoterm_cucumber_lib_cmd`
-* minitest
-  * Status in statusline supported
-* rake
-  * it's like minitest but it doesn't support minitest status and uses rake
-  commands like the following:
-    * all: `rake test`
-    * file: `rake test TEST=file`
-    * current: `rake test TEST=file TESTOPTS="--name=\"/test name/\""
-* go-lang test ([partially implemented](https://github.com/kassio/neoterm/pull/8))
-* nose ([partially implemented](https://github.com/kassio/neoterm/pull/9))
-* Cargo ([partially implemented](https://github.com/kassio/neoterm/pull/59))
-* npm
-  * You can override the default command (`npm test`) using the
-    `g:neoterm_npm_lib_cmd`
-* elixir
+- [Related issue](https://github.com/kassio/neoterm/issues/123).
 
 ## REPL
 
@@ -107,58 +66,7 @@ au VimEnter,BufRead,BufNewFile *.lidr set filetype=lidris
 
 ## Contributing
 
-Open a pull request, I'll be glad in review/add new test libs, repls and other
-features to this plugin. :smiley:
-
-### how add a new test lib
-
-A test lib is defined by a function and an autocommand group.
-
-```console
-.nvim/plugged/neoterm/
-▾ autoload/
-  ▾ neoterm/
-    ▾ test/
-        rspec.vim
-▾ ftdetect/
-    rspec.vim
-```
-
-The function (`neoterm#test#<lib_name>#run`) will return the command, by the
-given scope, that will be runned in a terminal window. This function should be
-defined in its own file: `/autoload/neoterm/test/<lib_name>.vim`.
-
-* autoload/neoterm/test/rspec.vim
-```viml
-function! neoterm#test#rspec#run(scope)
-  let path = g:neoterm_use_relative_path ? expand('%') : expand('%:p')
-  let command = 'rspec'
-
-  if a:scope == 'file'
-    let command .= ' ' . path
-  elseif a:scope == 'current'
-    let command .= ' ' . path . ':' . line('.')
-  endif
-
-  return command
-endfunction
-```
-
-The autocommand group will detect when the lib should be available. For example,
-the rspec is available when exists a file `spec/spec_helper.rb` on the current
-folder, or when a file that matches with `*_spec.rb` or `*_feature.rb` is
-opened.
-
-* ftdetect/rspec.vim
-```viml
-aug neoterm_test_rspec
-  au VimEnter,BufRead,BufNewFile *_spec.rb,*_feature.rb call neoterm#test#libs#add('rspec')
-  au VimEnter *
-        \ if filereadable('spec/spec_helper.rb') |
-        \   call neoterm#test#libs#add('rspec') |
-        \ endif
-aug END
-```
+Open a pull request, repls and other features to this plugin. :smiley:
 
 ## example config file:
 
@@ -169,12 +77,6 @@ let g:neoterm_automap_keys = ',tt'
 nnoremap <silent> <f10> :TREPLSendFile<cr>
 nnoremap <silent> <f9> :TREPLSendLine<cr>
 vnoremap <silent> <f9> :TREPLSendSelection<cr>
-
-" run set test lib
-nnoremap <silent> ,rt :call neoterm#test#run('all')<cr>
-nnoremap <silent> ,rf :call neoterm#test#run('file')<cr>
-nnoremap <silent> ,rn :call neoterm#test#run('current')<cr>
-nnoremap <silent> ,rr :call neoterm#test#rerun()<cr>
 
 " Useful maps
 " hide/close terminal

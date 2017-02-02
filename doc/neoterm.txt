@@ -63,18 +63,6 @@ Changes the position where the neoterm terminal buffer will be opened. Values
 accepted: `horizontal` and `vertical`. The default position is `horizontal`,
 but it can be changed in |g:neoterm_position|
 
-:TTestSetTerm <term-id>                                          *:TTestSetTerm*
-
-Chooses, or changes, the current term to run the tests.
-
-:TTestLib <test-lib>                                                 *:TTestLib*
-
-Chooses, or changes, the current test lib.
-
-:TTestClearStatus                                            *:TTestClearStatus*
-
-Clear the test result status on statusline.
-
 :TREPLSetTerm <term-id>                                          *:TREPLSetTerm*
 
 Chooses, or changes, the current term to run the REPL commands.
@@ -123,20 +111,6 @@ The command |:T| executes this function.
 Executes the given command list on a neoterm terminal split. The argument
 follows the same pattern that |jobsend()| second argument.
 
-:call neoterm#test#run(<scope>)                             *neoterm#test#run()*
-
-Executes the current test lib with the given scope. The scopes may be: `all`,
-`file` and `current`.
-
-	1. `all`: Run all tests.
-	2. `file`: Run the current test file.
-	3. `current`: Run the nearest cursor test.
-
-:call neoterm#test#rerun()                                *neoterm#test#rerun()*
-
-Executes the last test command ran. The last test command is recorde on
-`g:neoterm.test.last_command`.
-
 ===============================================================================
 4. Options                      *neoterm-vars* *neoterm-variables* *neoterm-options*
 
@@ -169,47 +143,6 @@ Default value: `0`.
 When set, |:Tnew| command will create the neoterm in a splitted window.
 Default value: `1`.
 
-                                                        *g:neoterm_run_tests_bg*
-
-When set, the neoterm will not open the term split to run tests.
-Default value: `0`.
-
-                                               *g:neoterm_raise_when_tests_fail*
-
-When set, the neoterm will open the its window if the tests break.
-Default value: `0`.
-
-                                               *g:neoterm_focus_when_tests_fail*
-
-When set, the neoterm window will get focused (normal mode).
-Default value: `0`.
-
-                                            *g:neoterm_close_when_tests_succeed*
-
-When set, the neoterm will close its current window if the tests succeed.
-Default value: `0`.
-
-                                                  *g:neoterm_test_status_format*
-
-This string will be used to format the string used in the statusline.
-Default value: `[%s]`.
-
-                                                         *g:neoterm_test_status*
-
-Defines the strings/symbols/emojis used in each test status.
-Default value: `{` `'running'``:` `'RUNNING'``,` `'success'``:` `'SUCCESS'``,` `'failed'``:` `'FAILED'` `}`
-
-                                                     *g:neoterm_test_before_all*
-
-Set a function to be run before loading the terminal for the tests.
-Default value: (empty)
-Example: >
-    " Defines environment variable TEST=1 before running the tests
-    function! BeforeAll()
-      T export TESTING=1
-    endfunction
-    let g:neoterm_test_before_all="BeforeAll"
-<
                                                    *g:neoterm_use_relative_path*
 
 When set, the `%` will always be expanded to the file relative path, instead
@@ -248,21 +181,6 @@ Default value: (empty)
 Sets how neoterm will send the `EOF` character to terminal.
 Default value: ""
 
-                                                              *g:neoterm_no_clear*
-
-When set, the neoterm will keep scrollback history between test runs.
-Default value: (empty)
-
 ===============================================================================
-5. Statusline                                    *neoterm-statusline* *statusline*
-
-To set you neoterm on your statusline, you must add the following:
->
-    set statusline+=%#NeotermTestRunning#%{neoterm#test#status('running')}%*
-    set statusline+=%#NeotermTestSuccess#%{neoterm#test#status('success')}%*
-    set statusline+=%#NeotermTestFailed#%{neoterm#test#status('failed')}%*
-<
-The status values used on statusline may be configurated using
-|g:neoterm_test_status_format| and |g:neoterm_test_status|.
 
 vim: fo= ts=8 sw=8 noet nosta nosr ft=help
