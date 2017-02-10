@@ -210,6 +210,12 @@ Example: >
     endfunction
     let g:neoterm_test_before_all="BeforeAll"
 <
+                                                    *g:neoterm_test_lib_primary*
+
+Sets what the primary test lib will be used, if multiple test lib is exists
+on the same file format.
+Default value: `{` `'ruby'``:` `'minitest'` `}`
+
                                                    *g:neoterm_use_relative_path*
 
 When set, the `%` will always be expanded to the file relative path, instead
