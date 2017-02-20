@@ -16,12 +16,12 @@ endfunction
 
 function! neoterm#repl#handlers()
   return  {
-        \   "on_exit": function("s:test_result_handler")
+        \   "on_exit": function("s:repl_result_handler")
         \ }
 endfunction
 
 
-function! s:test_result_handler(job_id, data, event)
+function! s:repl_result_handler(job_id, data, event)
   let g:neoterm.repl.loaded = 0
 endfunction
 

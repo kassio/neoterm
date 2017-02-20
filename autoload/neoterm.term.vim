@@ -90,10 +90,6 @@ function! g:neoterm.term.destroy()
     call remove(g:neoterm.repl, "instance_id")
   end
 
-  if has_key(g:neoterm, "test") && get(g:neoterm.test, "instance_id") == self.id
-    call remove(g:neoterm.test, "instance_id")
-  end
-
   if has_key(g:neoterm.instances, self.id)
     call self.close()
     call remove(g:neoterm.instances, self.id)
