@@ -119,11 +119,6 @@ hi! NeotermTestRunning ctermfg=11 ctermbg=0
 hi! NeotermTestSuccess ctermfg=2 ctermbg=0
 hi! NeotermTestFailed ctermfg=1 ctermbg=0
 
-aug neoterm_setup
-  au!
-  au TermOpen term://*neoterm* setlocal nonumber norelativenumber
-aug END
-
 command! -bar -complete=shellcmd Tnew silent call neoterm#tnew()
 command! -bar -complete=shellcmd Topen silent call neoterm#open()
 command! -bar -complete=shellcmd Tclose silent call neoterm#close()

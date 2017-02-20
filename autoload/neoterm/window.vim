@@ -50,6 +50,8 @@ function! neoterm#window#reopen(buffer_id)
 endfunction
 
 function! s:after_open(win_id)
+  setlocal nonumber norelativenumber
+
   if g:neoterm_autoinsert
     startinsert
   else
