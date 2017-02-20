@@ -84,5 +84,10 @@ if has('nvim')
           \ elseif executable('php') |
           \   call neoterm#repl#set('php -a') |
           \ end
+    " Clojure
+    au FileType clojure
+          \ if executable('lein') |
+          \   call neoterm#repl#set('lein repl') |
+          \ end
   aug END
 end
