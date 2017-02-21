@@ -22,12 +22,10 @@ endfunction
 
 " Internal: Creates a new neoterm buffer, or opens if it already exists.
 function! neoterm#open()
-  if !neoterm#tab_has_neoterm()
-    if !g:neoterm.has_any()
-      call neoterm#new()
-    else
-      call g:neoterm.last().open()
-    end
+  if !neoterm#tab_has_neoterm() && !g:neoterm.has_any()
+    call neoterm#new()
+  else
+    call g:neoterm.last().open()
   end
 endfunction
 
@@ -41,7 +39,6 @@ endfunction
 " Evaluates any "%" inside the command to the full path of the current file.
 function! neoterm#do(command)
   let command = neoterm#expand_cmd(a:command)
-
   call neoterm#exec([command, g:neoterm_eof])
 endfunction
 

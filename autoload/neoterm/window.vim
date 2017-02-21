@@ -5,26 +5,20 @@ function! neoterm#window#create(handlers, source)
     exec "source " . globpath(&rtp, "autoload/neoterm.term.vim")
   end
 
-  if a:source == 'tnew' && !g:neoterm_split_on_tnew
-    call s:term_creator(a:handlers)
-  else
+  if g:neoterm_split_on_tnew || a:source != 'tnew'
     call s:new_split()
-    call s:term_creator(a:handlers)
   end
 
+  call s:term_creator(a:handlers)
   call s:after_open(win_id)
 endfunction
 
 function! s:new_split()
-  let current_window = winnr()
-
   if g:neoterm_position == "horizontal"
     exec "botright".g:neoterm_size." new "
   else
     exec "botright vert".g:neoterm_size." new "
   end
-
-  return current_window
 endfunction
 
 function! s:term_creator(handlers)
