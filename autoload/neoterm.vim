@@ -22,10 +22,12 @@ endfunction
 
 " Internal: Creates a new neoterm buffer, or opens if it already exists.
 function! neoterm#open()
-  if !neoterm#tab_has_neoterm() && !g:neoterm.has_any()
-    call neoterm#new()
-  else
-    call g:neoterm.last().open()
+  if !neoterm#tab_has_neoterm()
+    if !g:neoterm.has_any()
+      call neoterm#new()
+    else
+      call g:neoterm.last().open()
+    end
   end
 endfunction
 
