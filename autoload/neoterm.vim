@@ -85,6 +85,10 @@ function! neoterm#clear()
   silent call g:neoterm.last().clear()
 endfunction
 
+function! neoterm#normal(cmd)
+  silent call g:neoterm.last().normal(a:cmd)
+endfunction
+
 " Internal: Kill current process on neoterm. (Send a <C-c>)
 function! neoterm#kill()
   silent call g:neoterm.last().kill()
