@@ -62,6 +62,9 @@ endfunction
 
 function! g:neoterm.term.exec(command)
   call jobsend(self.job_id, a:command)
+  if g:neoterm_autoscroll
+    call self.normal('G')
+  end
 endfunction
 
 function! g:neoterm.term.clear()

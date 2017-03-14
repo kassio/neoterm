@@ -83,6 +83,10 @@ if !exists("g:neoterm_eof")
   let g:neoterm_eof = ""
 end
 
+if !exists("g:neoterm_autoscroll")
+  let g:neoterm_autoscroll = 0
+end
+
 command! -bar -complete=shellcmd Tnew silent call neoterm#tnew()
 command! -bar -complete=shellcmd Topen silent call neoterm#open()
 command! -bar -complete=shellcmd Tclose silent call neoterm#close()
