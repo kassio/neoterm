@@ -42,7 +42,7 @@ endfunction
 function! g:neoterm.term.normal(cmd)
   let win_id = exists('*win_getid') ? win_getid() : 0
   call self.focus()
-  exec "normal ".a:cmd
+  exec "normal! ".a:cmd
   call win_gotoid(win_id)
 endfunction
 
