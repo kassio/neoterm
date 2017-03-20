@@ -1,6 +1,6 @@
 let g:neoterm.term = {}
 
-function! g:neoterm.term.new(handlers)
+function! g:neoterm.term.new(origin, handlers)
   let id = g:neoterm.next_id()
   let name = ";#neoterm-".id
   let instance = extend(copy(self), {
@@ -8,12 +8,15 @@ function! g:neoterm.term.new(handlers)
         \ })
 
   let instance.handlers = a:handlers
+  let instance.origin = a:origin
 
   let instance.job_id = termopen(g:neoterm_shell . name, instance)
   let instance.buffer_id = bufnr("")
   let g:neoterm.instances[instance.id] = instance
 
   let b:term_title = 'neoterm-'.id
+
+  call instance.mappings()
 
   return instance
 endfunction
@@ -32,7 +35,8 @@ function! g:neoterm.term.mappings()
 endfunction
 
 function! g:neoterm.term.open()
-  call neoterm#window#reopen(self.buffer_id)
+  let self.origin = exists('*win_getid') ? win_getid() : 0
+  call neoterm#window#reopen(self)
 endfunction
 
 function! g:neoterm.term.focus()
@@ -53,6 +57,10 @@ function! g:neoterm.term.close()
     else
       exec self.buffer_id . "bdelete!"
     end
+  end
+
+  if self.origin
+    call win_gotoid(self.origin)
   end
 endfunction
 
