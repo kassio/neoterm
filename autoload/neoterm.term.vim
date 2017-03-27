@@ -1,6 +1,6 @@
 let g:neoterm.term = {}
 
-function! g:neoterm.term.new(handlers)
+function! g:neoterm.term.new(origin, handlers)
   let id = g:neoterm.next_id()
   let name = ";#neoterm-".id
   let instance = extend(copy(self), {
@@ -8,12 +8,15 @@ function! g:neoterm.term.new(handlers)
         \ })
 
   let instance.handlers = a:handlers
+  let instance.origin = a:origin
 
   let instance.job_id = termopen(g:neoterm_shell . name, instance)
   let instance.buffer_id = bufnr("")
   let g:neoterm.instances[instance.id] = instance
 
   let b:term_title = 'neoterm-'.id
+
+  call instance.mappings()
 
   return instance
 endfunction
@@ -32,11 +35,19 @@ function! g:neoterm.term.mappings()
 endfunction
 
 function! g:neoterm.term.open()
-  call neoterm#window#reopen(self.buffer_id)
+  let self.origin = exists('*win_getid') ? win_getid() : 0
+  call neoterm#window#reopen(self)
 endfunction
 
 function! g:neoterm.term.focus()
   exec bufwinnr(self.buffer_id) . "wincmd w"
+endfunction
+
+function! g:neoterm.term.normal(cmd)
+  let win_id = exists('*win_getid') ? win_getid() : 0
+  call self.focus()
+  exec "normal! ".a:cmd
+  call win_gotoid(win_id)
 endfunction
 
 function! g:neoterm.term.close()
@@ -47,6 +58,10 @@ function! g:neoterm.term.close()
       exec self.buffer_id . "bdelete!"
     end
   end
+
+  if self.origin
+    call win_gotoid(self.origin)
+  end
 endfunction
 
 function! g:neoterm.term.do(command)
@@ -55,6 +70,9 @@ endfunction
 
 function! g:neoterm.term.exec(command)
   call jobsend(self.job_id, a:command)
+  if g:neoterm_autoscroll
+    call self.normal('G')
+  end
 endfunction
 
 function! g:neoterm.term.clear()
@@ -88,10 +106,6 @@ endfunction
 function! g:neoterm.term.destroy()
   if has_key(g:neoterm, "repl") && get(g:neoterm.repl, "instance_id") == self.id
     call remove(g:neoterm.repl, "instance_id")
-  end
-
-  if has_key(g:neoterm, "test") && get(g:neoterm.test, "instance_id") == self.id
-    call remove(g:neoterm.test, "instance_id")
   end
 
   if has_key(g:neoterm.instances, self.id)

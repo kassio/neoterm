@@ -1,14 +1,14 @@
 *neoterm* *neoterm.txt*   A neovim's terminal with steroids
 
-	,____,  ,___,____,  ,___, ,_________,____,______,  ,___, ,___,
-	!     \ !   !  ,_! /  _  \!         !  ,_!\      \ !    V    !
-	!   .  \!   !  !_,/  / \  \--,   ,--!  !_, !  !)  !!         !
-	!   !\  `   !  ,_!  +   +  ! !   !  !  ,_! !     / !   !V!   !
-	!   ! \     !  !_,\  \_/  /  !   !  !  !_, !  .  \ !   ! !   !
+	,____,	,___,____,  ,___, ,_________,____,______,  ,___, ,___,
+	!     \ !   !  ,_! /  _  \!	    !  ,_!\	 \ !	V    !
+	!   .  \!   !  !_,/  / \  \--,	 ,--!  !_, !  !)  !!	     !
+	!   !\	`   !  ,_!  +	+  ! !	 !  !  ,_! !	 / !   !V!   !
+	!   ! \     !  !_,\  \_/  /  !	 !  !  !_, !  .  \ !   ! !   !
 	!___!  \____!____! \_____/   !___!  !____! !__|\__\!___! !___!
 
 ===============================================================================
-CONTENTS                                                      *neoterm-contents*
+CONTENTS						      *neoterm-contents*
 
 	1. Intro ............................................... |neoterm-intro|
 		1.1 What is neoterm? ................  |neoterm-what-is-neoterm|
@@ -19,14 +19,14 @@ CONTENTS                                                      *neoterm-contents*
 	5. Statusline...................................... |neoterm-statusline|
 
 ===============================================================================
-1. Intro                                                         *neoterm-intro*
+1. Intro							 *neoterm-intro*
 
-1.1 What is neoterm?                                   *neoterm-what-is-neoterm*
+1.1 What is neoterm?				       *neoterm-what-is-neoterm*
 
 neoterm is a neovim's terminal wrapper, its main goal is give an easier way to
 user interact with neovim's terminal.
 
-1.2 Many terms support                              *neoterm-many-terms-support*
+1.2 Many terms support				    *neoterm-many-terms-support*
 
 neoterm is capable to control more than one term by time. To open a new term
 users can use |:Tnew| command. Each neoterm's term has an `ID` (neoterm job's
@@ -39,196 +39,130 @@ same set of commands without any suffix. Those commands will always be
 executed in the last neoterm's term.
 
 ===============================================================================
-2. Commands                                      *neoterm-cmds* *neoterm-commands*
+2. Commands					 *neoterm-cmds* *neoterm-commands*
 
-:T <command>                                                                *:T*
+:T <command>								    *:T*
 
 Executes the given command on a neoterm terminal split. If there is a `%` in
 the given command, this will be expanded to the current file path.
 
-:Tnew                                                                    *:Tnew*
+:Tnew									 *:Tnew*
 
 Opens a new term buffer.
 
-:Tmap <command>                                                          *:Tmap*
+:Tmap <command>								 *:Tmap*
 
 Maps the given command, everytime that the mapping is executed the command is
 sent to a neoterm terminal buffer.
 
 The default mapping is `,tt`, it can be changed in |g:neoterm_automap_keys|
 
-:Tpos <position>                                                         *:Tpos*
+:Tpos <position>							 *:Tpos*
 
 Changes the position where the neoterm terminal buffer will be opened. Values
 accepted: `horizontal` and `vertical`. The default position is `horizontal`,
 but it can be changed in |g:neoterm_position|
 
-:TTestSetTerm <term-id>                                          *:TTestSetTerm*
-
-Chooses, or changes, the current term to run the tests.
-
-:TTestLib <test-lib>                                                 *:TTestLib*
-
-Chooses, or changes, the current test lib.
-
-:TTestClearStatus                                            *:TTestClearStatus*
-
-Clear the test result status on statusline.
-
-:TREPLSetTerm <term-id>                                          *:TREPLSetTerm*
+:TREPLSetTerm <term-id>						 *:TREPLSetTerm*
 
 Chooses, or changes, the current term to run the REPL commands.
 
-:TREPLSendFile                                                  *:TREPLSendFile*
+:TREPLSendFile							*:TREPLSendFile*
 
 Sends the current selection, or current file, to a REPL.
 
-:TREPLSendLine                                                  *:TREPLSendLine*
+:TREPLSendLine							*:TREPLSendLine*
 
 Sends the current line to a REPL.
 
-:TREPLSendSelection                                        *:TREPLSendSelection*
+:TREPLSendSelection					   *:TREPLSendSelection*
 
 Sends the current selection to a REPL.
 
-:Topen                                                                  *:Topen*
+:Topen									*:Topen*
 
 Opens a new, or the current, neoterm terminal split.
 
-:Tclose                                                                *:Tclose*
+:Tclose								       *:Tclose*
 
 Closes, or hides, the current neoterm terminal split. To change if the
-terminal will be kept in background you need to change |g:neoterm_keep_term_open|
+terminal will be kept in background you need to change
+|g:neoterm_keep_term_open|
 
-:Ttoggle                                                              *:Ttoggle*
+:Ttoggle							      *:Ttoggle*
 
 Toggles the last window in the current tab.
 
 ===============================================================================
-3. Functions                                                 *neoterm-functions*
+3. Functions						     *neoterm-functions*
 
-:call neoterm#close()                                          *neoterm#close()*
+:call neoterm#close()					       *neoterm#close()*
 
 Closes, or hides, the current neoterm terminal split according to
 |g:neoterm_keep_term_open|.
 
-:call neoterm#do(<command>)                                       *neoterm#do()*
+:call neoterm#do(<command>)					  *neoterm#do()*
 
 Executes the given command on a neoterm terminal split. If there is a `%` in
 the given command, this will be expanded to the current file path.
 The command |:T| executes this function.
 
-:call neoterm#exec([<command>, ""])                             *neoterm#exec()*
+:call neoterm#exec([<command>, ""])				*neoterm#exec()*
 
 Executes the given command list on a neoterm terminal split. The argument
 follows the same pattern that |jobsend()| second argument.
 
-:call neoterm#test#run(<scope>)                             *neoterm#test#run()*
-
-Executes the current test lib with the given scope. The scopes may be: `all`,
-`file` and `current`.
-
-	1. `all`: Run all tests.
-	2. `file`: Run the current test file.
-	3. `current`: Run the nearest cursor test.
-
-:call neoterm#test#rerun()                                *neoterm#test#rerun()*
-
-Executes the last test command ran. The last test command is recorde on
-`g:neoterm.test.last_command`.
-
 ===============================================================================
-4. Options                      *neoterm-vars* *neoterm-variables* *neoterm-options*
+4. Options			*neoterm-vars* *neoterm-variables* *neoterm-options*
 
-                                                                *g:neoterm_size*
+								*g:neoterm_size*
 
 Set the neoterm terminal split size. The default, empty string, will use half
 of the current window.
 Default value: `''`.
 
-                                                            *g:neoterm_position*
+							    *g:neoterm_position*
 
 Set the neoterm split position. Accepted values: `horizontal` and `vertical`.
 Default value: `horizontal`.
-                                                        *g:neoterm_automap_keys*
+							*g:neoterm_automap_keys*
 
 Key combination to be used with |:Tmap|.
 Default value: `,tt`.
-                                                      *g:neoterm_keep_term_open*
+						      *g:neoterm_keep_term_open*
 
 When set, neoterm terminal will be kept running in background.
 Default value: `1`.
 
-                                                          *g:neoterm_autoinsert*
+							  *g:neoterm_autoinsert*
 
 When set, neoterm will opens in insert mode.
 Default value: `0`.
 
-                                                       *g:neoterm_split_on_tnew*
+						       *g:neoterm_split_on_tnew*
 
 When set, |:Tnew| command will create the neoterm in a splitted window.
 Default value: `1`.
 
-                                                        *g:neoterm_run_tests_bg*
-
-When set, the neoterm will not open the term split to run tests.
-Default value: `0`.
-
-                                               *g:neoterm_raise_when_tests_fail*
-
-When set, the neoterm will open the its window if the tests break.
-Default value: `0`.
-
-                                               *g:neoterm_focus_when_tests_fail*
-
-When set, the neoterm window will get focused (normal mode).
-Default value: `0`.
-
-                                            *g:neoterm_close_when_tests_succeed*
-
-When set, the neoterm will close its current window if the tests succeed.
-Default value: `0`.
-
-                                                  *g:neoterm_test_status_format*
-
-This string will be used to format the string used in the statusline.
-Default value: `[%s]`.
-
-                                                         *g:neoterm_test_status*
-
-Defines the strings/symbols/emojis used in each test status.
-Default value: `{` `'running'``:` `'RUNNING'``,` `'success'``:` `'SUCCESS'``,` `'failed'``:` `'FAILED'` `}`
-
-                                                     *g:neoterm_test_before_all*
-
-Set a function to be run before loading the terminal for the tests.
-Default value: (empty)
-Example: >
-    " Defines environment variable TEST=1 before running the tests
-    function! BeforeAll()
-      T export TESTING=1
-    endfunction
-    let g:neoterm_test_before_all="BeforeAll"
-<
-                                                   *g:neoterm_use_relative_path*
+						   *g:neoterm_use_relative_path*
 
 When set, the `%` will always be expanded to the file relative path, instead
 of its absolute path.
 Default value: 0
 
-                                                           *g:neoterm_repl_ruby*
+							   *g:neoterm_repl_ruby*
 
 Sets what ruby REPl will be used.
 Default value: irb
 
-                                                         *g:neoterm_repl_python*
+							 *g:neoterm_repl_python*
 
 Sets what python REPL will be used, and any arguments to be passed to it.
 Defaults to an empty string, in which case NeoTerm will fall back to IPython
 followed by Python.
 Default value: (empty)
 
-                                                      *g:neoterm_repl_octave_qt*
+						      *g:neoterm_repl_octave_qt*
 
 When set, the Octave REPL will use Qt widgets for plots, dialogs, etc.
 Internally, this means the REPL is set to `octave` `--no-gui`. Otherwise the
@@ -236,28 +170,24 @@ REPL is set to `octave-cli`. This setting is for Octave 4 and has no effect
 for Octave 3 users.
 Default value: `0`
 
-                                                         *g:neoterm_repl_php*
+							    *g:neoterm_repl_php*
 
 Sets what php REPL will be used, and any arguments to be passed to it.
 Defaults to an empty string, in which case NeoTerm will fall back to psysh
 followed by php.
 Default value: (empty)
 
-                                                              *g:neoterm_eof*
+								 *g:neoterm_eof*
 
 Sets how neoterm will send the `EOF` character to terminal.
 Default value: ""
 
+							  *g:neoterm_autoscroll*
+
+When set to `1` neoterm will scroll to the end of its buffer after running any
+command.
+Default value: `0`
+
 ===============================================================================
-5. Statusline                                    *neoterm-statusline* *statusline*
 
-To set you neoterm on your statusline, you must add the following:
->
-    set statusline+=%#NeotermTestRunning#%{neoterm#test#status('running')}%*
-    set statusline+=%#NeotermTestSuccess#%{neoterm#test#status('success')}%*
-    set statusline+=%#NeotermTestFailed#%{neoterm#test#status('failed')}%*
-<
-The status values used on statusline may be configurated using
-|g:neoterm_test_status_format| and |g:neoterm_test_status|.
-
-vim: fo= ts=8 sw=8 noet nosta nosr ft=help
+vim:fo=:ts=8:sw=4:et:tw=78:norl:nosta:nosr:ft=help

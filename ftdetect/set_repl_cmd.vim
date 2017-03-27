@@ -70,7 +70,9 @@ if has('nvim')
           \ end
     " Haskell
     au FileType haskell
-          \ if executable('ghci') |
+          \ if executable('stack') |
+          \ call neoterm#repl#set('stack ghci') |
+          \ elseif executable('ghci') |
           \   call neoterm#repl#set('ghci') |
           \ end
     au FileType php
@@ -81,6 +83,11 @@ if has('nvim')
           \   call neoterm#repl#set('psysh') |
           \ elseif executable('php') |
           \   call neoterm#repl#set('php -a') |
+          \ end
+    " Clojure
+    au FileType clojure
+          \ if executable('lein') |
+          \   call neoterm#repl#set('lein repl') |
           \ end
   aug END
 end

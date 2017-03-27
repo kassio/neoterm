@@ -41,7 +41,6 @@ endfunction
 " Evaluates any "%" inside the command to the full path of the current file.
 function! neoterm#do(command)
   let command = neoterm#expand_cmd(a:command)
-
   call neoterm#exec([command, g:neoterm_eof])
 endfunction
 
@@ -84,6 +83,10 @@ endfunction
 " Internal: Clear the current neoterm buffer. (Send a <C-l>)
 function! neoterm#clear()
   silent call g:neoterm.last().clear()
+endfunction
+
+function! neoterm#normal(cmd)
+  silent call g:neoterm.last().normal(a:cmd)
 endfunction
 
 " Internal: Kill current process on neoterm. (Send a <C-c>)
