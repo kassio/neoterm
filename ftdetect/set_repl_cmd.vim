@@ -89,5 +89,15 @@ if has('nvim')
           \ if executable('lein') |
           \   call neoterm#repl#set('lein repl') |
           \ end
+    " Lua
+    au FileType lua
+          \ if executable('luap') |
+          \   let s:lua_repl='luap' |
+          \ elseif executable('lua') |
+          \   let s:lua_repl='lua' |
+          \ endif |
+          \ if executable('luarocks') && exists("s:lua_repl") |
+          \   call neoterm#repl#set(s:lua_repl . " -l\"luarocks.require\"") |
+          \ endif
   aug END
 end
