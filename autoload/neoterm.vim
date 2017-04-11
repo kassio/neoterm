@@ -89,6 +89,10 @@ function! neoterm#normal(cmd)
   silent call g:neoterm.last().normal(a:cmd)
 endfunction
 
+function! neoterm#vim_exec(cmd)
+  silent call g:neoterm.last().vim_exec(a:cmd)
+endfunction
+
 " Internal: Kill current process on neoterm. (Send a <C-c>)
 function! neoterm#kill()
   silent call g:neoterm.last().kill()
