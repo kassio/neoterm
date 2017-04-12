@@ -46,7 +46,16 @@ function! neoterm#repl#selection()
   let lines = getline(lnum1, lnum2)
   let lines[-1] = lines[-1][:col2 - 1]
   let lines[0] = lines[0][col1 - 1:]
+
+  if g:neoterm_repl_python_cpaste
+    call g:neoterm.repl.exec(['%cpaste -q', ''])
+    execute 'sleep '.g:neoterm_repl_python_cpaste_timings.'m'
+  end
   call g:neoterm.repl.exec(lines)
+  if g:neoterm_repl_python_cpaste
+    execute 'sleep '.g:neoterm_repl_python_cpaste_timings.'m'
+    call g:neoterm.repl.exec(['--'])
+  endif
 endfunction
 
 " Internal: Executes the current line within a REPL.
@@ -60,6 +69,9 @@ function! g:neoterm.repl.exec(command)
   if !self.loaded
     if !empty(get(g:, "neoterm_repl_command", ""))
       call self.instance().do(g:neoterm_repl_command)
+    end
+    if g:neoterm_repl_startup_time > 0
+      execute 'sleep '.g:neoterm_repl_startup_time.'m'
     end
     let self.loaded = 1
   end
