@@ -13,12 +13,14 @@ function! neoterm#window#create(handlers, source)
   call s:after_open(origin)
 endfunction
 
-function! s:new_split()
+function! s:new_split(...)
   if g:neoterm_position == "horizontal"
-    exec "botright".g:neoterm_size." new "
+    let cmd = "botright".g:neoterm_size." new "
   else
-    exec "botright vert".g:neoterm_size." new "
+    let cmd = "botright".g:neoterm_size." vnew "
   end
+
+  exec a:0 ? cmd." +buffer".a:1 : cmd
 endfunction
 
 function! s:term_creator(handlers, origin)
@@ -29,17 +31,17 @@ endfunction
 function! neoterm#window#reopen(instance)
   let origin = exists('*win_getid') ? win_getid() : 0
 
-  if g:neoterm_position == "horizontal"
-    exec "botright ".g:neoterm_size."split +buffer".a:instance.buffer_id
-  else
-    exec "botright ".g:neoterm_size."vsplit +buffer".a:instance.buffer_id
-  end
+  call s:new_split(a:instance.buffer_id)
 
   call s:after_open(a:instance.origin)
 endfunction
 
 function! s:after_open(origin)
   setlocal nonumber norelativenumber
+
+  if g:neoterm_fixedsize
+    setlocal winfixheight winfixwidth
+  end
 
   if g:neoterm_autoinsert
     startinsert

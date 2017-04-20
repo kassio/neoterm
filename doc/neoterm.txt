@@ -188,6 +188,13 @@ When set to `1` neoterm will scroll to the end of its buffer after running any
 command.
 Default value: `0`
 
+							   *g:neoterm_fixedsize*
+
+When set to `1` neoterm will fix the height and width of its window with
+`winfixheight` and `winfixwidth`. This option only works when the
+|g:neoterm_size| is set.
+Default value: `0`
+
 ===============================================================================
 
 vim:fo=:ts=8:sw=4:et:tw=78:norl:nosta:nosr:ft=help
