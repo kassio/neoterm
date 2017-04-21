@@ -89,6 +89,10 @@ Closes, or hides, the current neoterm terminal split. To change if the
 terminal will be kept in background you need to change
 |g:neoterm_keep_term_open|
 
+:TcloseAll                     				            *:TcloseAll*
+
+Call |:Tclose| for each neoterm instance.
+
 :Ttoggle							      *:Ttoggle*
 
 Toggles the last window in the current tab.

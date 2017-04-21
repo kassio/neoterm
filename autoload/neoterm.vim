@@ -37,6 +37,12 @@ function! neoterm#close()
   end
 endfunction
 
+function! neoterm#closeAll()
+  for instance in values(g:neoterm.instances)
+    call instance.close()
+  endfor
+end
+
 " Public: Executes a command on terminal.
 " Evaluates any "%" inside the command to the full path of the current file.
 function! neoterm#do(command)
