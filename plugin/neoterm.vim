@@ -88,7 +88,7 @@ if !exists("g:neoterm_autoscroll")
 end
 
 if !exists("g:neoterm_fixedsize")
-  let g:neoterm_autoscroll = 0
+  let g:neoterm_fixedsize = 0
 end
 
 command! -bar -complete=shellcmd Tnew silent call neoterm#tnew()
