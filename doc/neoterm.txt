@@ -129,10 +129,18 @@ Default value: `''`.
 
 Set the neoterm split position. Accepted values: `horizontal` and `vertical`.
 Default value: `horizontal`.
+
 							*g:neoterm_automap_keys*
 
 Key combination to be used with |:Tmap|.
 Default value: `,tt`.
+
+                                                    *g:neoterm_open_in_all_tabs*
+
+When set, neoterm terminal will open a window on each tab it's called. Set it
+to `0` if you don't want to open the new term on each tab.
+Default value: `1`.
+
 						      *g:neoterm_keep_term_open*
 
 When set, neoterm terminal will be kept running in background.

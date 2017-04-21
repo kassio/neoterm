@@ -91,6 +91,10 @@ if !exists("g:neoterm_fixedsize")
   let g:neoterm_fixedsize = 0
 end
 
+if !exists("g:neoterm_open_in_all_tabs")
+  let g:neoterm_open_in_all_tabs = 0
+end
+
 command! -bar -complete=shellcmd Tnew silent call neoterm#tnew()
 command! -bar Topen silent call neoterm#open()
 command! -bar Tclose silent call neoterm#close()

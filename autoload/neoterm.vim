@@ -53,7 +53,10 @@ endfunction
 " Internal: Loads a terminal, if it is not loaded, and execute a list of
 " commands.
 function! neoterm#exec(command)
-  call neoterm#open()
+  if !g:neoterm.has_any() || g:neoterm_open_in_all_tabs
+    call neoterm#open()
+  end
+
   call g:neoterm.last().exec(a:command)
 endfunction
 
