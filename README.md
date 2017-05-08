@@ -41,10 +41,6 @@ vim-test with `neoterm` strategy to replace this feature*
 * PHP: `psysh` and `php`
 
 ### Troubleshooting
-The REPL is set using the filetype plugin so make sure to set
-```viml
-filetype plugin on
-```
 
 Most standard file extensions for the above REPLs are picked up by Neovim's default
 filetype plugins. However, there are two exceptions:
