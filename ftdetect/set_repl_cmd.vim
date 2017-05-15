@@ -104,5 +104,14 @@ if has('nvim')
           \ if executable('tclsh') |
           \   call neoterm#repl#set('tclsh') |
           \ endif
+    " Standard ML (SML)
+    au FileType sml
+          \ if executable('sml') |
+          \   if executable('rlwrap') |
+          \     call neoterm#repl#set('rlwrap sml') |
+          \   else |
+          \     call neoterm#repl#set('sml') |
+          \   endif |
+          \ endif
   aug END
 end
