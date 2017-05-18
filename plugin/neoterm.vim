@@ -97,8 +97,8 @@ end
 
 command! -bar -complete=shellcmd Tnew silent call neoterm#tnew()
 command! -bar Topen silent call neoterm#open()
-command! -bar Tclose silent call neoterm#close()
-command! -bar TcloseAll silent call neoterm#closeAll()
+command! -bang -bar Tclose silent call neoterm#close(<bang>0)
+command! -bang -bar TcloseAll silent call neoterm#closeAll(<bang>0)
 command! -bar Ttoggle silent call neoterm#toggle()
 command! -complete=shellcmd -nargs=+ T silent call neoterm#do(<q-args>)
 command! -complete=shellcmd -nargs=+ Tmap silent call neoterm#map_for(<q-args>)

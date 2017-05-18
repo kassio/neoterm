@@ -57,9 +57,10 @@ function! g:neoterm.term.normal(cmd)
   call win_gotoid(win_id)
 endfunction
 
-function! g:neoterm.term.close()
+function! g:neoterm.term.close(...)
+  let force = get(a:, "1", 0)
   if bufwinnr(self.buffer_id) > 0
-    if g:neoterm_keep_term_open
+    if g:neoterm_keep_term_open && !force
       exec bufwinnr(self.buffer_id) . "hide"
     else
       exec self.buffer_id . "bdelete!"
