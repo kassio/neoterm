@@ -83,15 +83,20 @@ Sends the current selection to a REPL.
 
 Opens a new, or the current, neoterm terminal split.
 
-:Tclose								       *:Tclose*
+:Tclose[!]							       *:Tclose*
 
 Closes, or hides, the current neoterm terminal split. To change if the
 terminal will be kept in background you need to change
-|g:neoterm_keep_term_open|
+|g:neoterm_keep_term_open|.
 
-:TcloseAll                     				            *:TcloseAll*
+When the [!] is included the |g:neoterm_keep_term_open| is ignored and the
+neoterm buffer is deleted.
+
+:TcloseAll[!]                  				            *:TcloseAll*
 
 Call |:Tclose| for each neoterm instance.
+
+When the [!] is included `:Tclose!`(with the bang) is called.
 
 :Ttoggle							      *:Ttoggle*
 

@@ -37,9 +37,10 @@ function! neoterm#close()
   end
 endfunction
 
-function! neoterm#closeAll()
+function! neoterm#closeAll(...)
+  let force = get(a:, "1", 0)
   for instance in values(g:neoterm.instances)
-    call instance.close()
+    call instance.close(force)
   endfor
 endfunction
 
