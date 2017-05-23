@@ -58,18 +58,23 @@ function! g:neoterm.term.normal(cmd)
 endfunction
 
 function! g:neoterm.term.close(...)
-  let force = get(a:, "1", 0)
-  if bufwinnr(self.buffer_id) > 0
-    if g:neoterm_keep_term_open && !force
-      exec bufwinnr(self.buffer_id) . "hide"
-    else
-      exec self.buffer_id . "bdelete!"
+  try
+    let force = get(a:, "1", 0)
+    if bufwinnr(self.buffer_id) > 0
+      if g:neoterm_keep_term_open && !force
+        exec bufwinnr(self.buffer_id) . "hide"
+      else
+        exec self.buffer_id . "bdelete!"
+      end
     end
-  end
 
-  if self.origin
-    call win_gotoid(self.origin)
-  end
+    if self.origin
+      call win_gotoid(self.origin)
+    end
+  catch /^Vim\%((\a\+)\)\=:E444/
+    " noop
+    " Avoid messages when the terminal is the last window
+  endtry
 endfunction
 
 function! g:neoterm.term.do(command)
