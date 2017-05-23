@@ -31,9 +31,10 @@ function! neoterm#open()
   end
 endfunction
 
-function! neoterm#close()
+function! neoterm#close(...)
+  let force = get(a:, "1", 0)
   if g:neoterm.has_any()
-    call g:neoterm.last().close()
+    call g:neoterm.last().close(force)
   end
 endfunction
 
