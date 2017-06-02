@@ -135,6 +135,12 @@ Default value: `''`.
 Set the neoterm split position. Accepted values: `horizontal` and `vertical`.
 Default value: `horizontal`.
 
+							    *g:neoterm_direct_open_repl*
+
+When set, neoterm terminal will open directly to the set repl rather than
+using the shell as an intermediary.
+Default value: `0`.
+
 							*g:neoterm_automap_keys*
 
 Key combination to be used with |:Tmap|.

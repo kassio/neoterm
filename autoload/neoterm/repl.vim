@@ -57,7 +57,7 @@ endfunction
 
 " Internal: Open the REPL, if needed, and executes the given command.
 function! g:neoterm.repl.exec(command)
-  if !self.loaded
+  if !self.loaded && !g:neoterm_direct_open_repl
     if !empty(get(g:, "neoterm_repl_command", ""))
       call self.instance().do(g:neoterm_repl_command)
     end

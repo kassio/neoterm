@@ -10,7 +10,12 @@ function! g:neoterm.term.new(origin, handlers)
   let instance.handlers = a:handlers
   let instance.origin = a:origin
 
-  let instance.job_id = termopen(g:neoterm_shell . name, instance)
+  if g:neoterm_direct_open_repl
+      let instance.job_id = termopen(g:neoterm_repl_command . name, instance)
+  else
+      let instance.job_id = termopen(g:neoterm_shell . name, instance)
+  end
+
   let instance.buffer_id = bufnr("")
   let g:neoterm.instances[instance.id] = instance
 
