@@ -29,10 +29,10 @@ endfunction
 function! g:neoterm.term.mappings()
   if has_key(g:neoterm.instances, self.id)
     let instance = "g:neoterm.instances.".self.id
-    exec "command! -complete=shellcmd Topen".self.id." silent call ".instance.".open()"
-    exec "command! -complete=shellcmd Tclose".self.id." silent call ".instance.".close()"
-    exec "command! -complete=shellcmd Tclear".self.id." silent call ".instance.".clear()"
-    exec "command! -complete=shellcmd Tkill".self.id." silent call ".instance.".kill()"
+    exec "command! -bar Topen".self.id." silent call ".instance.".open()"
+    exec "command! -bang -bar Tclose".self.id." silent call ".instance.".close(<bang>0)"
+    exec "command! Tclear".self.id." silent call ".instance.".clear()"
+    exec "command! Tkill".self.id." silent call ".instance.".kill()"
     exec "command! -complete=shellcmd -nargs=+ T".self.id." silent call ".instance.".do(<q-args>)"
   else
     echoe "There is no ".self.id." neoterm."
