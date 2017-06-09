@@ -9,14 +9,17 @@ function! neoterm#tnew()
 endfunction
 
 function! neoterm#toggle()
-  if neoterm#tab_has_neoterm()
-    call g:neoterm.last().close()
-  else
-    if g:neoterm.has_any()
-      call g:neoterm.last().open()
+  if g:neoterm.has_any()
+    let instance = g:neoterm.last()
+    let instance.origin = exists('*win_getid') ? win_getid() : 0
+
+    if neoterm#tab_has_neoterm()
+      call instance.close()
     else
-      call neoterm#new()
+      call instance.open()
     end
+  else
+    call neoterm#new()
   end
 endfunction
 
@@ -32,15 +35,21 @@ function! neoterm#open()
 endfunction
 
 function! neoterm#close(...)
+  let instance = g:neoterm.last()
+  let instance.origin = exists('*win_getid') ? win_getid() : 0
+
   let force = get(a:, "1", 0)
   if g:neoterm.has_any()
-    call g:neoterm.last().close(force)
+    call instance.close(force)
   end
 endfunction
 
 function! neoterm#closeAll(...)
+  let origin = exists('*win_getid') ? win_getid() : 0
+
   let force = get(a:, "1", 0)
   for instance in values(g:neoterm.instances)
+    let instance.origin = origin
     call instance.close(force)
   endfor
 endfunction

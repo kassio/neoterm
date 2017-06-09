@@ -66,10 +66,10 @@ function! g:neoterm.term.close(...)
   try
     let force = get(a:, "1", 0)
     if bufwinnr(self.buffer_id) > 0
-      if g:neoterm_keep_term_open && !force
-        exec bufwinnr(self.buffer_id) . "hide"
-      else
+      if force || !g:neoterm_keep_term_open
         exec self.buffer_id . "bdelete!"
+      else
+        exec bufwinnr(self.buffer_id) . "hide"
       end
     end
 
