@@ -104,6 +104,7 @@ command! -bar Topen silent call neoterm#open()
 command! -bang -bar Tclose silent call neoterm#close(<bang>0)
 command! -bang -bar TcloseAll silent call neoterm#closeAll(<bang>0)
 command! -bar Ttoggle silent call neoterm#toggle()
+command! -bar TtoggleAll silent call neoterm#toggleAll()
 command! -complete=shellcmd -nargs=+ T silent call neoterm#do(<q-args>)
 command! -complete=shellcmd -nargs=+ Tmap silent call neoterm#map_for(<q-args>)
 command! -nargs=1 Tpos let g:neoterm_position=<q-args>

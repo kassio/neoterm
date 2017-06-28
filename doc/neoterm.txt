@@ -102,6 +102,10 @@ When the [!] is included `:Tclose!`(with the bang) is called.
 
 Toggles the last window in the current tab.
 
+:TtoggleAll     						   *:TtoggleAll*
+
+Toggles all neoterm windows in the current tab.
+
 ===============================================================================
 3. Functions						     *neoterm-functions*
 

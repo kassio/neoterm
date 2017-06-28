@@ -9,14 +9,23 @@ function! neoterm#tnew()
 endfunction
 
 function! neoterm#toggle()
+  call s:toggle(g:neoterm.last())
+endfunction
+
+function! neoterm#toggleAll()
+  for l:instance in values(g:neoterm.instances)
+    call s:toggle(l:instance)
+  endfor
+endfunction
+
+function! s:toggle(instance)
   if g:neoterm.has_any()
-    let instance = g:neoterm.last()
-    let instance.origin = exists('*win_getid') ? win_getid() : 0
+    let a:instance.origin = exists('*win_getid') ? win_getid() : 0
 
     if neoterm#tab_has_neoterm()
-      call instance.close()
+      call a:instance.close()
     else
-      call instance.open()
+      call a:instance.open()
     end
   else
     call neoterm#new()
