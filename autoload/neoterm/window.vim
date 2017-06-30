@@ -1,38 +1,31 @@
 function! neoterm#window#create(handlers, source)
-  let origin = exists('*win_getid') ? win_getid() : 0
+  let l:origin = exists('*win_getid') ? win_getid() : 0
 
-  if !has_key(g:neoterm, "term")
-    exec "source " . globpath(&rtp, "autoload/neoterm.term.vim")
+  if !has_key(g:neoterm, 'term')
+    exec 'source ' . globpath(&runtimepath, 'autoload/neoterm.term.vim')
   end
 
-  if g:neoterm_split_on_tnew || a:source != 'tnew'
+  if g:neoterm_split_on_tnew || a:source !=# 'tnew'
     call s:new_split()
   end
 
-  call s:term_creator(a:handlers, origin)
-  call s:after_open(origin)
+  call s:term_creator(a:handlers, l:origin)
+  call s:after_open(l:origin)
 endfunction
 
 function! s:new_split(...)
-  if g:neoterm_position == "horizontal"
-    let cmd = "botright".g:neoterm_size." new "
-  else
-    let cmd = "botright".g:neoterm_size." vnew "
-  end
+  let l:cmd = printf('botright%s ', g:neoterm_size)
+  let l:cmd .= g:neoterm_position ==# 'horizontal' ? 'new' : 'vnew'
 
-  exec a:0 ? cmd." +buffer".a:1 : cmd
+  exec a:0 ? printf('%s +buffer%s', l:cmd, a:1) : l:cmd
 endfunction
 
 function! s:term_creator(handlers, origin)
-  let instance = g:neoterm.term.new(a:origin, a:handlers)
-  let b:neoterm_id = instance.id
+  let b:neoterm_id = g:neoterm.term.new(a:origin, a:handlers).id
 endfunction
 
 function! neoterm#window#reopen(instance)
-  let origin = exists('*win_getid') ? win_getid() : 0
-
   call s:new_split(a:instance.buffer_id)
-
   call s:after_open(a:instance.origin)
 endfunction
 

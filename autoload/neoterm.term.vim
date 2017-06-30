@@ -1,80 +1,80 @@
 let g:neoterm.term = {}
 
 function! g:neoterm.term.new(origin, handlers)
-  let id = g:neoterm.next_id()
-  let name = ";#neoterm-".id
-  let instance = extend(copy(self), {
-        \ "id": id,
+  let l:id = g:neoterm.next_id()
+  let l:name = ';#neoterm-'.l:id
+  let l:instance = extend(copy(l:self), {
+        \ 'id': l:id,
         \ })
 
-  let instance.handlers = a:handlers
-  let instance.origin = a:origin
+  let l:instance.handlers = a:handlers
+  let l:instance.origin = a:origin
 
   if g:neoterm_direct_open_repl
-    let instance.job_id = termopen(g:neoterm_repl_command . name, instance)
+    let l:instance.job_id = termopen(g:neoterm_repl_command . l:name, l:instance)
   else
-    let instance.job_id = termopen(g:neoterm_shell . name, instance)
+    let l:instance.job_id = termopen(g:neoterm_shell . l:name, l:instance)
   end
 
-  let instance.buffer_id = bufnr("")
-  let g:neoterm.instances[instance.id] = instance
+  let l:instance.buffer_id = bufnr('')
+  let g:neoterm.instances[l:instance.id] = l:instance
 
-  let b:term_title = 'neoterm-'.id
+  let b:term_title = 'neoterm-'.l:id
 
-  call instance.mappings()
+  call l:instance.mappings()
 
-  return instance
+  return l:instance
 endfunction
 
 function! g:neoterm.term.mappings()
-  if has_key(g:neoterm.instances, self.id)
-    let instance = "g:neoterm.instances.".self.id
-    exec "command! -bar Topen".self.id." silent call ".instance.".open()"
-    exec "command! -bang -bar Tclose".self.id." silent call ".instance.".close(<bang>0)"
-    exec "command! Tclear".self.id." silent call ".instance.".clear()"
-    exec "command! Tkill".self.id." silent call ".instance.".kill()"
-    exec "command! -complete=shellcmd -nargs=+ T".self.id." silent call ".instance.".do(<q-args>)"
+  if has_key(g:neoterm.instances, l:self.id)
+    let l:instance = printf('g:neoterm.instances.%s', l:self.id)
+    exec printf('command! -bar Topen%s silent call %s.open()', l:self.id, l:instance)
+    exec printf('command! -bang -bar Tclose%s silent call %s.close(<bang>0)', l:self.id, l:instance)
+    exec printf('command! Tclear%s silent call %s.clear()', l:self.id, l:instance)
+    exec printf('command! Tkill%s silent call %s.kill()', l:self.id, l:instance)
+    exec printf('command! -complete=shellcmd -nargs=+ T%s silent call %s.do(<q-args>)', l:self.id, l:instance)
   else
-    echoe "There is no ".self.id." neoterm."
+    echoe printf('There is no %s neoterm.', l:self.id)
   end
 endfunction
 
 function! g:neoterm.term.open()
-  let self.origin = exists('*win_getid') ? win_getid() : 0
-  call neoterm#window#reopen(self)
+  let l:self.origin = exists('*win_getid') ? win_getid() : 0
+  call neoterm#window#reopen(l:self)
 endfunction
 
 function! g:neoterm.term.focus()
-  exec bufwinnr(self.buffer_id) . "wincmd w"
+  exec printf('%swincmd w', bufwinnr(l:self.buffer_id))
 endfunction
 
 function! g:neoterm.term.vim_exec(cmd)
-  let win_id = exists('*win_getid') ? win_getid() : 0
-  call self.focus()
+  let l:win_id = exists('*win_getid') ? win_getid() : 0
+  call l:self.focus()
   exec a:cmd
-  call win_gotoid(win_id)
+  call win_gotoid(l:win_id)
 endfunction
 
 function! g:neoterm.term.normal(cmd)
-  let win_id = exists('*win_getid') ? win_getid() : 0
-  call self.focus()
-  exec "normal! ".a:cmd
-  call win_gotoid(win_id)
+  let l:win_id = exists('*win_getid') ? win_getid() : 0
+  call l:self.focus()
+  exec printf('normal! %s', a:cmd)
+  call win_gotoid(l:win_id)
 endfunction
 
 function! g:neoterm.term.close(...)
   try
-    let force = get(a:, "1", 0)
-    if bufwinnr(self.buffer_id) > 0
-      if force || !g:neoterm_keep_term_open
-        exec self.buffer_id . "bdelete!"
+    let l:force = get(a:, '1', 0)
+    if bufwinnr(l:self.buffer_id) > 0
+      if l:force || !g:neoterm_keep_term_open
+        exec printf('%sbdelete!', l:self.buffer_id)
       else
-        exec bufwinnr(self.buffer_id) . "hide"
+        exec printf('%shide', bufwinnr(l:self.buffer_id))
       end
     end
 
-    if self.origin
-      call win_gotoid(self.origin)
+    if l:self.origin
+      call win_gotoid(l:self.origin)
     end
   catch /^Vim\%((\a\+)\)\=:E444/
     " noop
@@ -83,52 +83,52 @@ function! g:neoterm.term.close(...)
 endfunction
 
 function! g:neoterm.term.do(command)
-  call self.exec([a:command, g:neoterm_eof])
+  call l:self.exec([a:command, g:neoterm_eof])
 endfunction
 
 function! g:neoterm.term.exec(command)
-  call jobsend(self.job_id, a:command)
+  call jobsend(l:self.job_id, a:command)
   if g:neoterm_autoscroll
-    call self.normal('G')
+    call l:self.normal('G')
   end
 endfunction
 
 function! g:neoterm.term.clear()
-  call self.exec("\<c-l>")
+  call l:self.exec("\<c-l>")
 endfunction
 
 function! g:neoterm.term.kill()
-  call self.exec("\<c-c>")
+  call l:self.exec("\<c-c>")
 endfunction
 
 function! g:neoterm.term.on_stdout(job_id, data, event)
-  if has_key(self.handlers, "on_stdout")
-    call self.handlers["on_stdout"](a:job_id, a:data, a:event)
+  if has_key(l:self.handlers, 'on_stdout')
+    call l:self.handlers['on_stdout'](a:job_id, a:data, a:event)
   end
 endfunction
 
 function! g:neoterm.term.on_stderr(job_id, data, event)
-  if has_key(self.handlers, "on_stderr")
-    call self.handlers["on_stderr"](a:job_id, a:data, a:event)
+  if has_key(l:self.handlers, 'on_stderr')
+    call l:self.handlers['on_stderr'](a:job_id, a:data, a:event)
   end
 endfunction
 
 function! g:neoterm.term.on_exit(job_id, data, event)
-  if has_key(self.handlers, "on_exit")
-    call self.handlers["on_exit"](a:job_id, a:data, a:event)
+  if has_key(l:self.handlers, 'on_exit')
+    call l:self.handlers['on_exit'](a:job_id, a:data, a:event)
   end
 
-  call self.destroy()
+  call l:self.destroy()
 endfunction
 
 function! g:neoterm.term.destroy()
-  if has_key(g:neoterm, "repl") && get(g:neoterm.repl, "instance_id") == self.id
-    call remove(g:neoterm.repl, "instance_id")
+  if has_key(g:neoterm, 'repl') && get(g:neoterm.repl, 'instance_id') ==# l:self.id
+    call remove(g:neoterm.repl, 'instance_id')
   end
 
-  if has_key(g:neoterm.instances, self.id)
-    call self.close()
-    call remove(g:neoterm.instances, self.id)
+  if has_key(g:neoterm.instances, l:self.id)
+    call l:self.close()
+    call remove(g:neoterm.instances, l:self.id)
   end
 
   let g:neoterm.last_id = get(keys(g:neoterm.instances), -1)

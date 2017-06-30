@@ -96,8 +96,8 @@ if has('nvim')
           \ elseif executable('lua') |
           \   let s:lua_repl='lua' |
           \ endif |
-          \ if executable('luarocks') && exists("s:lua_repl") |
-          \   call neoterm#repl#set(s:lua_repl . " -l\"luarocks.require\"") |
+          \ if executable('luarocks') && exists('s:lua_repl') |
+          \   call neoterm#repl#set(s:lua_repl . ' -l"luarocks.require"') |
           \ endif
     " TCL
     au FileType tcl

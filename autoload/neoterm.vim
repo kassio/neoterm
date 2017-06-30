@@ -1,11 +1,11 @@
 " Internal: Creates a new neoterm buffer.
 function! neoterm#new(...)
-  let handlers = len(a:000) ? a:1 : {}
-  call neoterm#window#create(handlers, "")
+  let l:handlers = len(a:000) ? a:1 : {}
+  call neoterm#window#create(l:handlers, '')
 endfunction
 
 function! neoterm#tnew()
-  call neoterm#window#create({}, "tnew")
+  call neoterm#window#create({}, 'tnew')
 endfunction
 
 function! neoterm#toggle()
@@ -44,30 +44,30 @@ function! neoterm#open()
 endfunction
 
 function! neoterm#close(...)
-  let instance = g:neoterm.last()
-  let instance.origin = exists('*win_getid') ? win_getid() : 0
+  let l:instance = g:neoterm.last()
+  let l:instance.origin = exists('*win_getid') ? win_getid() : 0
 
-  let force = get(a:, "1", 0)
+  let l:force = get(a:, '1', 0)
   if g:neoterm.has_any()
-    call instance.close(force)
+    call l:instance.close(l:force)
   end
 endfunction
 
 function! neoterm#closeAll(...)
-  let origin = exists('*win_getid') ? win_getid() : 0
+  let l:origin = exists('*win_getid') ? win_getid() : 0
 
-  let force = get(a:, "1", 0)
-  for instance in values(g:neoterm.instances)
-    let instance.origin = origin
-    call instance.close(force)
+  let l:force = get(a:, '1', 0)
+  for l:instance in values(g:neoterm.instances)
+    let l:instance.origin = l:origin
+    call l:instance.close(l:force)
   endfor
 endfunction
 
 " Public: Executes a command on terminal.
 " Evaluates any "%" inside the command to the full path of the current file.
 function! neoterm#do(command)
-  let command = neoterm#expand_cmd(a:command)
-  call neoterm#exec([command, g:neoterm_eof])
+  let l:command = neoterm#expand_cmd(a:command)
+  call neoterm#exec([l:command, g:neoterm_eof])
 endfunction
 
 " Internal: Loads a terminal, if it is not loaded, and execute a list of
@@ -81,22 +81,22 @@ function! neoterm#exec(command)
 endfunction
 
 function! neoterm#map_for(command)
-  exec "nnoremap <silent> "
+  exec 'nnoremap <silent> '
         \ . g:neoterm_automap_keys .
-        \ " :T " . neoterm#expand_cmd(a:command) . "<cr>"
+        \ ' :T ' . neoterm#expand_cmd(a:command) . '<cr>'
 endfunction
 
 " Internal: Expands "%" in commands to current file full path.
 function! neoterm#expand_cmd(command)
-  let command = substitute(a:command, '%\(:[phtre]\)\+', '\=expand(submatch(0))', "g")
+  let l:command = substitute(a:command, '%\(:[phtre]\)\+', '\=expand(submatch(0))', 'g')
 
   if g:neoterm_use_relative_path
-    let path = expand('%')
+    let l:path = expand('%')
   else
-    let path = expand('%:p')
+    let l:path = expand('%:p')
   end
 
-  return substitute(command, '%', path, "g")
+  return substitute(l:command, '%', l:path, 'g')
 endfunction
 
 " Internal: Open a new split with the current neoterm buffer if there is one.
@@ -104,8 +104,8 @@ endfunction
 " Returns: 1 if a neoterm split is opened, 0 otherwise.
 function! neoterm#tab_has_neoterm()
   if g:neoterm.has_any()
-    let buffer_id = g:neoterm.last().buffer_id
-    return bufexists(buffer_id) > 0 && bufwinnr(buffer_id) != -1
+    let l:buffer_id = g:neoterm.last().buffer_id
+    return bufexists(l:buffer_id) > 0 && bufwinnr(l:buffer_id) != -1
   end
 endfunction
 
