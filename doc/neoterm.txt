@@ -1,4 +1,4 @@
-*neoterm* *neoterm.txt*   A neovim's terminal with steroids
+*neoterm.txt*   A neovim's terminal with steroids
 
 	,____,	,___,____,  ,___, ,_________,____,______,  ,___, ,___,
 	!     \ !   !  ,_! /  _  \!	    !  ,_!\	 \ !	V    !
@@ -139,7 +139,7 @@ Default value: `''`.
 Set the neoterm split position. Accepted values: `horizontal` and `vertical`.
 Default value: `horizontal`.
 
-							    *g:neoterm_direct_open_repl*
+						    *g:neoterm_direct_open_repl*
 
 When set, neoterm terminal will open directly to the set repl rather than
 using the shell as an intermediary.
