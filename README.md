@@ -10,6 +10,57 @@ REPL commands, opens a terminal and the proper REPL, if it's not opened.
 - Many terminals support:
   - ![many-terms](https://cloud.githubusercontent.com/assets/120483/8921869/fe459572-34b1-11e5-93c9-c3b6f3b44719.gif)
 
+## Installation
+
+To install this plugin, you should use one of the following methods.
+For Windows users, replace usage of the Unix `~/.vim` directory with
+`%USERPROFILE%\_vim`, or another directory if you have configured
+Vim differently. On Windows, your `~/.vimrc` file will be similarly
+stored in `%USERPROFILE%\_vimrc`.
+
+### i. Installation with Vundle/Plug.vim/minpac/any other
+
+You can install this plugin using any vim plugin manager by using the path on
+GitHub for this repository:
+
+```vim
+[Plugin|Plug|...] 'kassio/neoterm'
+```
+
+See the your plugin manager documentation for more information.
+
+### ii. Manual Installation
+
+For installation without a package manager, you can clone this git repository
+into a bundle directory as with pathogen, and add the repository to your
+runtime path yourself. First clone the repository.
+
+```console
+cd ~/.vim/bundle
+git clone https://github.com/kassio/neoterm.git
+```
+
+Then, modify your `~/.vimrc` file to add this plugin to your runtime path.
+
+```vim
+set nocompatible
+filetype off
+
+let &runtimepath.=',~/.vim/bundle/neoterm'
+
+filetype plugin on
+```
+
+You can add the following line to generate documentation tags automatically,
+if you don't have something similar already, so you can use the `:help` command
+to consult neoterm's online documentation:
+
+```vim
+silent! helptags ALL
+```
+
+Because the author of this plugin is a weird nerd, this is his preferred
+installation method.
 
 ## test libs (removed on 05/Feb/2017)
 
