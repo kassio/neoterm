@@ -58,7 +58,9 @@ endfunction
 function! g:neoterm.term.normal(cmd)
   let l:win_id = exists('*win_getid') ? win_getid() : 0
   call l:self.focus()
-  exec printf('normal! %s', a:cmd)
+  if b:neoterm_id
+    exec printf('normal! %s', a:cmd)
+  end
   call win_gotoid(l:win_id)
 endfunction
 
