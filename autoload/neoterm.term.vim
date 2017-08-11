@@ -55,7 +55,7 @@ function! g:neoterm.term.focus_exec(cmd)
 endfunction
 
 function! g:neoterm.term.vim_exec(cmd)
-  call l:self.focus({ -> execute(a:cmd) })
+  call l:self.focus_exec({ -> execute(a:cmd) })
 endfunction
 
 function! g:neoterm.term.normal(cmd)
