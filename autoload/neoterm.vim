@@ -114,10 +114,12 @@ function! neoterm#clear()
   silent call g:neoterm.last().clear()
 endfunction
 
+" Only executes if the window is opened.
 function! neoterm#normal(cmd)
   silent call g:neoterm.last().normal(a:cmd)
 endfunction
 
+" Only executes if the window is opened.
 function! neoterm#vim_exec(cmd)
   silent call g:neoterm.last().vim_exec(a:cmd)
 endfunction
