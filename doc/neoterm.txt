@@ -222,6 +222,12 @@ When set to `1` neoterm will fix the height and width of its window with
 |g:neoterm_size| is set.
 Default value: `0`
 
+							   *g:neoterm_auto_repl_cmd*
+
+When set to `1` neoterm will automatically open a terminal window and start the
+REPL for you. If set to `0` it will leave you in the shell.
+Default value: `1`
+
 ===============================================================================
 
 vim:fo=:ts=8:sw=4:et:tw=78:norl:nosta:nosr:ft=help
