@@ -59,7 +59,9 @@ endfunction
 function! g:neoterm.repl.exec(command)
   if !l:self.loaded && !g:neoterm_direct_open_repl
     if !empty(get(g:, 'neoterm_repl_command', ''))
-      call l:self.instance().do(g:neoterm_repl_command)
+      if g:neoterm_auto_repl_cmd
+        call l:self.instance().do(g:neoterm_repl_command)
+      end
     end
     let l:self.loaded = 1
   end
