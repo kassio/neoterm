@@ -42,6 +42,9 @@ endfunction
 function! g:neoterm.term.open()
   let l:self.origin = exists('*win_getid') ? win_getid() : 0
   call neoterm#window#reopen(l:self)
+  if g:neoterm_autoscroll
+    call l:self.normal('G')
+  end
 endfunction
 
 function! g:neoterm.term.focus_exec(cmd)
