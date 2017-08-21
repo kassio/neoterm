@@ -30,6 +30,7 @@ function! neoterm#window#reopen(instance)
 endfunction
 
 function! s:after_open(origin)
+  setf neoterm
   setlocal nonumber norelativenumber
 
   if g:neoterm_fixedsize
