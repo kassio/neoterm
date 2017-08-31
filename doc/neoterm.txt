@@ -212,7 +212,7 @@ Default value: ""
 							  *g:neoterm_autoscroll*
 
 When set to `1` neoterm will scroll to the end of its buffer after running any
-command.
+command or using :TOpen for when the terminal is hidden.
 Default value: `0`
 
 							   *g:neoterm_fixedsize*
