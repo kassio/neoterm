@@ -166,6 +166,13 @@ Default value: `1`.
 When set, neoterm will opens in insert mode.
 Default value: `0`.
 
+							  *g:neoterm_autojump*
+
+When set, neoterm will open in normal mode, and will not go back to the
+previous window.
+When |g:neoterm_autoinsert| is set, this option has no effect.
+Default value: `0`.
+
 						       *g:neoterm_split_on_tnew*
 
 When set, |:Tnew| command will create the neoterm in a splitted window.
