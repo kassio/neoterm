@@ -39,7 +39,7 @@ function! s:after_open(origin)
 
   if g:neoterm_autoinsert
     startinsert
-  else
+  elseif !g:neoterm_autojump
     if a:origin
       call win_gotoid(a:origin)
     else

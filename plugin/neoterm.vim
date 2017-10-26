@@ -59,6 +59,10 @@ if !exists('g:neoterm_autoinsert')
   let g:neoterm_autoinsert = 0
 end
 
+if !exists('g:neoterm_autojump')
+  let g:neoterm_autojump = 0
+endif
+
 if !exists('g:neoterm_split_on_tnew')
   let g:neoterm_split_on_tnew = 1
 end
