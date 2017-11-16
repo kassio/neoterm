@@ -106,6 +106,14 @@ Toggles the last window in the current tab.
 
 Toggles all neoterm windows in the current tab.
 
+:Tnext     						                *:Tnext*
+
+Navigate to the next neoterm instance, works like `:bnext`
+
+:Tprevious             						    *:Tprevious*
+
+Navigate to the previous neoterm instance, works like `:bprevious`
+
 ===============================================================================
 3. Functions						     *neoterm-functions*
 

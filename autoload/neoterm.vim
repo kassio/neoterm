@@ -132,3 +132,43 @@ endfunction
 function! neoterm#list(arg_lead, cmd_line, cursor_pos)
   return filter(keys(g:neoterm.instances), 'v:val =~? "'. a:arg_lead. '"')
 endfunction
+
+function! neoterm#next()
+  function! s:next(buffers, index)
+    let l:next_index = a:index + 1
+    let l:next_index = l:next_index > (len(a:buffers) - 1) ? 0 : l:next_index
+    exec printf('%sbuffer', a:buffers[l:next_index])
+  endfunction
+
+  call s:can_navigate(function('s:next'))
+endfunction
+
+function! neoterm#previous()
+  function! s:previous(buffers, index)
+    let l:previous_index = a:index - 1
+    let l:previous_index = l:previous_index < 0 ? (len(a:buffers) - 1) : l:previous_index
+    exec printf('%sbuffer', a:buffers[l:previous_index])
+  endfunction
+
+  call s:can_navigate(function('s:next'))
+endfunction
+
+function! s:can_navigate(navigate)
+  if &buftype ==? 'terminal'
+    if len(g:neoterm.instances) > 1
+      let l:buffers = map(copy(g:neoterm.instances), { _, instance -> instance.buffer_id })
+      let l:buffers_ids = values(l:buffers)
+      let l:current_buffer = l:buffers[b:neoterm_id]
+      let l:current_index = index(l:buffers_ids, l:current_buffer)
+      let l:hidden = &hidden
+
+      set hidden
+      call a:navigate(l:buffers_ids, l:current_index)
+      let &hidden = l:hidden
+    else
+      echo 'You do not have other terminals'
+    end
+  else
+    echo 'You must be in a terminal to use this command'
+  end
+endfunction
