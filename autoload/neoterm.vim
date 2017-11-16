@@ -150,7 +150,7 @@ function! neoterm#previous()
     exec printf('%sbuffer', a:buffers[l:previous_index])
   endfunction
 
-  call s:can_navigate(function('s:next'))
+  call s:can_navigate(function('s:previous'))
 endfunction
 
 function! s:can_navigate(navigate)
