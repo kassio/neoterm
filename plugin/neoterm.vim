@@ -125,3 +125,11 @@ command! -bar -complete=customlist,neoterm#list -nargs=1 TREPLSetTerm silent cal
 command! -range=% TREPLSendFile silent call neoterm#repl#line(<line1>, <line2>)
 command! -range TREPLSendSelection silent call neoterm#repl#selection()
 command! -range TREPLSendLine silent call neoterm#repl#line(<line1>, <line2>)
+
+function! s:TREPLSendOp(type) abort
+    call neoterm#repl#line(line("'["), line("']"))
+endfunction
+
+nnoremap <silent> <Plug>(neoterm-repl-send) :<c-u>set opfunc=<sid>TREPLSendOp<cr>g@
+xnoremap <silent> <Plug>(neoterm-repl-send) :<c-u>TREPLSendSelection<cr>
+nnoremap <silent> <Plug>(neoterm-repl-send-line) :<c-u>set opfunc=<sid>TREPLSendOp<bar>exe 'norm! 'v:count1.'g@_'<cr>
