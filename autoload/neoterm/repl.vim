@@ -43,6 +43,9 @@ endfunction
 function! neoterm#repl#selection()
   let [l:lnum1, l:col1] = getpos("'<")[1:2]
   let [l:lnum2, l:col2] = getpos("'>")[1:2]
+  if &selection ==# 'exclusive'
+    let l:col2 -= 1
+  endif
   let l:lines = getline(l:lnum1, l:lnum2)
   let l:lines[-1] = l:lines[-1][:l:col2 - 1]
   let l:lines[0] = l:lines[0][l:col1 - 1:]
