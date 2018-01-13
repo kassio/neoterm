@@ -55,6 +55,18 @@ function! neoterm#repl#line(...)
   call g:neoterm.repl.exec(l:lines)
 endfunction
 
+" Internal: Executes within a REPL, use as opfunc with g@.
+function! neoterm#repl#opfunc(type)
+  let [l:lnum1, l:col1] = getpos("'[")[1:2]
+  let [l:lnum2, l:col2] = getpos("']")[1:2]
+  let l:lines = getline(l:lnum1, l:lnum2)
+  if a:type ==# 'char'
+    let l:lines[-1] = l:lines[-1][:l:col2 - 1]
+    let l:lines[0] = l:lines[0][l:col1 - 1:]
+  endif
+  call g:neoterm.repl.exec(l:lines)
+endfunction
+
 " Internal: Open the REPL, if needed, and executes the given command.
 function! g:neoterm.repl.exec(command)
   if !l:self.loaded && !g:neoterm_direct_open_repl
