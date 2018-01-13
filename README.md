@@ -73,6 +73,10 @@ vim-test with `neoterm` strategy to replace this feature*
 
 * `TREPLSend`: sends the current line or the selection to a REPL in a terminal.
 * `TREPLSendFile`: sends the current file to a REPL in a terminal.
+* `<Plug>(neoterm-repl-send)`: sends with text-objects or motions, or sends the
+  selection to a REPL in a terminal.
+* `<Plug>(neoterm-repl-send-line)`: sends the current line to a REPL in a
+  terminal.
 
 ### REPLs supported
 
@@ -124,6 +128,12 @@ let g:neoterm_automap_keys = ',tt'
 nnoremap <silent> <f10> :TREPLSendFile<cr>
 nnoremap <silent> <f9> :TREPLSendLine<cr>
 vnoremap <silent> <f9> :TREPLSendSelection<cr>
+
+" or use keymaps that works with text-objects
+nmap gx <Plug>(neoterm-repl-send)
+xmap gx <Plug>(neoterm-repl-send)
+nmap gxx <Plug>(neoterm-repl-send-line)
+" now can use gx{text-objects} such as gxip
 
 " Useful maps
 " hide/close terminal
