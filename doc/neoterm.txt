@@ -17,6 +17,7 @@ CONTENTS						      *neoterm-contents*
 	3. Functions ....................................... |neoterm-functions|
 	4. Options ........................................... |neoterm-options|
 	5. Statusline...................................... |neoterm-statusline|
+	6. Operators........................................ |neoterm-operators|
 
 ===============================================================================
 1. Intro							 *neoterm-intro*
@@ -242,6 +243,30 @@ Default value: `0`
 When set to `1` neoterm will automatically open a terminal window and start the
 REPL for you. If set to `0` it will leave you in the shell.
 Default value: `1`
+
+===============================================================================
+6. Operators						      *neoterm-operators*
+
+						      *<Plug>(neoterm-repl-send)*
+
+Keymap for sending contents to REPL, works with |text-objects|. For example,
+>
+    " Use gx{text-object} in normal mode
+    nmap gx <Plug>(neoterm-repl-send)
+
+    " Send selected contents in visual mode.
+    xmap gx <Plug>(neoterm-repl-send)
+<
+With those mapping, you could use `gxip` to send a paragraph to REPL, or send
+selected contents with `gx` in visual mode.
+
+						 *<Plug>(neoterm-repl-send-line)*
+
+Like |<Plug>(neoterm-repl-send)|, but for lines. For example,
+>
+    nmap gxx <Plug>(neoterm-repl-send-line)
+<
+Then you could use `gxx` or `2gxx` to send current or 2 lines to REPL.
 
 ===============================================================================
 
