@@ -34,8 +34,7 @@ endfunction
 
 function! s:after_open(origin)
   setf neoterm
-  setlocal nonumber norelativenumber
-  setlocal scrolloff=0 
+  setlocal nonumber norelativenumber scrolloff=0 
 
   if g:neoterm_fixedsize
     setlocal winfixheight winfixwidth
