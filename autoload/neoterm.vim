@@ -1,11 +1,13 @@
 " Internal: Creates a new neoterm buffer.
 function! neoterm#new(...)
-  let l:handlers = len(a:000) ? a:1 : {}
-  call neoterm#window#create(l:handlers, '')
-endfunction
+  let l:args = get(a:, 1, {})
+  let l:options = {
+        \ 'handlers': get(l:args, 'handlers', {}),
+        \ 'source': get(l:args, 'source', ''),
+        \ 'position': get(l:args, 'position', '')
+        \ }
 
-function! neoterm#tnew()
-  call neoterm#window#create({}, 'tnew')
+  call neoterm#window#create(l:options)
 endfunction
 
 function! neoterm#toggle()

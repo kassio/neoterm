@@ -47,9 +47,13 @@ executed in the last neoterm's term.
 Executes the given command on a neoterm terminal split. If there is a `%` in
 the given command, this will be expanded to the current file path.
 
-:Tnew									 *:Tnew*
+:Tnew	        							 *:Tnew*
 
-Opens a new term buffer.
+Opens a new term buffer. This commands accepts an optional mod prefix, for
+example:
+>
+    :vertical Tnew
+<
 
 :Tmap <command>								 *:Tmap*
 

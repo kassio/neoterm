@@ -5,7 +5,7 @@ let g:neoterm.repl = {
 function! g:neoterm.repl.instance()
   if !has_key(l:self, 'instance_id')
     if !g:neoterm.has_any()
-      call neoterm#new(neoterm#repl#handlers())
+      call neoterm#new({'handlers': neoterm#repl#handlers()})
     end
 
     call neoterm#repl#term(g:neoterm.last_id)
