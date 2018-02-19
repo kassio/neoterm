@@ -109,14 +109,6 @@ au VimEnter,BufRead,BufNewFile *.idr set filetype=idris
 au VimEnter,BufRead,BufNewFile *.lidr set filetype=lidris
 ```
 
----
-
-> I want my neoterm to open at bottom, like it use to be, how do I do that?
-
-Put on your init.vim `set splitright splitbelow`. Neoterm should not have
-assumed that in the first place, we stop assuming where you want put your term,
-now you have more control over that.
-
 ## other useful commands:
 
 * `:T <command>`: Opens a terminal, or use an opened terminal, and runs the
