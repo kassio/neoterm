@@ -1,37 +1,25 @@
-function! neoterm#window#create(opts)
+function! neoterm#window#create(handlers, source)
   let l:origin = exists('*win_getid') ? win_getid() : 0
 
   if !has_key(g:neoterm, 'term')
     exec 'source ' . globpath(&runtimepath, 'autoload/neoterm.term.vim')
   end
 
-  if g:neoterm_split_on_tnew || a:opts.source !=# 'tnew'
-    call s:new_split({'position': a:opts.position})
+  if g:neoterm_split_on_tnew || a:source !=# 'tnew'
+    call s:new_split()
   end
 
-  call s:term_creator(a:opts.handlers, l:origin)
+  call s:term_creator(a:handlers, l:origin)
   call s:after_open(l:origin)
 endfunction
 
-function! s:mods(given)
-  if a:given !=# ''
-    return a:given
-  else
-    return g:neoterm_position ==# 'horizontal' ? '' : 'vertical'
-  end
-endfunction
-
-function! s:new_split(opts)
+function! s:new_split(...)
   let l:hidden=&hidden
   let &hidden=0
-  let l:cmd = printf('%s %s new', s:mods(a:opts.position), g:neoterm_size)
+  let l:cmd = printf('botright%s ', g:neoterm_size)
+  let l:cmd .= g:neoterm_position ==# 'horizontal' ? 'new' : 'vnew'
 
-  if get(a:opts, 'buffer', 0) > 0
-    exec printf('%s +buffer%s', l:cmd, a:opts.buffer)
-  else
-    exec l:cmd
-  end
-
+  exec a:0 ? printf('%s +buffer%s', l:cmd, a:1) : l:cmd
   let &hidden=l:hidden
 endfunction
 
@@ -40,7 +28,7 @@ function! s:term_creator(handlers, origin)
 endfunction
 
 function! neoterm#window#reopen(instance)
-  call s:new_split({'buffer': a:instance.buffer_id})
+  call s:new_split(a:instance.buffer_id)
   call s:after_open(a:instance.origin)
 endfunction
 

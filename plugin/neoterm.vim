@@ -107,10 +107,7 @@ if !exists('g:neoterm_auto_repl_cmd')
   let g:neoterm_auto_repl_cmd = 1
 end
 
-command! -bar -complete=shellcmd Tnew silent call neoterm#new({
-      \ 'position': <q-mods>,
-      \ 'source': 'tnew'
-      \ })
+command! -bar -complete=shellcmd Tnew silent call neoterm#tnew()
 command! -bar Topen silent call neoterm#open()
 command! -bang -bar Tclose silent call neoterm#close(<bang>0)
 command! -bang -bar TcloseAll silent call neoterm#closeAll(<bang>0)
