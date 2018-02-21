@@ -13,7 +13,7 @@ function! g:neoterm.term.new(origin, handlers)
   if g:neoterm_direct_open_repl
     let l:instance.job_id = termopen(g:neoterm_repl_command . l:name, l:instance)
   else
-    let l:instance.job_id = termopen(g:neoterm_shell . l:name, l:instance)
+    let l:instance.job_id = termopen(g:neoterm_shell, l:instance)
   end
 
   let l:instance.buffer_id = bufnr('')
