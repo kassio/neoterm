@@ -10,10 +10,18 @@ function! g:neoterm.term.new(origin, handlers)
   let l:instance.handlers = a:handlers
   let l:instance.origin = a:origin
 
-  if g:neoterm_direct_open_repl
-    let l:instance.job_id = termopen(g:neoterm_repl_command . l:name, l:instance)
+  if has('nvim')
+    if g:neoterm_direct_open_repl
+      let l:instance.job_id = termopen(g:neoterm_repl_command . l:name, l:instance)
+    else
+      let l:instance.job_id = termopen(g:neoterm_shell . l:name, l:instance)
+    end
   else
-    let l:instance.job_id = termopen(g:neoterm_shell . l:name, l:instance)
+    if g:neoterm_direct_open_repl
+      let l:instance.job_id = term_start(g:neoterm_repl_command, {'term_name': g:neoterm_shell . l:name, 'curwin': '1'})
+    else
+      let l:instance.job_id = term_start(g:neoterm_shell, {'term_name': g:neoterm_shell . l:name, 'curwin': '1'})
+    end
   end
 
   let l:instance.buffer_id = bufnr('')
@@ -90,7 +98,11 @@ function! g:neoterm.term.do(command)
 endfunction
 
 function! g:neoterm.term.exec(command)
-  call jobsend(l:self.job_id, a:command)
+  if has('nvim')
+    call jobsend(l:self.job_id, a:command)
+  else
+    call term_sendkeys(l:self.job_id, join(a:command,  "\<CR>"))
+  end
   if g:neoterm_autoscroll
     call l:self.normal('G')
   end
