@@ -1,4 +1,4 @@
-if !has('nvim') || get(g:, 'neoterm_loaded', 0)
+if get(g:, 'neoterm_loaded', 0)
   finish
 endif
 
@@ -28,7 +28,7 @@ endfunction
 let g:neoterm_statusline = ''
 
 if !exists('g:neoterm_shell')
-  if exists('&shellcmdflag')
+  if exists('&shellcmdflag') && has('nvim')
     let g:neoterm_shell = &shell . ' ' . substitute(&shellcmdflag, '[-/]c', '', '')
   else
     let g:neoterm_shell = &shell
