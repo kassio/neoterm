@@ -1,6 +1,12 @@
-let g:neoterm.term = {}
+function! neoterm#term#load()
+  if !has_key(g:neoterm, 'term')
+    let g:neoterm.term = s:term
+  end
+endfunction
 
-function! g:neoterm.term.new(origin, handlers)
+let s:term = {}
+
+function! s:term.new(origin, handlers)
   let l:id = g:neoterm.next_id()
   let l:name = ';#neoterm-'.l:id
   let l:instance = extend(copy(l:self), {
@@ -26,7 +32,7 @@ function! g:neoterm.term.new(origin, handlers)
   return l:instance
 endfunction
 
-function! g:neoterm.term.mappings()
+function! s:term.mappings()
   if has_key(g:neoterm.instances, l:self.id)
     let l:instance = printf('g:neoterm.instances.%s', l:self.id)
     exec printf('command! -bar Topen%s silent call %s.open()', l:self.id, l:instance)
@@ -39,7 +45,7 @@ function! g:neoterm.term.mappings()
   end
 endfunction
 
-function! g:neoterm.term.open()
+function! s:term.open()
   let l:self.origin = exists('*win_getid') ? win_getid() : 0
   call neoterm#window#reopen(l:self)
   if g:neoterm_autoscroll
@@ -47,7 +53,7 @@ function! g:neoterm.term.open()
   end
 endfunction
 
-function! g:neoterm.term.focus_exec(cmd)
+function! s:term.focus_exec(cmd)
   let l:winnr = bufwinnr(l:self.buffer_id)
   if l:winnr > 0
     let l:win_id = exists('*win_getid') ? win_getid() : 0
@@ -57,15 +63,15 @@ function! g:neoterm.term.focus_exec(cmd)
   end
 endfunction
 
-function! g:neoterm.term.vim_exec(cmd)
+function! s:term.vim_exec(cmd)
   call l:self.focus_exec({ -> execute(a:cmd) })
 endfunction
 
-function! g:neoterm.term.normal(cmd)
+function! s:term.normal(cmd)
   call l:self.vim_exec(printf('normal! %s', a:cmd))
 endfunction
 
-function! g:neoterm.term.close(...)
+function! s:term.close(...)
   try
     let l:force = get(a:, '1', 0)
     if bufwinnr(l:self.buffer_id) > 0
@@ -85,38 +91,38 @@ function! g:neoterm.term.close(...)
   endtry
 endfunction
 
-function! g:neoterm.term.do(command)
+function! s:term.do(command)
   call l:self.exec([a:command, g:neoterm_eof])
 endfunction
 
-function! g:neoterm.term.exec(command)
+function! s:term.exec(command)
   call jobsend(l:self.job_id, a:command)
   if g:neoterm_autoscroll
     call l:self.normal('G')
   end
 endfunction
 
-function! g:neoterm.term.clear()
+function! s:term.clear()
   call l:self.exec("\<c-l>")
 endfunction
 
-function! g:neoterm.term.kill()
+function! s:term.kill()
   call l:self.exec("\<c-c>")
 endfunction
 
-function! g:neoterm.term.on_stdout(job_id, data, event)
+function! s:term.on_stdout(job_id, data, event)
   if has_key(l:self.handlers, 'on_stdout')
     call l:self.handlers['on_stdout'](a:job_id, a:data, a:event)
   end
 endfunction
 
-function! g:neoterm.term.on_stderr(job_id, data, event)
+function! s:term.on_stderr(job_id, data, event)
   if has_key(l:self.handlers, 'on_stderr')
     call l:self.handlers['on_stderr'](a:job_id, a:data, a:event)
   end
 endfunction
 
-function! g:neoterm.term.on_exit(job_id, data, event)
+function! s:term.on_exit(job_id, data, event)
   if has_key(l:self.handlers, 'on_exit')
     call l:self.handlers['on_exit'](a:job_id, a:data, a:event)
   end
@@ -124,7 +130,7 @@ function! g:neoterm.term.on_exit(job_id, data, event)
   call l:self.destroy()
 endfunction
 
-function! g:neoterm.term.destroy()
+function! s:term.destroy()
   if has_key(g:neoterm, 'repl') && get(g:neoterm.repl, 'instance_id') ==# l:self.id
     call remove(g:neoterm.repl, 'instance_id')
   end

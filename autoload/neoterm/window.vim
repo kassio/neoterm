@@ -1,9 +1,6 @@
 function! neoterm#window#create(handlers, source)
+  call neoterm#term#load()
   let l:origin = exists('*win_getid') ? win_getid() : 0
-
-  if !has_key(g:neoterm, 'term')
-    exec 'source ' . globpath(&runtimepath, 'autoload/neoterm.term.vim')
-  end
 
   if g:neoterm_split_on_tnew || a:source !=# 'tnew'
     call s:new_split()
