@@ -1,13 +1,12 @@
-function! neoterm#term#load()
-  if !has_key(g:neoterm, 'term')
-    let g:neoterm.term = s:term
+function! neoterm#neovim#load()
+  if !has_key(g:neoterm, 'prototype')
+    let g:neoterm.new = function('s:new')
+    let g:neoterm.prototype = s:term
   end
 endfunction
 
-let s:term = {}
-
-function! s:term.new(opts)
-  let l:instance = extend(copy(l:self), a:opts)
+function! s:new(opts)
+  let l:instance = extend(copy(g:neoterm.prototype), a:opts)
   let l:instance.id = g:neoterm.next_id()
   let l:instance.name = printf('neoterm-%s', l:instance.id)
 
@@ -18,27 +17,25 @@ function! s:term.new(opts)
   end
 
   let l:instance.buffer_id = bufnr('')
-  let g:neoterm.instances[l:instance.id] = l:instance
-
   let b:neoterm_id = l:instance.id
   let b:term_title = l:instance.name
 
   call l:instance.mappings()
 
+  let g:neoterm.instances[l:instance.id] = l:instance
+
   return l:instance
 endfunction
 
+let s:term = {}
+
 function! s:term.mappings()
-  if has_key(g:neoterm.instances, l:self.id)
-    let l:instance = printf('g:neoterm.instances.%s', l:self.id)
-    exec printf('command! -bar Topen%s silent call %s.open()', l:self.id, l:instance)
-    exec printf('command! -bang -bar Tclose%s silent call %s.close(<bang>0)', l:self.id, l:instance)
-    exec printf('command! Tclear%s silent call %s.clear()', l:self.id, l:instance)
-    exec printf('command! Tkill%s silent call %s.kill()', l:self.id, l:instance)
-    exec printf('command! -complete=shellcmd -nargs=+ T%s silent call %s.do(<q-args>)', l:self.id, l:instance)
-  else
-    echoe printf('There is no %s neoterm.', l:self.id)
-  end
+  let l:instance = printf('g:neoterm.instances.%s', l:self.id)
+  exec printf('command! -bar Topen%s silent call %s.open()', l:self.id, l:instance)
+  exec printf('command! -bang -bar Tclose%s silent call %s.close(<bang>0)', l:self.id, l:instance)
+  exec printf('command! Tclear%s silent call %s.clear()', l:self.id, l:instance)
+  exec printf('command! Tkill%s silent call %s.kill()', l:self.id, l:instance)
+  exec printf('command! -complete=shellcmd -nargs=+ T%s silent call %s.do(<q-args>)', l:self.id, l:instance)
 endfunction
 
 function! s:term.open()

@@ -6,10 +6,16 @@ function! neoterm#new(...)
         \ 'origin': exists('*win_getid') ? win_getid() : 0
         \ }, 'keep')
 
-  call neoterm#term#load()
+  call s:term_load()
   call s:create_window(l:opts)
-  call g:neoterm.term.new(l:opts)
+  call g:neoterm.new(l:opts)
   call s:after_open(l:opts.origin)
+endfunction
+
+function! s:term_load()
+  if has('nvim')
+    call neoterm#neovim#load()
+  end
 endfunction
 
 function! s:create_window(...)
