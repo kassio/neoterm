@@ -8,7 +8,7 @@ let s:term = {}
 
 function! s:term.new(origin, handlers)
   let l:id = g:neoterm.next_id()
-  let l:name = ';#neoterm-'.l:id
+  let l:name = 'neoterm-'.l:id
   let l:instance = extend(copy(l:self), {
         \ 'id': l:id,
         \ })
@@ -17,15 +17,15 @@ function! s:term.new(origin, handlers)
   let l:instance.origin = a:origin
 
   if g:neoterm_direct_open_repl
-    let l:instance.job_id = termopen(g:neoterm_repl_command . l:name, l:instance)
+    let l:instance.job_id = termopen(g:neoterm_repl_command, l:instance)
   else
-    let l:instance.job_id = termopen(g:neoterm_shell . l:name, l:instance)
+    let l:instance.job_id = termopen(g:neoterm_shell, l:instance)
   end
 
   let l:instance.buffer_id = bufnr('')
   let g:neoterm.instances[l:instance.id] = l:instance
 
-  let b:term_title = 'neoterm-'.l:id
+  let b:term_title = l:name
 
   call l:instance.mappings()
 
