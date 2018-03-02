@@ -1,4 +1,3 @@
-" Internal: Creates a new neoterm buffer.
 function! neoterm#new(...)
   let l:handlers = len(a:000) ? a:1 : {}
   call neoterm#window#create(l:handlers, '')
@@ -32,7 +31,6 @@ function! s:toggle(instance)
   end
 endfunction
 
-" Internal: Creates a new neoterm buffer, or opens if it already exists.
 function! neoterm#open()
   if !neoterm#tab_has_neoterm()
     if !g:neoterm.has_any()
@@ -63,15 +61,11 @@ function! neoterm#closeAll(...)
   endfor
 endfunction
 
-" Public: Executes a command on terminal.
-" Evaluates any "%" inside the command to the full path of the current file.
 function! neoterm#do(command)
   let l:command = neoterm#expand_cmd(a:command)
   call neoterm#exec([l:command, g:neoterm_eof])
 endfunction
 
-" Internal: Loads a terminal, if it is not loaded, and execute a list of
-" commands.
 function! neoterm#exec(command)
   if !g:neoterm.has_any() || g:neoterm_open_in_all_tabs
     call neoterm#open()
@@ -86,7 +80,6 @@ function! neoterm#map_for(command)
         \ ' :T ' . neoterm#expand_cmd(a:command) . '<cr>'
 endfunction
 
-" Internal: Expands "%" in commands to current file full path.
 function! neoterm#expand_cmd(command)
   let l:command = substitute(a:command, '%\(:[phtre]\)\+', '\=expand(submatch(0))', 'g')
 
@@ -99,9 +92,6 @@ function! neoterm#expand_cmd(command)
   return substitute(l:command, '%', l:path, 'g')
 endfunction
 
-" Internal: Open a new split with the current neoterm buffer if there is one.
-"
-" Returns: 1 if a neoterm split is opened, 0 otherwise.
 function! neoterm#tab_has_neoterm()
   if g:neoterm.has_any()
     let l:buffer_id = g:neoterm.last().buffer_id
@@ -109,22 +99,18 @@ function! neoterm#tab_has_neoterm()
   end
 endfunction
 
-" Internal: Clear the current neoterm buffer. (Send a <C-l>)
 function! neoterm#clear()
   silent call g:neoterm.last().clear()
 endfunction
 
-" Only executes if the window is opened.
 function! neoterm#normal(cmd)
   silent call g:neoterm.last().normal(a:cmd)
 endfunction
 
-" Only executes if the window is opened.
 function! neoterm#vim_exec(cmd)
   silent call g:neoterm.last().vim_exec(a:cmd)
 endfunction
 
-" Internal: Kill current process on neoterm. (Send a <C-c>)
 function! neoterm#kill()
   silent call g:neoterm.last().kill()
 endfunction

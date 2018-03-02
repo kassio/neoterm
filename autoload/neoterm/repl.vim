@@ -34,12 +34,10 @@ function! neoterm#repl#term(id)
   end
 endfunction
 
-" Internal: Sets the current REPL command.
 function! neoterm#repl#set(value)
   let g:neoterm_repl_command = a:value
 endfunction
 
-" Internal: Executes the current selection within a REPL.
 function! neoterm#repl#selection()
   let [l:lnum1, l:col1] = getpos("'<")[1:2]
   let [l:lnum2, l:col2] = getpos("'>")[1:2]
@@ -52,13 +50,11 @@ function! neoterm#repl#selection()
   call g:neoterm.repl.exec(l:lines)
 endfunction
 
-" Internal: Executes the current line within a REPL.
 function! neoterm#repl#line(...)
   let l:lines = getline(a:1, a:2)
   call g:neoterm.repl.exec(l:lines)
 endfunction
 
-" Internal: Executes within a REPL, use as opfunc with g@.
 function! neoterm#repl#opfunc(type)
   let [l:lnum1, l:col1] = getpos("'[")[1:2]
   let [l:lnum2, l:col2] = getpos("']")[1:2]
@@ -70,7 +66,6 @@ function! neoterm#repl#opfunc(type)
   call g:neoterm.repl.exec(l:lines)
 endfunction
 
-" Internal: Open the REPL, if needed, and executes the given command.
 function! g:neoterm.repl.exec(command)
   if !l:self.loaded && !g:neoterm_direct_open_repl
     if !empty(get(g:, 'neoterm_repl_command', ''))
