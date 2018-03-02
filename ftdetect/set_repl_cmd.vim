@@ -9,12 +9,25 @@ if has('nvim')
           \   call neoterm#repl#set(g:neoterm_repl_ruby) |
           \ end
     " Python
+    function! s:ipython_preprocess(command)
+      if type(a:command) == v:t_list && len(a:command) > 1
+        let command = a:command
+        " Use bracketed paste to avoid autoindenting lines
+        let command[0] = "\<esc>[200~". command[0]
+        let command[-1] = command[-1] . "\<esc>[201~"
+        " Send an extra line so indented code is fully processed
+        return command + [""]
+      else
+        return a:command
+      endif
+    endfunction
+
     au FileType python
           \ let s:argList = split(g:neoterm_repl_python) |
           \ if len(s:argList) > 0 && executable(s:argList[0]) |
           \   call neoterm#repl#set(g:neoterm_repl_python) |
           \ elseif executable('ipython') |
-          \   call neoterm#repl#set('ipython --no-autoindent') |
+          \   call neoterm#repl#set('ipython --no-autoindent', function('s:ipython_preprocess')) |
           \ elseif executable('python') |
           \   call neoterm#repl#set('python') |
           \ end

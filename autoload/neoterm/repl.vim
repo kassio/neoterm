@@ -34,8 +34,21 @@ function! neoterm#repl#term(id)
   end
 endfunction
 
-function! neoterm#repl#set(value)
+function! neoterm#repl#set(value, ...)
   let g:neoterm_repl_command = a:value
+  if a:0
+    let s:neoterm_repl_preprocessor = a:1
+  else
+    unlet s:neoterm_repl_preprocessor
+  endif
+endfunction
+
+function! s:preprocess(command)
+  if exists('s:neoterm_repl_preprocessor')
+    return s:neoterm_repl_preprocessor(a:command)
+  else
+    return a:command
+  endif
 endfunction
 
 function! neoterm#repl#selection()
@@ -47,23 +60,25 @@ function! neoterm#repl#selection()
   let l:lines = getline(l:lnum1, l:lnum2)
   let l:lines[-1] = l:lines[-1][:l:col2 - 1]
   let l:lines[0] = l:lines[0][l:col1 - 1:]
-  call g:neoterm.repl.exec(l:lines)
+  call g:neoterm.repl.exec(s:preprocess(l:lines))
 endfunction
 
 function! neoterm#repl#line(...)
   let l:lines = getline(a:1, a:2)
-  call g:neoterm.repl.exec(l:lines)
+  call g:neoterm.repl.exec(s:preprocess(l:lines))
 endfunction
 
 function! neoterm#repl#opfunc(type)
   let [l:lnum1, l:col1] = getpos("'[")[1:2]
   let [l:lnum2, l:col2] = getpos("']")[1:2]
   let l:lines = getline(l:lnum1, l:lnum2)
-  if a:type ==# 'char'
-    let l:lines[-1] = l:lines[-1][:l:col2 - 1]
-    let l:lines[0] = l:lines[0][l:col1 - 1:]
+  if len(l:lines)
+    if a:type ==# 'char'
+      let l:lines[-1] = l:lines[-1][:l:col2 - 1]
+      let l:lines[0] = l:lines[0][l:col1 - 1:]
+    endif
+    call g:neoterm.repl.exec(s:preprocess(l:lines))
   endif
-  call g:neoterm.repl.exec(l:lines)
 endfunction
 
 function! g:neoterm.repl.exec(command)
