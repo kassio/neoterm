@@ -20,8 +20,9 @@ function! s:create_window(...)
         \ }, 'keep')
 
   if l:opts.source ==# 'tnew'
-    if l:opts.mod !=# ''
-      exec printf('%s %snew', l:opts.mod, g:neoterm_size)
+    let l:mod = l:opts.mod !=# '' ? l:opts.mod : g:neoterm_tnew_mod
+    if l:mod !=# ''
+      exec printf('%s %snew', l:mod, g:neoterm_size)
     end
   else
     let l:hidden=&hidden

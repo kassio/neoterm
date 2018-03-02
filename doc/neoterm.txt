@@ -176,7 +176,7 @@ Default value: `1`.
 When set, neoterm will opens in insert mode.
 Default value: `0`.
 
-							  *g:neoterm_autojump*
+							    *g:neoterm_autojump*
 
 When set, neoterm will open in normal mode, and will not go back to the
 previous window.
@@ -188,6 +188,13 @@ Default value: `0`.
 DEPRECATED - |:Tnew| now accepts |mods|. |:Tnew| will use current window by
 default, but you can use `:vert Tnew`, for example, to open a new neoterm
 vertical split.
+
+
+						            *g:neoterm_tnew_mod*
+
+When no |mods| is used in |:Tnew| |g:neoterm_tnew_mod| will be used. For
+possible values check `:h mods` .
+Default: empty.
 
 
 						   *g:neoterm_use_relative_path*

@@ -122,4 +122,5 @@ Open a pull request, repls and other features to this plugin. :smiley:
 ## Changelog
 
 * 03/03/2018
-  **DEPRECATE g:neoterm_split_on_tnew** - `:Tnew` now accepts vim mods (`:help mods`).
+  - **DEPRECATE g:neoterm_split_on_tnew** - `:Tnew` now accepts vim mods (`:help mods`).
+  - Introduce `g:neoterm_tnew_mod` to set a default `:Tnew` mod (`:help mods`).
