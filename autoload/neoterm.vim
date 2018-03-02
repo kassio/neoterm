@@ -1,10 +1,9 @@
 function! neoterm#new(...)
-  let l:handlers = len(a:000) ? a:1 : {}
-  call neoterm#window#create(l:handlers, '')
-endfunction
-
-function! neoterm#tnew()
-  call neoterm#window#create({}, 'tnew')
+  let l:opts = extend(get(a:, 1, {}), {
+        \ 'source': '',
+        \ 'handlers': {}
+        \ })
+  call neoterm#window#create(l:opts.handlers, l:opts.source)
 endfunction
 
 function! neoterm#toggle()
