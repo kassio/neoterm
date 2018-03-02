@@ -67,7 +67,7 @@ if exists('g:neoterm_split_on_tnew')
   echoe '*g:neoterm_split_on_tnew* DEPRECATED! see :help g:neoterm_split_on_tnew'
 end
 
-if exists('g:neoterm_tnew_mod')
+if !exists('g:neoterm_tnew_mod')
   let g:neoterm_tnew_mod = ''
 end
 
