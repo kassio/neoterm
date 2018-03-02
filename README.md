@@ -5,7 +5,8 @@ the terminal easily. All commands opens a terminal if it's not open or reuse the
 open terminal.
 REPL commands, opens a terminal and the proper REPL, if it's not opened.
 
-- NeoVim terminal helper functions/commands.
+- Compatible with Vim and NeoVim.
+- Adds functions/commands to Vim or NeoVim.
 - Wraps some REPL to receive current line or selection.
 - Many terminals support:
   - ![many-terms](https://cloud.githubusercontent.com/assets/120483/8921869/fe459572-34b1-11e5-93c9-c3b6f3b44719.gif)
@@ -97,7 +98,7 @@ vim-test with `neoterm` strategy to replace this feature*
 
 ### Troubleshooting
 
-Most standard file extensions for the above REPLs are picked up by Neovim's default
+Most standard file extensions for the above REPLs are picked up by Vim or NeoVim's default
 filetype plugins. However, there are two exceptions:
 * Julia `.jl` files, which are detected as `filetipe=lisp`
 * Idris `.idr`, `.lidr` files which are not recognised as any filetype
