@@ -1,9 +1,66 @@
 function! neoterm#new(...)
   let l:opts = extend(get(a:, 1, {}), {
         \ 'source': '',
-        \ 'handlers': {}
-        \ })
-  call neoterm#window#create(l:opts.handlers, l:opts.source)
+        \ 'handlers': {},
+        \ 'mod': '',
+        \ 'origin': exists('*win_getid') ? win_getid() : 0
+        \ }, 'keep')
+
+  call neoterm#term#load()
+  call s:create_window(l:opts)
+  call g:neoterm.term.new(l:opts)
+  call s:after_open(l:opts.origin)
+endfunction
+
+function! s:create_window(...)
+  let l:opts = extend(get(a:, 1, {}), {
+        \ 'buffer_id': 0,
+        \ 'source': '',
+        \ 'mod': ''
+        \ }, 'keep')
+
+  if l:opts.source ==# 'tnew'
+    if l:opts.mod !=# ''
+      exec printf('%s %snew', l:opts.mod, g:neoterm_size)
+    end
+  else
+    let l:hidden=&hidden
+    let &hidden=0
+
+    let l:cmd = printf('botright%s ', g:neoterm_size)
+    let l:cmd .= g:neoterm_position ==# 'horizontal' ? 'new' : 'vnew'
+    if l:opts.buffer_id > 0
+      let l:cmd .= printf(' +buffer%s', l:opts.buffer_id)
+    end
+
+    exec l:cmd
+
+    let &hidden=l:hidden
+  end
+endfunction
+
+function! neoterm#reopen(instance)
+  call s:create_window({ 'buffer_id': a:instance.buffer_id })
+  call s:after_open(a:instance.origin)
+endfunction
+
+function! s:after_open(origin)
+  setf neoterm
+  setlocal nonumber norelativenumber
+
+  if g:neoterm_fixedsize
+    setlocal winfixheight winfixwidth
+  end
+
+  if g:neoterm_autoinsert
+    startinsert
+  elseif !g:neoterm_autojump
+    if a:origin
+      call win_gotoid(a:origin)
+    else
+      wincmd p
+    end
+  end
 endfunction
 
 function! neoterm#toggle()

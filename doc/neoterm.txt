@@ -49,7 +49,8 @@ the given command, this will be expanded to the current file path.
 
 :Tnew									 *:Tnew*
 
-Opens a new term buffer.
+Opens a new term buffer. This command accepts |mods| like `:vertical`,
+`:botright`, `:belowright`, etc.
 
 :Tmap <command>								 *:Tmap*
 
@@ -184,8 +185,10 @@ Default value: `0`.
 
 						       *g:neoterm_split_on_tnew*
 
-When set, |:Tnew| command will create the neoterm in a splitted window.
-Default value: `1`.
+DEPRECATED - |:Tnew| now accepts |mods|. |:Tnew| will use current window by
+default, but you can use `:vert Tnew`, for example, to open a new neoterm
+vertical split.
+
 
 						   *g:neoterm_use_relative_path*
 

@@ -119,35 +119,7 @@ au VimEnter,BufRead,BufNewFile *.lidr set filetype=lidris
 
 Open a pull request, repls and other features to this plugin. :smiley:
 
-## example config file:
+## Changelog
 
-```viml
-let g:neoterm_position = 'horizontal'
-let g:neoterm_automap_keys = ',tt'
-
-nnoremap <silent> <f10> :TREPLSendFile<cr>
-nnoremap <silent> <f9> :TREPLSendLine<cr>
-vnoremap <silent> <f9> :TREPLSendSelection<cr>
-
-" or use keymaps that works with text-objects
-nmap gx <Plug>(neoterm-repl-send)
-xmap gx <Plug>(neoterm-repl-send)
-nmap gxx <Plug>(neoterm-repl-send-line)
-" now can use gx{text-objects} such as gxip
-
-" Useful maps
-" hide/close terminal
-nnoremap <silent> ,th :call neoterm#close()<cr>
-" clear terminal
-nnoremap <silent> ,tl :call neoterm#clear()<cr>
-" kills the current job (send a <c-c>)
-nnoremap <silent> ,tc :call neoterm#kill()<cr>
-
-" Rails commands
-command! Troutes :T rake routes
-command! -nargs=+ Troute :T rake routes | grep <args>
-command! Tmigrate :T rake db:migrate
-
-" Git commands
-command! -nargs=+ Tg :T git <args>
-```
+* 03/03/2018
+  **DEPRECATE g:neoterm_split_on_tnew** - `:Tnew` now accepts vim mods (`:help mods`).

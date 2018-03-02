@@ -63,8 +63,8 @@ if !exists('g:neoterm_autojump')
   let g:neoterm_autojump = 0
 endif
 
-if !exists('g:neoterm_split_on_tnew')
-  let g:neoterm_split_on_tnew = 1
+if exists('g:neoterm_split_on_tnew')
+  echoe '*g:neoterm_split_on_tnew* DEPRECATED! see :help g:neoterm_split_on_tnew'
 end
 
 if !exists('g:neoterm_use_relative_path')
@@ -107,7 +107,7 @@ if !exists('g:neoterm_auto_repl_cmd')
   let g:neoterm_auto_repl_cmd = 1
 end
 
-command! -bar -complete=shellcmd Tnew silent call neoterm#new({ 'source': 'tnew' })
+command! -bar Tnew silent call neoterm#new({ 'source': 'tnew', 'mod': <q-mods> })
 command! -bar Topen silent call neoterm#open()
 command! -bang -bar Tclose silent call neoterm#close(<bang>0)
 command! -bang -bar TcloseAll silent call neoterm#closeAll(<bang>0)

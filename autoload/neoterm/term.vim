@@ -6,15 +6,10 @@ endfunction
 
 let s:term = {}
 
-function! s:term.new(origin, handlers)
-  let l:id = g:neoterm.next_id()
-  let l:name = 'neoterm-'.l:id
-  let l:instance = extend(copy(l:self), {
-        \ 'id': l:id,
-        \ })
-
-  let l:instance.handlers = a:handlers
-  let l:instance.origin = a:origin
+function! s:term.new(opts)
+  let l:instance = extend(copy(l:self), a:opts)
+  let l:instance.id = g:neoterm.next_id()
+  let l:instance.name = printf('neoterm-%s', l:instance.id)
 
   if g:neoterm_direct_open_repl
     let l:instance.job_id = termopen(g:neoterm_repl_command, l:instance)
@@ -25,7 +20,8 @@ function! s:term.new(origin, handlers)
   let l:instance.buffer_id = bufnr('')
   let g:neoterm.instances[l:instance.id] = l:instance
 
-  let b:term_title = l:name
+  let b:neoterm_id = l:instance.id
+  let b:term_title = l:instance.name
 
   call l:instance.mappings()
 
@@ -47,7 +43,7 @@ endfunction
 
 function! s:term.open()
   let l:self.origin = exists('*win_getid') ? win_getid() : 0
-  call neoterm#window#reopen(l:self)
+  call neoterm#reopen(l:self)
   if g:neoterm_autoscroll
     call l:self.normal('G')
   end
