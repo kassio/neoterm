@@ -5,26 +5,15 @@ function! neoterm#neovim#load()
   end
 endfunction
 
-function! s:new(opts)
-  let l:instance = extend(copy(g:neoterm.prototype), a:opts)
-  let l:instance.id = g:neoterm.next_id()
-  let l:instance.name = printf('neoterm-%s', l:instance.id)
-
+function! s:new(instance)
   if g:neoterm_direct_open_repl
-    let l:instance.termid = termopen(g:neoterm_repl_command, l:instance)
+    let l:termid = termopen(g:neoterm_repl_command, a:instance)
   else
-    let l:instance.termid = termopen(g:neoterm_shell, l:instance)
+    let l:termid = termopen(g:neoterm_shell, a:instance)
   end
 
-  let l:instance.buffer_id = bufnr('')
-  let b:neoterm_id = l:instance.id
-  let b:term_title = l:instance.name
-
-  call l:instance.mappings()
-
-  let g:neoterm.instances[l:instance.id] = l:instance
-
-  return l:instance
+  call a:instance.mappings()
+  return l:termid
 endfunction
 
 let s:term = {}

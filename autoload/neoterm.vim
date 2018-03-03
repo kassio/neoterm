@@ -1,15 +1,28 @@
 function! neoterm#new(...)
+  call s:term_load()
+
   let l:opts = extend(get(a:, 1, {}), {
         \ 'source': '',
         \ 'handlers': {},
         \ 'mod': '',
+        \ 'buffer_id': 0,
         \ 'origin': exists('*win_getid') ? win_getid() : 0
         \ }, 'keep')
 
-  call s:term_load()
-  call s:create_window(l:opts)
-  call g:neoterm.new(l:opts)
-  call s:after_open(l:opts.origin)
+
+  let l:instance = extend(copy(g:neoterm.prototype), l:opts)
+  let l:instance.id = g:neoterm.next_id()
+  let l:instance.name = printf('neoterm-%s', l:instance.id)
+
+  call s:create_window(l:instance)
+
+  let l:instance.source = ''
+  let l:instance.termid = g:neoterm.new(l:instance)
+  let l:instance.buffer_id = bufnr('')
+
+  call s:after_open(l:instance)
+
+  let g:neoterm.instances[l:instance.id] = l:instance
 endfunction
 
 function! s:term_load()
@@ -18,15 +31,9 @@ function! s:term_load()
   end
 endfunction
 
-function! s:create_window(...)
-  let l:opts = extend(get(a:, 1, {}), {
-        \ 'buffer_id': 0,
-        \ 'source': '',
-        \ 'mod': ''
-        \ }, 'keep')
-
-  if l:opts.source ==# 'tnew'
-    let l:mod = l:opts.mod !=# '' ? l:opts.mod : g:neoterm_tnew_mod
+function! s:create_window(opts)
+  if a:opts.source ==# 'tnew'
+    let l:mod = a:opts.mod !=# '' ? a:opts.mod : g:neoterm_tnew_mod
     if l:mod !=# ''
       exec printf('%s %snew', l:mod, g:neoterm_size)
     end
@@ -36,8 +43,8 @@ function! s:create_window(...)
 
     let l:cmd = printf('botright%s ', g:neoterm_size)
     let l:cmd .= g:neoterm_position ==# 'horizontal' ? 'new' : 'vnew'
-    if l:opts.buffer_id > 0
-      let l:cmd .= printf(' +buffer%s', l:opts.buffer_id)
+    if a:opts.buffer_id > 0
+      let l:cmd .= printf(' +buffer%s', a:opts.buffer_id)
     end
 
     exec l:cmd
@@ -47,11 +54,14 @@ function! s:create_window(...)
 endfunction
 
 function! neoterm#reopen(instance)
-  call s:create_window({ 'buffer_id': a:instance.buffer_id })
-  call s:after_open(a:instance.origin)
+  let a:instance.origin = exists('*win_getid') ? win_getid() : 0
+  call s:create_window(a:instance)
+  call s:after_open(a:instance)
 endfunction
 
-function! s:after_open(origin)
+function! s:after_open(instance)
+  let b:neoterm_id = a:instance.id
+  let b:term_title = a:instance.name
   setf neoterm
   setlocal nonumber norelativenumber
 
@@ -62,8 +72,8 @@ function! s:after_open(origin)
   if g:neoterm_autoinsert
     startinsert
   elseif !g:neoterm_autojump
-    if a:origin
-      call win_gotoid(a:origin)
+    if a:instance.origin
+      call win_gotoid(a:instance.origin)
     else
       wincmd p
     end
