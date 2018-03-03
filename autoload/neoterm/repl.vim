@@ -21,7 +21,7 @@ function! neoterm#repl#handlers()
 endfunction
 
 
-function! s:repl_result_handler(job_id, data, event)
+function! s:repl_result_handler(termid, data, event)
   let g:neoterm.repl.loaded = 0
 endfunction
 

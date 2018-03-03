@@ -11,9 +11,9 @@ function! s:new(opts)
   let l:instance.name = printf('neoterm-%s', l:instance.id)
 
   if g:neoterm_direct_open_repl
-    let l:instance.job_id = termopen(g:neoterm_repl_command, l:instance)
+    let l:instance.termid = termopen(g:neoterm_repl_command, l:instance)
   else
-    let l:instance.job_id = termopen(g:neoterm_shell, l:instance)
+    let l:instance.termid = termopen(g:neoterm_shell, l:instance)
   end
 
   let l:instance.buffer_id = bufnr('')
@@ -89,7 +89,7 @@ function! s:term.do(command)
 endfunction
 
 function! s:term.exec(command)
-  call jobsend(l:self.job_id, a:command)
+  call jobsend(l:self.termid, a:command)
   if g:neoterm_autoscroll
     call l:self.normal('G')
   end
@@ -103,21 +103,21 @@ function! s:term.kill()
   call l:self.exec("\<c-c>")
 endfunction
 
-function! s:term.on_stdout(job_id, data, event)
+function! s:term.on_stdout(termid, data, event)
   if has_key(l:self.handlers, 'on_stdout')
-    call l:self.handlers['on_stdout'](a:job_id, a:data, a:event)
+    call l:self.handlers['on_stdout'](a:termid, a:data, a:event)
   end
 endfunction
 
-function! s:term.on_stderr(job_id, data, event)
+function! s:term.on_stderr(termid, data, event)
   if has_key(l:self.handlers, 'on_stderr')
-    call l:self.handlers['on_stderr'](a:job_id, a:data, a:event)
+    call l:self.handlers['on_stderr'](a:termid, a:data, a:event)
   end
 endfunction
 
-function! s:term.on_exit(job_id, data, event)
+function! s:term.on_exit(termid, data, event)
   if has_key(l:self.handlers, 'on_exit')
-    call l:self.handlers['on_exit'](a:job_id, a:data, a:event)
+    call l:self.handlers['on_exit'](a:termid, a:data, a:event)
   end
 
   call l:self.destroy()
