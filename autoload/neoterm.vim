@@ -31,9 +31,9 @@ function! s:term_load()
   end
 endfunction
 
-function! s:create_window(opts)
-  if a:opts.source ==# 'tnew'
-    let l:mod = a:opts.mod !=# '' ? a:opts.mod : g:neoterm_tnew_mod
+function! s:create_window(instance)
+  if a:instance.source ==# 'tnew'
+    let l:mod = a:instance.mod !=# '' ? a:instance.mod : g:neoterm_tnew_mod
     if l:mod !=# ''
       exec printf('%s %snew', l:mod, g:neoterm_size)
     end
@@ -43,8 +43,8 @@ function! s:create_window(opts)
 
     let l:cmd = printf('botright%s ', g:neoterm_size)
     let l:cmd .= g:neoterm_position ==# 'horizontal' ? 'new' : 'vnew'
-    if a:opts.buffer_id > 0
-      let l:cmd .= printf(' +buffer%s', a:opts.buffer_id)
+    if a:instance.buffer_id > 0
+      let l:cmd .= printf(' +buffer%s', a:instance.buffer_id)
     end
 
     exec l:cmd
