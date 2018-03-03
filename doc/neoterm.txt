@@ -87,11 +87,10 @@ Opens neoterm with id [N]. With no [N] the last neoterm will be open or a new
 one will be created. This command accepts vim |mods|. The last |mods| used
 will be saved in the neoterm instance.
 
-:Tclose[!]							       *:Tclose*
+:[N]Tclose[!]							       *:Tclose*
 
-Closes, or hides, the current neoterm terminal split. To change if the
-terminal will be kept in background you need to change
-|g:neoterm_keep_term_open|.
+Closes, or hides, the neoterm with id [N]. With no [N] the last neoterm will
+be closed.
 
 When the [!] is included the |g:neoterm_keep_term_open| is ignored and the
 neoterm buffer is deleted.
@@ -170,7 +169,8 @@ Default value: `1`.
 
 						      *g:neoterm_keep_term_open*
 
-When set, neoterm terminal will be kept running in background.
+When set, neoterm terminal will be kept running in background. When not set,
+`:bdelete!` is used to close neoterm in |:Tclose|.
 Default value: `1`.
 
 							  *g:neoterm_autoinsert*

@@ -21,10 +21,10 @@ let s:term = {}
 function! s:term.mappings()
   let l:instance = printf('g:neoterm.instances.%s', l:self.id)
   exec printf('command! -bar Topen%s %sTopen', l:self.id, l:self.id)
-  exec printf('command! -bang -bar Tclose%s silent call %s.close(<bang>0)', l:self.id, l:instance)
-  exec printf('command! Tclear%s silent call %s.clear()', l:self.id, l:instance)
-  exec printf('command! Tkill%s silent call %s.kill()', l:self.id, l:instance)
-  exec printf('command! -complete=shellcmd -nargs=+ T%s silent call %s.do(<q-args>)', l:self.id, l:instance)
+  exec printf('command! -bang -bar Tclose%s call neoterm#close({ "force": <bang>0, "target": %s })', l:self.id, l:self.id)
+  exec printf('command! Tclear%s call %s.clear()', l:self.id, l:instance)
+  exec printf('command! Tkill%s call %s.kill()', l:self.id, l:instance)
+  exec printf('command! -complete=shellcmd -nargs=+ T%s call %s.do(<q-args>)', l:self.id, l:instance)
 endfunction
 
 function! s:term.focus_exec(cmd)
@@ -43,26 +43,6 @@ endfunction
 
 function! s:term.normal(cmd)
   call l:self.vim_exec(printf('normal! %s', a:cmd))
-endfunction
-
-function! s:term.close(...)
-  try
-    let l:force = get(a:, '1', 0)
-    if bufwinnr(l:self.buffer_id) > 0
-      if l:force || !g:neoterm_keep_term_open
-        exec printf('%sbdelete!', l:self.buffer_id)
-      else
-        exec printf('%shide', bufwinnr(l:self.buffer_id))
-      end
-    end
-
-    if l:self.origin
-      call win_gotoid(l:self.origin)
-    end
-  catch /^Vim\%((\a\+)\)\=:E444/
-    " noop
-    " Avoid messages when the terminal is the last window
-  endtry
 endfunction
 
 function! s:term.do(command)

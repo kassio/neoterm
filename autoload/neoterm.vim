@@ -62,17 +62,11 @@ function! neoterm#open(opts)
         \ 'target': 0
         \}, 'keep')
 
-  if l:opts.target > 0
-    if has_key(g:neoterm.instances, l:opts.target)
-      let l:instance = g:neoterm.instances[l:opts.target]
-    else
-      echoe printf("neoterm with id %s not found", l:opts.target)
-    end
-  elseif g:neoterm.has_any()
-    let l:instance = g:neoterm.last()
-  else
-   call neoterm#new({ 'mod': l:opts.mod, 'source': 'open' })
-   return
+  let l:instance = s:target(l:opts)
+
+  if empty(l:instance)
+    call neoterm#new({ 'mod': l:opts.mod, 'source': 'open' })
+    return
   end
 
   if l:opts.mod !=# ''
@@ -86,6 +80,35 @@ function! neoterm#open(opts)
   if g:neoterm_autoscroll
     call l:instance.normal('G')
   end
+endfunction
+
+function! neoterm#close(opts)
+  let l:instance = s:target(a:opts)
+
+  if !empty(l:instance)
+    let l:instance.origin = exists('*win_getid') ? win_getid() : 0
+
+    try
+      if a:opts.force || !g:neoterm_keep_term_open
+        exec printf('%sbdelete!', l:instance.buffer_id)
+      else
+        exec printf('%shide', bufwinnr(l:instance.buffer_id))
+      end
+
+      if l:instance.origin
+        call win_gotoid(l:instance.origin)
+      end
+    catch /^Vim\%((\a\+)\)\=:E444/
+      " noop
+      " Avoid messages when the terminal is the last window
+    endtry
+  end
+endfunction
+
+function! neoterm#closeAll(opts)
+  for l:instance in values(g:neoterm.instances)
+    call neoterm#close(extend(a:opts, { 'target': l:instance.id }))
+  endfor
 endfunction
 
 function! s:after_open(instance)
@@ -106,6 +129,19 @@ function! s:after_open(instance)
     else
       wincmd p
     end
+  end
+endfunction
+
+function! s:target(opts)
+  if a:opts.target > 0
+    if has_key(g:neoterm.instances, a:opts.target)
+      return g:neoterm.instances[a:opts.target]
+    else
+      echoe printf("neoterm with id %s not found", a:opts.target)
+      return {}
+    end
+  elseif g:neoterm.has_any()
+    return g:neoterm.last()
   end
 endfunction
 
@@ -131,26 +167,6 @@ function! s:toggle(instance)
   else
     call neoterm#new()
   end
-endfunction
-
-function! neoterm#close(...)
-  let l:instance = g:neoterm.last()
-  let l:instance.origin = exists('*win_getid') ? win_getid() : 0
-
-  let l:force = get(a:, '1', 0)
-  if g:neoterm.has_any()
-    call l:instance.close(l:force)
-  end
-endfunction
-
-function! neoterm#closeAll(...)
-  let l:origin = exists('*win_getid') ? win_getid() : 0
-
-  let l:force = get(a:, '1', 0)
-  for l:instance in values(g:neoterm.instances)
-    let l:instance.origin = l:origin
-    call l:instance.close(l:force)
-  endfor
 endfunction
 
 function! neoterm#do(command)

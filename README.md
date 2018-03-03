@@ -127,3 +127,5 @@ Open a pull request, repls and other features to this plugin. :smiley:
   - Revamp `:Topen`. Now `:[mods][N]Topen` accepts vim mods (`:h mods`) and a
     target, so if one wants to open the neoterm with id 2 in vertical, one can
     do `:vert 2Topen`.
+  - Revamp `:Tclose`. Now `:[N]Tclose[!]` accepts a target, so one can close any
+    neoterm by its id.
