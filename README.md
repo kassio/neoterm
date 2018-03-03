@@ -124,3 +124,6 @@ Open a pull request, repls and other features to this plugin. :smiley:
 * 03/03/2018
   - **DEPRECATE g:neoterm_split_on_tnew** - `:Tnew` now accepts vim mods (`:help mods`).
   - Introduce `g:neoterm_tnew_mod` to set a default `:Tnew` mod (`:help mods`).
+  - Revamp `:Topen`. Now `:[mods][N]Topen` accepts vim mods (`:h mods`) and a
+    target, so if one wants to open the neoterm with id 2 in vertical, one can
+    do `:vert 2Topen`.

@@ -112,7 +112,7 @@ if !exists('g:neoterm_auto_repl_cmd')
 end
 
 command! -bar Tnew silent call neoterm#new({ 'source': 'tnew', 'mod': <q-mods> })
-command! -bar Topen silent call neoterm#open()
+command! -bar -count Topen silent call neoterm#open({ 'mod': <q-mods>, 'target': <count> })
 command! -bang -bar Tclose silent call neoterm#close(<bang>0)
 command! -bang -bar TcloseAll silent call neoterm#closeAll(<bang>0)
 command! -bar Ttoggle silent call neoterm#toggle()

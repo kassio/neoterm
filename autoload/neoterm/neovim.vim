@@ -20,19 +20,11 @@ let s:term = {}
 
 function! s:term.mappings()
   let l:instance = printf('g:neoterm.instances.%s', l:self.id)
-  exec printf('command! -bar Topen%s silent call %s.open()', l:self.id, l:instance)
+  exec printf('command! -bar Topen%s %sTopen', l:self.id, l:self.id)
   exec printf('command! -bang -bar Tclose%s silent call %s.close(<bang>0)', l:self.id, l:instance)
   exec printf('command! Tclear%s silent call %s.clear()', l:self.id, l:instance)
   exec printf('command! Tkill%s silent call %s.kill()', l:self.id, l:instance)
   exec printf('command! -complete=shellcmd -nargs=+ T%s silent call %s.do(<q-args>)', l:self.id, l:instance)
-endfunction
-
-function! s:term.open()
-  let l:self.origin = exists('*win_getid') ? win_getid() : 0
-  call neoterm#reopen(l:self)
-  if g:neoterm_autoscroll
-    call l:self.normal('G')
-  end
 endfunction
 
 function! s:term.focus_exec(cmd)

@@ -41,8 +41,11 @@ function! s:create_window(instance)
     let l:hidden=&hidden
     let &hidden=0
 
-    let l:cmd = printf('botright%s ', g:neoterm_size)
-    let l:cmd .= g:neoterm_position ==# 'horizontal' ? 'new' : 'vnew'
+    if a:instance.mod ==# ''
+      let a:instance.mod = g:neoterm_position ==# 'horizontal' ? 'botright' : 'vertical'
+    end
+
+    let l:cmd = printf('%s %snew', a:instance.mod, g:neoterm_size)
     if a:instance.buffer_id > 0
       let l:cmd .= printf(' +buffer%s', a:instance.buffer_id)
     end
@@ -53,10 +56,36 @@ function! s:create_window(instance)
   end
 endfunction
 
-function! neoterm#reopen(instance)
-  let a:instance.origin = exists('*win_getid') ? win_getid() : 0
-  call s:create_window(a:instance)
-  call s:after_open(a:instance)
+function! neoterm#open(opts)
+  let l:opts = extend(a:opts, {
+        \ 'mod': '',
+        \ 'target': 0
+        \}, 'keep')
+
+  if l:opts.target > 0
+    if has_key(g:neoterm.instances, l:opts.target)
+      let l:instance = g:neoterm.instances[l:opts.target]
+    else
+      echoe printf("neoterm with id %s not found", l:opts.target)
+    end
+  elseif g:neoterm.has_any()
+    let l:instance = g:neoterm.last()
+  else
+   call neoterm#new({ 'mod': l:opts.mod, 'source': 'open' })
+   return
+  end
+
+  if l:opts.mod !=# ''
+    let l:instance.mod = l:opts.mod
+  end
+
+  let l:instance.origin = exists('*win_getid') ? win_getid() : 0
+  call s:create_window(l:instance)
+  call s:after_open(l:instance)
+
+  if g:neoterm_autoscroll
+    call l:instance.normal('G')
+  end
 endfunction
 
 function! s:after_open(instance)
@@ -97,20 +126,10 @@ function! s:toggle(instance)
     if neoterm#tab_has_neoterm()
       call a:instance.close()
     else
-      call a:instance.open()
+      call neoterm#open(a:instance)
     end
   else
     call neoterm#new()
-  end
-endfunction
-
-function! neoterm#open()
-  if !neoterm#tab_has_neoterm()
-    if !g:neoterm.has_any()
-      call neoterm#new()
-    else
-      call g:neoterm.last().open()
-    end
   end
 endfunction
 
@@ -141,7 +160,7 @@ endfunction
 
 function! neoterm#exec(command)
   if !g:neoterm.has_any() || g:neoterm_open_in_all_tabs
-    call neoterm#open()
+    call neoterm#open({})
   end
 
   call g:neoterm.last().exec(a:command)

@@ -81,9 +81,11 @@ Sends the current line to a REPL.
 
 Sends the current selection to a REPL.
 
-:Topen									*:Topen*
+:[N]Topen							        *:Topen*
 
-Opens a new, or the current, neoterm terminal split.
+Opens neoterm with id [N]. With no [N] the last neoterm will be open or a new
+one will be created. This command accepts vim |mods|. The last |mods| used
+will be saved in the neoterm instance.
 
 :Tclose[!]							       *:Tclose*
 
