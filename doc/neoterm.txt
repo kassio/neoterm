@@ -101,9 +101,9 @@ Call |:Tclose| for each neoterm instance.
 
 When the [!] is included `:Tclose!`(with the bang) is called.
 
-:Ttoggle							      *:Ttoggle*
+:[N]Ttoggle							      *:Ttoggle*
 
-Toggles the last window in the current tab.
+Toggles the neoterm with id [N]. With no [N] the last neoterm will be toggled.
 
 :TtoggleAll     						   *:TtoggleAll*
 

@@ -83,13 +83,17 @@ function! neoterm#open(opts)
 endfunction
 
 function! neoterm#close(opts)
-  let l:instance = s:target(a:opts)
+  let l:opts = extend(a:opts, {
+        \ 'target': 0,
+        \ 'force': 0
+        \ }, 'keep')
+  let l:instance = s:target(l:opts)
 
   if !empty(l:instance)
     let l:instance.origin = exists('*win_getid') ? win_getid() : 0
 
     try
-      if a:opts.force || !g:neoterm_keep_term_open
+      if l:opts.force || !g:neoterm_keep_term_open
         exec printf('%sbdelete!', l:instance.buffer_id)
       else
         exec printf('%shide', bufwinnr(l:instance.buffer_id))
@@ -145,28 +149,27 @@ function! s:target(opts)
   end
 endfunction
 
-function! neoterm#toggle()
-  call s:toggle(g:neoterm.last())
-endfunction
+function! neoterm#toggle(opts)
+  let l:opts = extend(a:opts, { 'target': 0 }, 'keep')
+  let l:instance = s:target(l:opts)
 
-function! neoterm#toggleAll()
-  for l:instance in values(g:neoterm.instances)
-    call s:toggle(l:instance)
-  endfor
-endfunction
-
-function! s:toggle(instance)
   if g:neoterm.has_any()
-    let a:instance.origin = exists('*win_getid') ? win_getid() : 0
+    let l:instance.origin = exists('*win_getid') ? win_getid() : 0
 
     if neoterm#tab_has_neoterm()
-      call a:instance.close()
+      call neoterm#close({ 'target': l:instance.id })
     else
-      call neoterm#open(a:instance)
+      call neoterm#open({ 'target': l:instance.id })
     end
   else
     call neoterm#new()
   end
+endfunction
+
+function! neoterm#toggleAll()
+  for l:instance in values(g:neoterm.instances)
+    call neoterm#toggle({ 'target': l:instance.id })
+  endfor
 endfunction
 
 function! neoterm#do(command)

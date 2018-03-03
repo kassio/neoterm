@@ -90,7 +90,7 @@ function! s:term.destroy()
   end
 
   if has_key(g:neoterm.instances, l:self.id)
-    call l:self.close()
+    call neoterm#close({ 'target': l:self.id })
     call remove(g:neoterm.instances, l:self.id)
   end
 

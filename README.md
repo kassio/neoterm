@@ -129,3 +129,4 @@ Open a pull request, repls and other features to this plugin. :smiley:
     do `:vert 2Topen`.
   - Revamp `:Tclose`. Now `:[N]Tclose[!]` accepts a target, so one can close any
     neoterm by its id.
+  - Fix a bug with `:[N]Ttoggle` and also make it accepts the neoterm id.
