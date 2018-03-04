@@ -21,7 +21,8 @@ endfunction
 
 function! g:neoterm.last()
   if l:self.has_any()
-    return l:self.instances[l:self.last_id]
+    let l:keys = keys(g:neoterm.instances)
+    return l:self.instances[l:keys[-1]]
   end
 endfunction
 
@@ -124,8 +125,8 @@ command! -bar -count Ttoggle
       \ call neoterm#toggle({ 'mod': <q-mods>, 'target': <count> })
 command! -bar TtoggleAll
       \ call neoterm#toggleAll()
-command! -complete=shellcmd -nargs=+ T
-      \ call neoterm#do({ 'cmd': <q-args> })
+command! -bar -count -complete=shellcmd -nargs=+ T
+      \ call neoterm#do({ 'cmd': <q-args>, 'target': <count> })
 command! -complete=shellcmd -nargs=+ Tmap
       \ call neoterm#map_for(<q-args>)
 command! -nargs=1 Tpos

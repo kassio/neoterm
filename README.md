@@ -133,3 +133,6 @@ Open a pull request, repls and other features to this plugin. :smiley:
 * 04/03/2018
   - Revamp `:[N]Ttoggle`, now it accepts vim mods (`:help mods`) when the toggle
     is opening the neoterm.
+  - Revamp `:[N]T`, now it accepts the target, so one can send the command for
+    any neoterm by id, like, to send commands to the neoterm 3, one can do
+     `:3T ls`.

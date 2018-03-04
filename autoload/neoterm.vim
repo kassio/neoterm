@@ -129,8 +129,17 @@ function! neoterm#toggleAll()
 endfunction
 
 function! neoterm#do(opts)
+  let l:instance = s:target({ 'target': get(a:opts, 'target', 0) })
   let l:command = neoterm#expand_cmd(a:opts.cmd)
-  call neoterm#exec([l:command, g:neoterm_eof])
+
+  if empty(l:instance)
+    if !g:neoterm.has_any()
+      call neoterm#new({})
+    end
+    let l:instance = g:neoterm.last()
+  end
+
+  call l:instance.do(l:command)
 endfunction
 
 function! neoterm#exec(command)

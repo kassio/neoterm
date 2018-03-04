@@ -22,9 +22,9 @@ function! s:term.mappings()
   let l:instance = printf('g:neoterm.instances.%s', l:self.id)
   exec printf('command! -bar Topen%s %sTopen', l:self.id, l:self.id)
   exec printf('command! -bang -bar Tclose%s call neoterm#close({ "force": <bang>0, "target": %s })', l:self.id, l:self.id)
+  exec printf('command! -complete=shellcmd -nargs=+ T%s %sT <q-args>', l:self.id, l:self.id)
   exec printf('command! Tclear%s call %s.clear()', l:self.id, l:instance)
   exec printf('command! Tkill%s call %s.kill()', l:self.id, l:instance)
-  exec printf('command! -complete=shellcmd -nargs=+ T%s call %s.do(<q-args>)', l:self.id, l:instance)
 endfunction
 
 function! s:term.focus_exec(cmd)
