@@ -8,16 +8,14 @@ function! neoterm#new(...)
         \ 'handlers': {},
         \ 'mod': '',
         \ 'buffer_id': 0,
-        \ 'origin': exists('*win_getid') ? win_getid() : 0
+        \ 'origin': s:winid()
         \ }, 'keep')
 
-
   let l:instance = extend(copy(g:neoterm.prototype), l:opts)
-  let l:instance.id = g:neoterm.next_id()
-  let l:instance.name = printf('neoterm-%s', l:instance.id)
-
   call s:create_window(l:instance)
 
+  let l:instance.id = g:neoterm.next_id()
+  let l:instance.name = printf('neoterm-%s', l:instance.id)
   let l:instance.source = ''
   let l:instance.termid = g:neoterm.new(l:instance)
   let l:instance.buffer_id = bufnr('')
@@ -32,7 +30,6 @@ function! neoterm#open(opts)
         \ 'mod': '',
         \ 'target': 0
         \}, 'keep')
-
   let l:instance = s:target(l:opts)
 
   if empty(l:instance)
@@ -44,7 +41,7 @@ function! neoterm#open(opts)
     let l:instance.mod = l:opts.mod
   end
 
-  let l:instance.origin = exists('*win_getid') ? win_getid() : 0
+  let l:instance.origin = s:winid()
   call s:create_window(l:instance)
   call s:after_open(l:instance)
 
@@ -61,7 +58,7 @@ function! neoterm#close(opts)
   let l:instance = s:target(l:opts)
 
   if !empty(l:instance)
-    let l:instance.origin = exists('*win_getid') ? win_getid() : 0
+    let l:instance.origin = s:winid()
 
     try
       if l:opts.force || !g:neoterm_keep_term_open
@@ -131,8 +128,8 @@ function! neoterm#toggleAll()
   endfor
 endfunction
 
-function! neoterm#do(command)
-  let l:command = neoterm#expand_cmd(a:command)
+function! neoterm#do(opts)
+  let l:command = neoterm#expand_cmd(a:opts.cmd)
   call neoterm#exec([l:command, g:neoterm_eof])
 endfunction
 
@@ -258,4 +255,8 @@ function! s:can_navigate(navigate)
   else
     echo 'You must be in a terminal to use this command'
   end
+endfunction
+
+function! s:winid()
+  return exists('*win_getid') ? win_getid() : 0
 endfunction

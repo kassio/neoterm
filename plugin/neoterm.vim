@@ -16,7 +16,7 @@ function! g:neoterm.next_id()
 endfunction
 
 function! g:neoterm.has_any()
-  return len(l:self.instances) > 0 && l:self.last_id > 0
+  return !empty(l:self.instances)
 endfunction
 
 function! g:neoterm.last()
@@ -125,7 +125,7 @@ command! -bar -count Ttoggle
 command! -bar TtoggleAll
       \ call neoterm#toggleAll()
 command! -complete=shellcmd -nargs=+ T
-      \ call neoterm#do(<q-args>)
+      \ call neoterm#do({ 'cmd': <q-args> })
 command! -complete=shellcmd -nargs=+ Tmap
       \ call neoterm#map_for(<q-args>)
 command! -nargs=1 Tpos
