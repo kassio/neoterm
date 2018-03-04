@@ -1,5 +1,7 @@
 function! neoterm#new(...)
-  call s:term_load()
+  if has('nvim')
+    call neoterm#neovim#load()
+  end
 
   let l:opts = extend(get(a:, 1, {}), {
         \ 'source': '',
@@ -23,37 +25,6 @@ function! neoterm#new(...)
   call s:after_open(l:instance)
 
   let g:neoterm.instances[l:instance.id] = l:instance
-endfunction
-
-function! s:term_load()
-  if has('nvim')
-    call neoterm#neovim#load()
-  end
-endfunction
-
-function! s:create_window(instance)
-  if a:instance.source ==# 'tnew'
-    let l:mod = a:instance.mod !=# '' ? a:instance.mod : g:neoterm_tnew_mod
-    if l:mod !=# ''
-      exec printf('%s %snew', l:mod, g:neoterm_size)
-    end
-  else
-    let l:hidden=&hidden
-    let &hidden=0
-
-    if a:instance.mod ==# ''
-      let a:instance.mod = g:neoterm_position ==# 'horizontal' ? 'botright' : 'vertical'
-    end
-
-    let l:cmd = printf('%s %snew', a:instance.mod, g:neoterm_size)
-    if a:instance.buffer_id > 0
-      let l:cmd .= printf(' +buffer%s', a:instance.buffer_id)
-    end
-
-    exec l:cmd
-
-    let &hidden=l:hidden
-  end
 endfunction
 
 function! neoterm#open(opts)
@@ -136,30 +107,18 @@ function! s:after_open(instance)
   end
 endfunction
 
-function! s:target(opts)
-  if a:opts.target > 0
-    if has_key(g:neoterm.instances, a:opts.target)
-      return g:neoterm.instances[a:opts.target]
-    else
-      echoe printf("neoterm with id %s not found", a:opts.target)
-      return {}
-    end
-  elseif g:neoterm.has_any()
-    return g:neoterm.last()
-  end
-endfunction
-
 function! neoterm#toggle(opts)
-  let l:opts = extend(a:opts, { 'target': 0 }, 'keep')
+  let l:opts = extend(a:opts, {
+        \ 'mod': '',
+        \ 'target': 0
+        \ }, 'keep')
   let l:instance = s:target(l:opts)
 
   if g:neoterm.has_any()
-    let l:instance.origin = exists('*win_getid') ? win_getid() : 0
-
-    if neoterm#tab_has_neoterm()
-      call neoterm#close({ 'target': l:instance.id })
+    if bufwinnr(l:instance.buffer_id) > -1
+      call neoterm#close(l:opts)
     else
-      call neoterm#open({ 'target': l:instance.id })
+      call neoterm#open(l:opts)
     end
   else
     call neoterm#new()
@@ -167,8 +126,8 @@ function! neoterm#toggle(opts)
 endfunction
 
 function! neoterm#toggleAll()
-  for l:instance in values(g:neoterm.instances)
-    call neoterm#toggle({ 'target': l:instance.id })
+  for l:id in keys(g:neoterm.instances)
+    call neoterm#toggle({ 'target': l:id })
   endfor
 endfunction
 
@@ -201,13 +160,6 @@ function! neoterm#expand_cmd(command)
   end
 
   return substitute(l:command, '%', l:path, 'g')
-endfunction
-
-function! neoterm#tab_has_neoterm()
-  if g:neoterm.has_any()
-    let l:buffer_id = g:neoterm.last().buffer_id
-    return bufexists(l:buffer_id) > 0 && bufwinnr(l:buffer_id) != -1
-  end
 endfunction
 
 function! neoterm#clear()
@@ -248,6 +200,44 @@ function! neoterm#previous()
   endfunction
 
   call s:can_navigate(function('s:previous'))
+endfunction
+
+function! s:create_window(instance)
+  if a:instance.source ==# 'tnew'
+    let l:mod = a:instance.mod !=# '' ? a:instance.mod : g:neoterm_tnew_mod
+    if l:mod !=# ''
+      exec printf('%s %snew', l:mod, g:neoterm_size)
+    end
+  else
+    let l:hidden=&hidden
+    let &hidden=0
+
+    if a:instance.mod ==# ''
+      let a:instance.mod = g:neoterm_position ==# 'horizontal' ? 'botright' : 'vertical'
+    end
+
+    let l:cmd = printf('%s %snew', a:instance.mod, g:neoterm_size)
+    if a:instance.buffer_id > 0
+      let l:cmd .= printf(' +buffer%s', a:instance.buffer_id)
+    end
+
+    exec l:cmd
+
+    let &hidden=l:hidden
+  end
+endfunction
+
+function! s:target(opts)
+  if a:opts.target > 0
+    if has_key(g:neoterm.instances, a:opts.target)
+      return g:neoterm.instances[a:opts.target]
+    else
+      echoe printf("neoterm with id %s not found", a:opts.target)
+      return {}
+    end
+  elseif g:neoterm.has_any()
+    return g:neoterm.last()
+  end
 endfunction
 
 function! s:can_navigate(navigate)

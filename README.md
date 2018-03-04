@@ -130,3 +130,6 @@ Open a pull request, repls and other features to this plugin. :smiley:
   - Revamp `:Tclose`. Now `:[N]Tclose[!]` accepts a target, so one can close any
     neoterm by its id.
   - Fix a bug with `:[N]Ttoggle` and also make it accepts the neoterm id.
+* 04/03/2018
+  - Revamp `:[N]Ttoggle`, now it accepts vim mods (`:help mods`) when the toggle
+    is opening the neoterm.

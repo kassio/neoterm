@@ -104,6 +104,8 @@ When the [!] is included `:Tclose!`(with the bang) is called.
 :[N]Ttoggle							      *:Ttoggle*
 
 Toggles the neoterm with id [N]. With no [N] the last neoterm will be toggled.
+This command accepts vim |mods|. The last |mods| used will be saved in the
+neoterm instance.
 
 :TtoggleAll     						   *:TtoggleAll*
 
