@@ -129,6 +129,10 @@ command! -bar -count -complete=shellcmd -nargs=+ T
       \ call neoterm#do({ 'cmd': <q-args>, 'target': <count> })
 command! -complete=shellcmd -nargs=+ Tmap
       \ call neoterm#map_for(<q-args>)
+command! -bar -count Tclear
+      \ call neoterm#clear({ 'target': <count> })
+command! -bar -count Tkill
+      \ call neoterm#kill({ 'target': <count> })
 command! -nargs=1 Tpos
       \ let g:neoterm_position=<q-args>
 " Navigation

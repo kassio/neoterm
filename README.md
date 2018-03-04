@@ -136,3 +136,6 @@ Open a pull request, repls and other features to this plugin. :smiley:
   - Revamp `:[N]T`, now it accepts the target, so one can send the command for
     any neoterm by id, like, to send commands to the neoterm 3, one can do
      `:3T ls`.
+  - **DEPRECATE T[N], Topen[N], Tclose[N], Tclear[N], Tkill[N]** - The neoterm
+    id was moved to the beginning of the command, so instead of `:T2`, for
+    example, one must use `:2T`.

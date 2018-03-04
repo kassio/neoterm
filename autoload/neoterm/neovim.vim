@@ -12,20 +12,10 @@ function! s:new(instance)
     let l:termid = termopen(g:neoterm_shell, a:instance)
   end
 
-  call a:instance.mappings()
   return l:termid
 endfunction
 
 let s:term = {}
-
-function! s:term.mappings()
-  let l:instance = printf('g:neoterm.instances.%s', l:self.id)
-  exec printf('command! -bar Topen%s %sTopen', l:self.id, l:self.id)
-  exec printf('command! -bang -bar Tclose%s call neoterm#close({ "force": <bang>0, "target": %s })', l:self.id, l:self.id)
-  exec printf('command! -complete=shellcmd -nargs=+ T%s %sT <q-args>', l:self.id, l:self.id)
-  exec printf('command! Tclear%s call %s.clear()', l:self.id, l:instance)
-  exec printf('command! Tkill%s call %s.kill()', l:self.id, l:instance)
-endfunction
 
 function! s:term.focus_exec(cmd)
   let l:winnr = bufwinnr(l:self.buffer_id)
@@ -54,14 +44,6 @@ function! s:term.exec(command)
   if g:neoterm_autoscroll
     call l:self.normal('G')
   end
-endfunction
-
-function! s:term.clear()
-  call l:self.exec("\<c-l>")
-endfunction
-
-function! s:term.kill()
-  call l:self.exec("\<c-c>")
 endfunction
 
 function! s:term.on_stdout(termid, data, event)

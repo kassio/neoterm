@@ -26,10 +26,7 @@ function! neoterm#new(...)
 endfunction
 
 function! neoterm#open(opts)
-  let l:opts = extend(a:opts, {
-        \ 'mod': '',
-        \ 'target': 0
-        \}, 'keep')
+  let l:opts = extend(a:opts, { 'mod': '', 'target': 0 }, 'keep')
   let l:instance = s:target(l:opts)
 
   if empty(l:instance)
@@ -51,10 +48,7 @@ function! neoterm#open(opts)
 endfunction
 
 function! neoterm#close(opts)
-  let l:opts = extend(a:opts, {
-        \ 'target': 0,
-        \ 'force': 0
-        \ }, 'keep')
+  let l:opts = extend(a:opts, { 'target': 0, 'force': 0 }, 'keep')
   let l:instance = s:target(l:opts)
 
   if !empty(l:instance)
@@ -105,10 +99,7 @@ function! s:after_open(instance)
 endfunction
 
 function! neoterm#toggle(opts)
-  let l:opts = extend(a:opts, {
-        \ 'mod': '',
-        \ 'target': 0
-        \ }, 'keep')
+  let l:opts = extend(a:opts, { 'mod': '', 'target': 0 }, 'keep')
   let l:instance = s:target(l:opts)
 
   if g:neoterm.has_any()
@@ -142,12 +133,15 @@ function! neoterm#do(opts)
   call l:instance.do(l:command)
 endfunction
 
-function! neoterm#exec(command)
-  if !g:neoterm.has_any() || g:neoterm_open_in_all_tabs
-    call neoterm#open({})
+function! neoterm#exec(opts)
+  let l:instance = s:target({ 'target': get(a:opts, 'target', 0) })
+  let l:command = neoterm#expand_cmd(a:opts.cmd)
+
+  if empty(l:instance) && g:neoterm.has_any()
+    let l:instance = g:neoterm.last()
   end
 
-  call g:neoterm.last().exec(a:command)
+  call l:instance.exec(a:opts.cmd)
 endfunction
 
 function! neoterm#map_for(command)
@@ -158,18 +152,17 @@ endfunction
 
 function! neoterm#expand_cmd(command)
   let l:command = substitute(a:command, '%\(:[phtre]\)\+', '\=expand(submatch(0))', 'g')
-
-  if g:neoterm_use_relative_path
-    let l:path = expand('%')
-  else
-    let l:path = expand('%:p')
-  end
+  let l:path = g:neoterm_use_relative_path ? expand('%') : expand('%:p')
 
   return substitute(l:command, '%', l:path, 'g')
 endfunction
 
-function! neoterm#clear()
-  silent call g:neoterm.last().clear()
+function! neoterm#clear(opts)
+  call neoterm#exec(extend(a:opts, { 'cmd': "\<c-l>" }))
+endfunction
+
+function! neoterm#kill(opts)
+  call neoterm#exec(extend(a:opts, { 'cmd': "\<c-c>" }))
 endfunction
 
 function! neoterm#normal(cmd)
@@ -178,10 +171,6 @@ endfunction
 
 function! neoterm#vim_exec(cmd)
   silent call g:neoterm.last().vim_exec(a:cmd)
-endfunction
-
-function! neoterm#kill()
-  silent call g:neoterm.last().kill()
 endfunction
 
 function! neoterm#list(arg_lead, cmd_line, cursor_pos)

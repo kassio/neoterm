@@ -53,6 +53,16 @@ given command, this will be expanded to the current file path.
 Opens a new term buffer. This command accepts |mods| like `:vertical`,
 `:botright`, `:belowright`, etc.
 
+:[N]Tclear								*:Tclear*
+
+Clear the neoterm with [N] id. With no [N] the last neoterm will cleaned. This
+command will send a <C-L> to neoterm.
+
+:[N]Tkill						 	   	*:Tkill*
+
+Kills the process in the neoterm with [N] id. With no [N] the last neoterm
+will cleaned. This command will send a <C-K> to neoterm.
+
 :Tmap {cmd}								 *:Tmap*
 
 Maps the given command, everytime that the mapping is executed the command is
