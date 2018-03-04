@@ -111,24 +111,43 @@ if !exists('g:neoterm_auto_repl_cmd')
   let g:neoterm_auto_repl_cmd = 1
 end
 
-command! -bar Tnew call neoterm#new({ 'source': 'tnew', 'mod': <q-mods> })
-command! -bar -count Topen call neoterm#open({ 'mod': <q-mods>, 'target': <count> })
-command! -bar -bang -count Tclose call neoterm#close({ 'force': <bang>0, 'target': <count> })
-command! -bar -bang TcloseAll call neoterm#closeAll({ 'force': <bang>0 })
-command! -bar -count Ttoggle call neoterm#toggle({ 'mod': <q-mods>, 'target': <count> })
-command! -bar TtoggleAll call neoterm#toggleAll()
-command! -complete=shellcmd -nargs=+ T call neoterm#do(<q-args>)
-command! -complete=shellcmd -nargs=+ Tmap call neoterm#map_for(<q-args>)
-command! -nargs=1 Tpos let g:neoterm_position=<q-args>
-
-command! Tnext call neoterm#next()
-command! Tprevious call neoterm#previous()
-
-command! -bar -complete=customlist,neoterm#list -nargs=1 TREPLSetTerm call neoterm#repl#term(<q-args>)
-command! -range=% TREPLSendFile call neoterm#repl#line(<line1>, <line2>)
-command! -range TREPLSendSelection call neoterm#repl#selection()
-command! -range TREPLSendLine call neoterm#repl#line(<line1>, <line2>)
-
-nnoremap <silent> <Plug>(neoterm-repl-send) :<c-u>set opfunc=neoterm#repl#opfunc<cr>g@
-xnoremap <silent> <Plug>(neoterm-repl-send) :<c-u>call neoterm#repl#selection()<cr>
-nnoremap <silent> <Plug>(neoterm-repl-send-line) :<c-u>set opfunc=neoterm#repl#opfunc<bar>exe 'norm! 'v:count1.'g@_'<cr>
+" Handling
+command! -bar Tnew
+      \ call neoterm#new({ 'source': 'tnew', 'mod': <q-mods> })
+command! -bar -count Topen
+      \ call neoterm#open({ 'mod': <q-mods>, 'target': <count> })
+command! -bar -bang -count Tclose
+      \ call neoterm#close({ 'force': <bang>0, 'target': <count> })
+command! -bar -bang TcloseAll
+      \ call neoterm#closeAll({ 'force': <bang>0 })
+command! -bar -count Ttoggle
+      \ call neoterm#toggle({ 'mod': <q-mods>, 'target': <count> })
+command! -bar TtoggleAll
+      \ call neoterm#toggleAll()
+command! -complete=shellcmd -nargs=+ T
+      \ call neoterm#do(<q-args>)
+command! -complete=shellcmd -nargs=+ Tmap
+      \ call neoterm#map_for(<q-args>)
+command! -nargs=1 Tpos
+      \ let g:neoterm_position=<q-args>
+" Navigation
+command! Tnext
+      \ call neoterm#next()
+command! Tprevious
+      \ call neoterm#previous()
+" REPL
+command! -bar -complete=customlist,neoterm#list -nargs=1 TREPLSetTerm
+      \ call neoterm#repl#term(<q-args>)
+command! -range=% TREPLSendFile
+      \ call neoterm#repl#line(<line1>, <line2>)
+command! -range TREPLSendSelection
+      \ call neoterm#repl#selection()
+command! -range TREPLSendLine
+      \ call neoterm#repl#line(<line1>, <line2>)
+" REPL selection mappings
+nnoremap <silent> <Plug>(neoterm-repl-send)
+      \ :<c-u>set opfunc=neoterm#repl#opfunc<cr>g@
+xnoremap <silent> <Plug>(neoterm-repl-send)
+      \ :<c-u>call neoterm#repl#selection()<cr>
+nnoremap <silent> <Plug>(neoterm-repl-send-line)
+      \ :<c-u>set opfunc=neoterm#repl#opfunc<bar>exe 'norm! 'v:count1.'g@_'<cr>
