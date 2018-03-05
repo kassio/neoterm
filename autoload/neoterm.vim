@@ -121,7 +121,7 @@ endfunction
 
 function! neoterm#do(opts)
   let l:instance = s:target({ 'target': get(a:opts, 'target', 0) })
-  let l:command = neoterm#expand_cmd(a:opts.cmd)
+  let l:command = s:expand(a:opts.cmd)
 
   if empty(l:instance)
     if !g:neoterm.has_any()
@@ -135,7 +135,7 @@ endfunction
 
 function! neoterm#exec(opts)
   let l:instance = s:target({ 'target': get(a:opts, 'target', 0) })
-  let l:command = neoterm#expand_cmd(a:opts.cmd)
+  let l:command = s:expand(a:opts.cmd)
 
   if empty(l:instance) && g:neoterm.has_any()
     let l:instance = g:neoterm.last()
@@ -147,14 +147,7 @@ endfunction
 function! neoterm#map_for(command)
   exec 'nnoremap <silent> '
         \ . g:neoterm_automap_keys .
-        \ ' :T ' . neoterm#expand_cmd(a:command) . '<cr>'
-endfunction
-
-function! neoterm#expand_cmd(command)
-  let l:command = substitute(a:command, '%\(:[phtre]\)\+', '\=expand(submatch(0))', 'g')
-  let l:path = g:neoterm_use_relative_path ? expand('%') : expand('%:p')
-
-  return substitute(l:command, '%', l:path, 'g')
+        \ ' :T ' . s:expand(a:command) . '<cr>'
 endfunction
 
 function! neoterm#clear(opts)
@@ -257,4 +250,11 @@ endfunction
 
 function! s:winid()
   return exists('*win_getid') ? win_getid() : 0
+endfunction
+
+function! s:expand(command)
+  let l:command = substitute(a:command, '%\(:[phtre]\)\+', '\=expand(submatch(0))', 'g')
+  let l:path = g:neoterm_use_relative_path ? expand('%') : expand('%:p')
+
+  return substitute(l:command, '%', l:path, 'g')
 endfunction
