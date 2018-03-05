@@ -1,6 +1,4 @@
-let g:neoterm.repl = {
-      \ 'loaded': 0
-      \ }
+let g:neoterm.repl = { 'loaded': 0 }
 
 function! g:neoterm.repl.instance()
   if !has_key(l:self, 'instance_id')
@@ -15,11 +13,8 @@ function! g:neoterm.repl.instance()
 endfunction
 
 function! neoterm#repl#handlers()
-  return  {
-        \   'on_exit': function('s:repl_result_handler')
-        \ }
+  return { 'on_exit': function('s:repl_result_handler') }
 endfunction
-
 
 function! s:repl_result_handler(termid, data, event)
   let g:neoterm.repl.loaded = 0
@@ -29,6 +24,12 @@ function! neoterm#repl#term(id)
   if has_key(g:neoterm.instances, a:id)
     let g:neoterm.repl.instance_id = a:id
     let g:neoterm.repl.loaded = 1
+
+    if !empty(get(g:, 'neoterm_repl_command', ''))
+          \ && g:neoterm_auto_repl_cmd
+          \ && !g:neoterm_direct_open_repl
+      call g:neoterm.repl.instance().do(g:neoterm_repl_command)
+    end
   else
     echoe printf('There is no %s term.', a:id)
   end
@@ -67,14 +68,5 @@ function! neoterm#repl#opfunc(type)
 endfunction
 
 function! g:neoterm.repl.exec(command)
-  if !l:self.loaded && !g:neoterm_direct_open_repl
-    if !empty(get(g:, 'neoterm_repl_command', ''))
-      if g:neoterm_auto_repl_cmd
-        call l:self.instance().do(g:neoterm_repl_command)
-      end
-    end
-    let l:self.loaded = 1
-  end
-
   call g:neoterm.repl.instance().exec(add(a:command, g:neoterm_eof))
 endfunction

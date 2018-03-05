@@ -62,17 +62,5 @@ function! s:term.on_exit(termid, data, event)
   if has_key(l:self.handlers, 'on_exit')
     call l:self.handlers['on_exit'](a:termid, a:data, a:event)
   end
-
-  call l:self.destroy()
-endfunction
-
-function! s:term.destroy()
-  if has_key(g:neoterm, 'repl') && get(g:neoterm.repl, 'instance_id') ==# l:self.id
-    call remove(g:neoterm.repl, 'instance_id')
-  end
-
-  if has_key(g:neoterm.instances, l:self.id)
-    call neoterm#close({ 'force': 1, 'target': l:self.id })
-    call remove(g:neoterm.instances, l:self.id)
-  end
+  call neoterm#destroy(l:self)
 endfunction

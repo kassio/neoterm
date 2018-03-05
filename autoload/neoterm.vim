@@ -190,6 +190,17 @@ function! neoterm#previous()
   call s:can_navigate(function('s:previous'))
 endfunction
 
+function! neoterm#destroy(instance)
+  if has_key(g:neoterm, 'repl') && get(g:neoterm.repl, 'instance_id') ==# a:instance.id
+    call remove(g:neoterm.repl, 'instance_id')
+  end
+
+  if has_key(g:neoterm.instances, a:instance.id)
+    call neoterm#close({ 'force': 1, 'target': a:instance.id })
+    call remove(g:neoterm.instances, a:instance.id)
+  end
+endfunction
+
 function! s:create_window(instance)
   if a:instance.source ==# 'tnew'
     let l:mod = a:instance.mod !=# '' ? a:instance.mod : g:neoterm_tnew_mod
