@@ -29,7 +29,7 @@ if has('nvim') || has('terminal')
           \   call neoterm#repl#set('iex -S mix') |
           \ elseif &filetype == 'elixir' |
           \   call neoterm#repl#set('iex') |
-          \ endif
+          \ end
     " Julia
     au FileType julia
           \ if executable('julia') |
@@ -95,15 +95,15 @@ if has('nvim') || has('terminal')
           \   let s:lua_repl='luap' |
           \ elseif executable('lua') |
           \   let s:lua_repl='lua' |
-          \ endif |
+          \ end |
           \ if executable('luarocks') && exists('s:lua_repl') |
           \   call neoterm#repl#set(s:lua_repl . ' -l"luarocks.require"') |
-          \ endif
+          \ end
     " TCL
     au FileType tcl
           \ if executable('tclsh') |
           \   call neoterm#repl#set('tclsh') |
-          \ endif
+          \ end
     " Standard ML (SML)
     au FileType sml
           \ if executable('sml') |
@@ -111,7 +111,11 @@ if has('nvim') || has('terminal')
           \     call neoterm#repl#set('rlwrap sml') |
           \   else |
           \     call neoterm#repl#set('sml') |
-          \   endif |
-          \ endif
+          \   end |
+          \ end
+    au FileType scala
+          \ if executable('sbt')
+          \   call neoterm#repl#set('sbt console')
+          \ end
   aug END
 end
