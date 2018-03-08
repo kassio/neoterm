@@ -5,7 +5,7 @@ the terminal easily. All commands opens a terminal if it's not open or reuse the
 open terminal.
 REPL commands, opens a terminal and the proper REPL, if it's not opened.
 
-- NeoVim terminal helper functions/commands.
+- NeoVim/Vim terminal helper functions/commands.
 - Wraps some REPL to receive current line or selection.
 - Many terminals support:
   - ![many-terms](https://cloud.githubusercontent.com/assets/120483/8921869/fe459572-34b1-11e5-93c9-c3b6f3b44719.gif)
@@ -97,8 +97,8 @@ vim-test with `neoterm` strategy to replace this feature*
 
 ### Troubleshooting
 
-Most standard file extensions for the above REPLs are picked up by Neovim's default
-filetype plugins. However, there are two exceptions:
+Most standard file extensions for the above REPLs are picked up by Neovim/Vim's
+default filetype plugins. However, there are two exceptions:
 * Julia `.jl` files, which are detected as `filetipe=lisp`
 * Idris `.idr`, `.lidr` files which are not recognised as any filetype
 To fix this, either install a suitable plugin for the language or add something like
@@ -139,3 +139,9 @@ Open a pull request, repls and other features to this plugin. :smiley:
   - **DEPRECATE T[N], Topen[N], Tclose[N], Tclear[N], Tkill[N]** - The neoterm
     id was moved to the beginning of the command, so instead of `:T2`, for
     example, one must use `:2T`.
+* 07/03/2018
+  - Do not call `:bdelete!` if buffer does not exist `term#destroy` was calling
+    `neoterm#close` which was causing a cyclic call to `:bdelete!
+    <neoterm.buffer_id>`.
+* 08/03/2018
+  - Add vim's terminal support! 🎉🎉🎉

@@ -1,4 +1,4 @@
-if has('nvim')
+if has('nvim') || has('terminal')
   aug set_repl_cmd
     au!
     " Ruby and Rails

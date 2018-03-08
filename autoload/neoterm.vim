@@ -1,7 +1,5 @@
 function! neoterm#new(...)
-  if has('nvim')
-    call neoterm#neovim#load()
-  end
+  call neoterm#term#load()
 
   let l:opts = extend(get(a:, 1, {}), {
         \ 'source': '',
