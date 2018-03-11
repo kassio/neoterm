@@ -114,8 +114,8 @@ if has('nvim') || has('terminal')
           \   end |
           \ end
     au FileType scala
-          \ if executable('sbt')
-          \   call neoterm#repl#set('sbt console')
+          \ if executable('sbt') |
+          \   call neoterm#repl#set('sbt console') |
           \ end
   aug END
 end
