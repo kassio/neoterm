@@ -111,9 +111,22 @@ au VimEnter,BufRead,BufNewFile *.lidr set filetype=lidris
 
 ## other useful commands:
 
-* `:T <command>`: Opens a terminal, or use an opened terminal, and runs the
+* `:T {command}`: Opens a terminal, or use an opened terminal, and runs the
                   given command within a terminal.
-* `:Tmap <command>`: maps a the given command to `,tt`.
+* `:Tmap {command}`: maps a the given command to `,tt`.
+
+## dynamic commands:
+
+* `:3T {command}`: Will send the command to `neoterm-3`.
+
+## useful mappings:
+
+I like to set some mappings to make me more productive.
+
+```viml
+" 3<leader>tl will clear neoterm-3.
+nnoremap <leader>tl :<c-u>exec v:count.'Tclear'<cr>
+```
 
 ## Contributing
 
