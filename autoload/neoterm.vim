@@ -100,14 +100,15 @@ function! neoterm#toggle(opts)
   let l:opts = extend(a:opts, { 'mod': '', 'target': 0 }, 'keep')
   let l:instance = s:target(l:opts)
 
-  if g:neoterm.has_any()
-    if bufwinnr(l:instance.buffer_id) > -1
-      call neoterm#close(l:opts)
-    else
-      call neoterm#open(l:opts)
-    end
+  if empty(l:instance)
+    call neoterm#new({ 'mod': l:opts.mod, 'source': 'open' })
+    return
+  end
+
+  if bufwinnr(l:instance.buffer_id) > -1
+    call neoterm#close(l:opts)
   else
-    call neoterm#new()
+    call neoterm#open(l:opts)
   end
 endfunction
 
@@ -231,11 +232,13 @@ function! s:target(opts)
     if has_key(g:neoterm.instances, a:opts.target)
       return g:neoterm.instances[a:opts.target]
     else
-      echoe printf("neoterm with id %s not found", a:opts.target)
-      return {}
+      echoe printf('neoterm with id %s not found', a:opts.target)
     end
-  elseif g:neoterm.has_any()
+  end
+  if g:neoterm.has_any()
     return g:neoterm.last()
+  else
+    return {}
   end
 endfunction
 

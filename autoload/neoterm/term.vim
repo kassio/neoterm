@@ -5,7 +5,7 @@ function! neoterm#term#load()
     elseif has('terminal')
       let l:term = neoterm#term#vim#()
     else
-      throw "neoterm does not support your vim/neovim version"
+      throw 'neoterm does not support your vim/neovim version'
     end
 
     let s:term.termsend = l:term.termsend
