@@ -39,7 +39,7 @@ function! s:term.do(command)
 endfunction
 
 function! s:term.exec(command)
-  call self.termsend(l:self.termid, a:command)
+  call l:self.termsend(l:self.termid, a:command)
   if g:neoterm_autoscroll
     call l:self.normal('G')
   end
