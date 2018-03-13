@@ -1,3 +1,11 @@
+" Creates a new neoterm instance.
+"
+" Params: Optional dictionary with the optional keys:
+"        mod: Which could be one of vim mods (`:help mods`).
+"        source: It can be either 'tnew' or '' (empty string).
+"        handlers: Dictionary with `on_stdout`, `on_stderr` and/or `on_exit`.
+"                   On vim these will be renamed to `out_cb`, `err_cb`,
+"                   `exit_cb`. For more info read `:help job_control.txt`
 function! neoterm#new(...)
   call neoterm#term#load()
 
@@ -28,20 +36,19 @@ function! neoterm#open(...)
   let l:instance = s:target(l:opts)
 
   if empty(l:instance)
-    call neoterm#new({ 'mod': l:opts.mod, 'source': 'open' })
-    return
-  end
+    call neoterm#new({ 'mod': l:opts.mod })
+  else
+    if l:opts.mod !=# ''
+      let l:instance.mod = l:opts.mod
+    end
 
-  if l:opts.mod !=# ''
-    let l:instance.mod = l:opts.mod
-  end
+    let l:instance.origin = s:winid()
+    call s:create_window(l:instance)
+    call s:after_open(l:instance)
 
-  let l:instance.origin = s:winid()
-  call s:create_window(l:instance)
-  call s:after_open(l:instance)
-
-  if g:neoterm_autoscroll
-    call l:instance.normal('G')
+    if g:neoterm_autoscroll
+      call l:instance.normal('G')
+    end
   end
 endfunction
 
@@ -101,14 +108,13 @@ function! neoterm#toggle(...)
   let l:instance = s:target(l:opts)
 
   if empty(l:instance)
-    call neoterm#new({ 'mod': l:opts.mod, 'source': 'open' })
-    return
-  end
-
-  if bufwinnr(l:instance.buffer_id) > -1
-    call neoterm#close(l:opts)
+    call neoterm#new({ 'mod': l:opts.mod })
   else
-    call neoterm#open(l:opts)
+    if bufwinnr(l:instance.buffer_id) > -1
+      call neoterm#close(l:opts)
+    else
+      call neoterm#open(l:opts)
+    end
   end
 endfunction
 
@@ -232,10 +238,9 @@ function! s:target(opts)
     if has_key(g:neoterm.instances, a:opts.target)
       return g:neoterm.instances[a:opts.target]
     else
-      echoe printf('neoterm with id %s not found', a:opts.target)
+      echoe printf('neoterm-%s not found', a:opts.target)
     end
-  end
-  if g:neoterm.has_any()
+  elseif g:neoterm.has_any()
     return g:neoterm.last()
   else
     return {}
