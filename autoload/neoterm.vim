@@ -134,7 +134,7 @@ endfunction
 
 function! neoterm#exec(opts)
   let l:instance = s:target({ 'target': get(a:opts, 'target', 0) })
-  let l:command = s:expand(a:opts.cmd)
+  let l:command = map(copy(a:opts.cmd), { i, cmd -> s:expand(cmd) })
 
   if empty(l:instance) && g:neoterm.has_any()
     let l:instance = g:neoterm.last()
