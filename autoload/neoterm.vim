@@ -23,8 +23,8 @@ function! neoterm#new(...)
   let g:neoterm.instances[l:instance.id] = l:instance
 endfunction
 
-function! neoterm#open(opts)
-  let l:opts = extend(a:opts, { 'mod': '', 'target': 0 }, 'keep')
+function! neoterm#open(...)
+  let l:opts = extend(a:1, { 'mod': '', 'target': 0 }, 'keep')
   let l:instance = s:target(l:opts)
 
   if empty(l:instance)
@@ -45,8 +45,8 @@ function! neoterm#open(opts)
   end
 endfunction
 
-function! neoterm#close(opts)
-  let l:opts = extend(a:opts, { 'target': 0, 'force': 0 }, 'keep')
+function! neoterm#close(...)
+  let l:opts = extend(a:1, { 'target': 0, 'force': 0 }, 'keep')
   let l:instance = s:target(l:opts)
 
   if !empty(l:instance)
@@ -69,9 +69,9 @@ function! neoterm#close(opts)
   end
 endfunction
 
-function! neoterm#closeAll(opts)
+function! neoterm#closeAll(...)
   for l:instance in values(g:neoterm.instances)
-    call neoterm#close(extend(a:opts, { 'target': l:instance.id }))
+    call neoterm#close(extend(a:1, { 'target': l:instance.id }))
   endfor
 endfunction
 
@@ -96,8 +96,8 @@ function! s:after_open(instance)
   end
 endfunction
 
-function! neoterm#toggle(opts)
-  let l:opts = extend(a:opts, { 'mod': '', 'target': 0 }, 'keep')
+function! neoterm#toggle(...)
+  let l:opts = extend(a:1, { 'mod': '', 'target': 0 }, 'keep')
   let l:instance = s:target(l:opts)
 
   if empty(l:instance)
@@ -149,12 +149,12 @@ function! neoterm#map_for(command)
         \ ' :T ' . s:expand(a:command) . '<cr>'
 endfunction
 
-function! neoterm#clear(opts)
-  call neoterm#exec(extend(a:opts, { 'cmd': "\<c-l>" }))
+function! neoterm#clear(...)
+  call neoterm#exec(extend(a:1, { 'cmd': ["\<c-l>"] }))
 endfunction
 
-function! neoterm#kill(opts)
-  call neoterm#exec(extend(a:opts, { 'cmd': "\<c-c>" }))
+function! neoterm#kill(...)
+  call neoterm#exec(extend(a:1, { 'cmd': ["\<c-c>"] }))
 endfunction
 
 function! neoterm#normal(cmd)
