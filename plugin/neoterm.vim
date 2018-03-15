@@ -115,25 +115,25 @@ end
 " Handling
 command! -bar Tnew
       \ call neoterm#new({ 'source': 'tnew', 'mod': <q-mods> })
-command! -bar -count Topen
+command! -bar -range=0 Topen
       \ call neoterm#open({ 'mod': <q-mods>, 'target': <count> })
-command! -bar -bang -count Tclose
+command! -bar -bang -range=0 Tclose
       \ call neoterm#close({ 'force': <bang>0, 'target': <count> })
 command! -bar -bang TcloseAll
       \ call neoterm#closeAll({ 'force': <bang>0 })
-command! -bar -count Ttoggle
+command! -bar -range=0 Ttoggle
       \ call neoterm#toggle({ 'mod': <q-mods>, 'target': <count> })
 command! -bar TtoggleAll
       \ call neoterm#toggleAll()
-command! -bar -count -complete=shellcmd -nargs=+ T
+command! -bar -range=0 -complete=shellcmd -nargs=+ T
       \ call neoterm#do({ 'cmd': <q-args>, 'target': <count> })
-command! -bar -count -nargs=+ Texec
+command! -bar -range=0 -nargs=+ Texec
       \ call neoterm#exec({ 'cmd': [<f-args>, ''], 'target': <count> })
 command! -complete=shellcmd -nargs=+ Tmap
       \ call neoterm#map_for(<q-args>)
-command! -bar -count Tclear
+command! -bar -range=0 Tclear
       \ call neoterm#clear({ 'target': <count> })
-command! -bar -count Tkill
+command! -bar -range=0 Tkill
       \ call neoterm#kill({ 'target': <count> })
 command! -nargs=1 Tpos
       \ let g:neoterm_position=<q-args>

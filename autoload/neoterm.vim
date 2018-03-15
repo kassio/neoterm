@@ -127,9 +127,8 @@ function! neoterm#toggleAll()
 endfunction
 
 function! neoterm#do(opts)
-  let l:opts = extend(a:opts, { 'mod': '', 'target': 0 })
+  let l:opts = extend(a:opts, { 'mod': '', 'target': 0 }, 'keep')
   let l:opts.cmd = [l:opts.cmd, g:neoterm_eof]
-
   call neoterm#exec(l:opts)
 endfunction
 
