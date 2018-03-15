@@ -29,7 +29,7 @@ function! neoterm#repl#term(id)
           \ && g:neoterm_auto_repl_cmd
           \ && !g:neoterm_direct_open_repl
       call neoterm#exec({
-            \ 'cmd': g:neoterm_repl_command,
+            \ 'cmd': [g:neoterm_repl_command, g:neoterm_eof],
             \ 'target': g:neoterm.repl.instance().id
             \ })
     end
