@@ -158,3 +158,6 @@ Open a pull request, repls and other features to this plugin. :smiley:
     <neoterm.buffer_id>`.
 * 08/03/2018
   - Add vim's terminal support! 🎉🎉🎉
+* 15/03/2018
+  - Fix bug where `:[N]T` wasn't accepting quoted arguments, like:
+    `:T echo "ls"`.
