@@ -48,6 +48,12 @@ Executes the given command on neoterm with id [N], with no [N] the last
 neoterm will be used or a new one will be created. If there is a `%` in the
 given command, this will be expanded to the current file path.
 
+:[N]Texec {cmds}						         *:Texec*
+
+Executes the given commands, one by one, on neoterm with id [N], with no [N]
+the last neoterm will be used or a new one will be created. If there is a `%` in the
+given command, this will be expanded to the current file path.
+
 :Tnew									 *:Tnew*
 
 Opens a new term buffer. This command accepts |mods| like `:vertical`,

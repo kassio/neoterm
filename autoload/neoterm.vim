@@ -29,6 +29,8 @@ function! neoterm#new(...)
   call s:after_open(l:instance)
 
   let g:neoterm.instances[l:instance.id] = l:instance
+
+  return l:instance
 endfunction
 
 function! neoterm#open(...)
@@ -110,7 +112,7 @@ function! neoterm#toggle(...)
   if empty(l:instance)
     call neoterm#new({ 'mod': l:opts.mod })
   else
-    if bufwinnr(l:instance.buffer_id) > -1
+    if bufwinnr(l:instance.buffer_id) > 0
       call neoterm#close(l:opts)
     else
       call neoterm#open(l:opts)
@@ -125,28 +127,21 @@ function! neoterm#toggleAll()
 endfunction
 
 function! neoterm#do(opts)
-  let l:instance = s:target({ 'target': get(a:opts, 'target', 0) })
-  let l:command = s:expand(a:opts.cmd)
+  let l:opts = extend(a:opts, { 'mod': '', 'target': 0 })
+  let l:opts.cmd = [l:opts.cmd, g:neoterm_eof]
 
-  if empty(l:instance)
-    if !g:neoterm.has_any()
-      call neoterm#new({})
-    end
-    let l:instance = g:neoterm.last()
-  end
-
-  call l:instance.do(l:command)
+  call neoterm#exec(l:opts)
 endfunction
 
 function! neoterm#exec(opts)
-  let l:instance = s:target({ 'target': get(a:opts, 'target', 0) })
   let l:command = map(copy(a:opts.cmd), { i, cmd -> s:expand(cmd) })
+  let l:instance = s:target({ 'target': get(a:opts, 'target', 0) })
 
-  if empty(l:instance) && g:neoterm.has_any()
-    let l:instance = g:neoterm.last()
+  if empty(l:instance) && !g:neoterm.has_any()
+    let l:instance = neoterm#new({ 'mod': get(a:opts, 'mod', '') })
   end
 
-  call l:instance.exec(a:opts.cmd)
+  call l:instance.exec(l:command)
 endfunction
 
 function! neoterm#map_for(command)
@@ -273,6 +268,7 @@ endfunction
 
 function! s:expand(command)
   let l:command = substitute(a:command, '%\(:[phtre]\)\+', '\=expand(submatch(0))', 'g')
+  let l:command = substitute(l:command, '\c\\<cr>', g:neoterm_eof, 'g')
   let l:path = g:neoterm_use_relative_path ? expand('%') : expand('%:p')
 
   return substitute(l:command, '%', l:path, 'g')

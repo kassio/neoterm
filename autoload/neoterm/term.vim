@@ -16,26 +16,18 @@ endfunction
 
 let s:term = {}
 
-function! s:term.focus_exec(cmd)
+function! s:term.vim_exec(cmd)
   let l:winnr = bufwinnr(l:self.buffer_id)
   if l:winnr > 0
     let l:win_id = exists('*win_getid') ? win_getid() : 0
     exec printf('%swincmd w', l:winnr)
-    call a:cmd()
+    call execute(a:cmd)
     call win_gotoid(l:win_id)
   end
 endfunction
 
-function! s:term.vim_exec(cmd)
-  call l:self.focus_exec({ -> execute(a:cmd) })
-endfunction
-
 function! s:term.normal(cmd)
   call l:self.vim_exec(printf('normal! %s', a:cmd))
-endfunction
-
-function! s:term.do(command)
-  call l:self.exec([a:command, g:neoterm_eof])
 endfunction
 
 function! s:term.exec(command)

@@ -28,7 +28,10 @@ function! neoterm#repl#term(id)
     if !empty(get(g:, 'neoterm_repl_command', ''))
           \ && g:neoterm_auto_repl_cmd
           \ && !g:neoterm_direct_open_repl
-      call g:neoterm.repl.instance().do(g:neoterm_repl_command)
+      call neoterm#exec({
+            \ 'cmd': g:neoterm_repl_command,
+            \ 'target': g:neoterm.repl.instance().id
+            \ })
     end
   else
     echoe printf('There is no %s term.', a:id)

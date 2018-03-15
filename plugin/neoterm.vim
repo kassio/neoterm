@@ -127,6 +127,8 @@ command! -bar TtoggleAll
       \ call neoterm#toggleAll()
 command! -bar -count -complete=shellcmd -nargs=+ T
       \ call neoterm#do({ 'cmd': <q-args>, 'target': <count> })
+command! -bar -count -nargs=+ Texec
+      \ call neoterm#exec({ 'cmd': [<f-args>, ''], 'target': <count> })
 command! -complete=shellcmd -nargs=+ Tmap
       \ call neoterm#map_for(<q-args>)
 command! -bar -count Tclear
