@@ -161,3 +161,5 @@ Open a pull request, repls and other features to this plugin. :smiley:
 * 15/03/2018
   - Fix bug where `:[N]T` wasn't accepting quoted arguments, like:
     `:T echo "ls"`.
+  - Make handlers/callbacks work in vim. Destroy instance when destroying a
+    terminal.

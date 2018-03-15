@@ -9,9 +9,10 @@ function! s:vim.new(opts)
         \ 'curwin': 1,
         \ 'term_finish': 'close',
         \ 'term_name': a:opts.name,
-        \ 'out_cb': get(a:opts.handlers, 'on_stdout'),
-        \ 'err_cb': get(a:opts.handlers, 'on_stderr'),
-        \ 'exit_cb': get(a:opts.handlers, 'on_exit')
+        \ 'out_cb': a:opts.on_stdout,
+        \ 'err_cb': a:opts.on_stderr,
+        \ 'close_cb': a:opts.on_exit,
+        \ 'exit_cb': a:opts.on_exit
         \ }
   if g:neoterm_direct_open_repl
     return term_start(g:neoterm_repl_command, l:opts)

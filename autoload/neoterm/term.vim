@@ -37,21 +37,21 @@ function! s:term.exec(command)
   end
 endfunction
 
-function! s:term.on_stdout(termid, data, event)
+function! s:term.on_stdout(...)
   if has_key(l:self.handlers, 'on_stdout')
-    call l:self.handlers['on_stdout'](a:termid, a:data, a:event)
+    call l:self.handlers['on_stdout'](a:)
   end
 endfunction
 
-function! s:term.on_stderr(termid, data, event)
+function! s:term.on_stderr(...)
   if has_key(l:self.handlers, 'on_stderr')
-    call l:self.handlers['on_stderr'](a:termid, a:data, a:event)
+    call l:self.handlers['on_stderr'](a:)
   end
 endfunction
 
-function! s:term.on_exit(termid, data, event)
+function! s:term.on_exit(...)
   if has_key(l:self.handlers, 'on_exit')
-    call l:self.handlers['on_exit'](a:termid, a:data, a:event)
+    call l:self.handlers['on_exit'](a:)
   end
   call neoterm#destroy(l:self)
 endfunction
