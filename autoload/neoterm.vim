@@ -36,7 +36,7 @@ function! neoterm#open(...)
 
   if empty(l:instance)
     call neoterm#new({ 'mod': l:opts.mod })
-  else
+  elseif bufwinnr(l:instance.buffer_id) == -1
     if l:opts.mod !=# ''
       let l:instance.mod = l:opts.mod
     end
