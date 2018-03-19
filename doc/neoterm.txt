@@ -162,7 +162,8 @@ follows the same pattern that |jobsend()| second argument.
 								*g:neoterm_size*
 
 Set the neoterm terminal split size. The default, empty string, will use half
-of the current window.
+of the current window. To create a vertical split, set it to `'v'`. It is also
+possible to define the size of a vertical split, e.g.: `'80v'`
 Default value: `''`.
 
 							    *g:neoterm_position*
