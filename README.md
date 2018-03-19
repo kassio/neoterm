@@ -163,3 +163,6 @@ Open a pull request, repls and other features to this plugin. :smiley:
     `:T echo "ls"`.
   - Make handlers/callbacks work in vim. Destroy instance when destroying a
     terminal.
+* 18/03/2018
+  - Deprecate `g:neoterm_tnew_mod` and `g:neoterm_position` in favor of
+    `g:neoterm_default_mod`, which will be used for every new neoterm window.

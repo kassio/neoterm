@@ -40,10 +40,6 @@ if !exists('g:neoterm_size')
   let g:neoterm_size = ''
 end
 
-if !exists('g:neoterm_position')
-  let g:neoterm_position = 'horizontal'
-end
-
 if !exists('g:neoterm_direct_open_repl')
   let g:neoterm_direct_open_repl = 0
 end
@@ -64,12 +60,8 @@ if !exists('g:neoterm_autojump')
   let g:neoterm_autojump = 0
 endif
 
-if exists('g:neoterm_split_on_tnew')
-  echoe '*g:neoterm_split_on_tnew* DEPRECATED! see :help g:neoterm_split_on_tnew'
-end
-
-if !exists('g:neoterm_tnew_mod')
-  let g:neoterm_tnew_mod = ''
+if !exists('g:neoterm_default_mod')
+  let g:neoterm_default_mod = ''
 end
 
 if !exists('g:neoterm_use_relative_path')
@@ -112,9 +104,25 @@ if !exists('g:neoterm_auto_repl_cmd')
   let g:neoterm_auto_repl_cmd = 1
 end
 
+if exists('g:neoterm_position')
+  echoe '*g:neoterm_position* DEPRECATED! see :help g:neoterm_position'
+end
+
+if exists('g:neoterm_split_on_tnew')
+  echoe '*g:neoterm_split_on_tnew* DEPRECATED! see :help g:neoterm_split_on_tnew'
+end
+
+if exists('g:neoterm_tnew_mod')
+  echoe '*g:neoterm_tnew_mod* DEPRECATED! see :help g:neoterm_split_on_tnew'
+end
+
 " Handling
+command! -range=0 -complete=shellcmd -nargs=+ T
+      \ call neoterm#do({ 'cmd': <q-args>, 'target': <count>, 'mod': <q-mods> })
+command! -range=0 -complete=shellcmd -nargs=+ Texec
+      \ call neoterm#exec({ 'cmd': [<f-args>, ''], 'target': <count> })
 command! -bar Tnew
-      \ call neoterm#new({ 'source': 'tnew', 'mod': <q-mods> })
+      \ call neoterm#new({ 'mod': <q-mods> })
 command! -bar -range=0 Topen
       \ call neoterm#open({ 'mod': <q-mods>, 'target': <count> })
 command! -bar -bang -range=0 Tclose
@@ -125,18 +133,12 @@ command! -bar -range=0 Ttoggle
       \ call neoterm#toggle({ 'mod': <q-mods>, 'target': <count> })
 command! -bar TtoggleAll
       \ call neoterm#toggleAll()
-command! -range=0 -complete=shellcmd -nargs=+ T
-      \ call neoterm#do({ 'cmd': <q-args>, 'target': <count>, 'mod': <q-mods> })
-command! -range=0 -complete=shellcmd -nargs=+ Texec
-      \ call neoterm#exec({ 'cmd': [<f-args>, ''], 'target': <count> })
-command! -complete=shellcmd -nargs=+ Tmap
-      \ call neoterm#map_for(<q-args>)
 command! -bar -range=0 Tclear
       \ call neoterm#clear({ 'target': <count> })
 command! -bar -range=0 Tkill
       \ call neoterm#kill({ 'target': <count> })
-command! -nargs=1 Tpos
-      \ let g:neoterm_position=<q-args>
+command! -complete=shellcmd -nargs=+ Tmap
+      \ call neoterm#map_for(<q-args>)
 " Navigation
 command! Tnext
       \ call neoterm#next()

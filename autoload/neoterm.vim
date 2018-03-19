@@ -2,7 +2,6 @@
 "
 " Params: Optional dictionary with the optional keys:
 "        mod: Which could be one of vim mods (`:help mods`).
-"        source: It can be either 'tnew' or '' (empty string).
 "        handlers: Dictionary with `on_stdout`, `on_stderr` and/or `on_exit`.
 "                   On vim these will be renamed to `out_cb`, `err_cb`,
 "                   `exit_cb`. For more info read `:help job_control.txt`
@@ -10,7 +9,6 @@ function! neoterm#new(...)
   call neoterm#term#load()
 
   let l:opts = extend(get(a:, 1, {}), {
-        \ 'source': '',
         \ 'handlers': {},
         \ 'mod': '',
         \ 'buffer_id': 0,
@@ -22,7 +20,6 @@ function! neoterm#new(...)
 
   let l:instance.id = g:neoterm.next_id()
   let l:instance.name = printf('neoterm-%s', l:instance.id)
-  let l:instance.source = ''
   let l:instance.termid = g:neoterm.new(l:instance)
   let l:instance.buffer_id = bufnr('')
 
@@ -203,28 +200,17 @@ function! neoterm#destroy(instance)
 endfunction
 
 function! s:create_window(instance)
-  if a:instance.source ==# 'tnew'
-    let l:mod = a:instance.mod !=# '' ? a:instance.mod : g:neoterm_tnew_mod
-    if l:mod !=# ''
-      exec printf('%s %snew', l:mod, g:neoterm_size)
-    end
-  else
-    let l:hidden=&hidden
-    let &hidden=0
+  let l:hidden=&hidden
+  let &hidden=0
 
-    if a:instance.mod ==# ''
-      let a:instance.mod = g:neoterm_position ==# 'horizontal' ? 'botright' : 'vertical'
-    end
-
-    let l:cmd = printf('%s %snew', a:instance.mod, g:neoterm_size)
-    if a:instance.buffer_id > 0
-      let l:cmd .= printf(' +buffer%s', a:instance.buffer_id)
-    end
-
-    exec l:cmd
-
-    let &hidden=l:hidden
+  let l:mod = a:instance.mod !=# '' ? a:instance.mod : g:neoterm_default_mod
+  let l:cmd = printf('%s %snew', l:mod, g:neoterm_size)
+  if a:instance.buffer_id > 0
+    let l:cmd .= printf(' +buffer%s', a:instance.buffer_id)
   end
+  exec l:cmd
+
+  let &hidden=l:hidden
 endfunction
 
 function! s:target(opts)

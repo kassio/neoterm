@@ -78,9 +78,9 @@ The default mapping is `,tt`, it can be changed in |g:neoterm_automap_keys|
 
 :Tpos {position}							 *:Tpos*
 
-Changes the position where the neoterm terminal buffer will be opened. Values
-accepted: `horizontal` and `vertical`. The default position is `horizontal`,
-but it can be changed in |g:neoterm_position|
+DEPRECATED - Commands like |:T| and |:Tnew| accept vim mods (|mods|), if you
+want to choose the default mod use in one of these commands see
+|g:neoterm_default_mods|.
 
 :TREPLSetTerm {term-id}						 *:TREPLSetTerm*
 
@@ -167,8 +167,7 @@ Default value: `''`.
 
 							    *g:neoterm_position*
 
-Set the neoterm split position. Accepted values: `horizontal` and `vertical`.
-Default value: `horizontal`.
+DEPRECATED - See |g:neoterm_default_mod|.
 
 						    *g:neoterm_direct_open_repl*
 
@@ -214,9 +213,13 @@ vertical split.
 
 						            *g:neoterm_tnew_mod*
 
-When no |mods| is used in |:Tnew| |g:neoterm_tnew_mod| will be used. For
-possible values check `:h mods` .
-Default: empty.
+DEPRECATED - See |g:neoterm_default_mod|.
+
+
+						         *g:neoterm_default_mod*
+
+Default vim mod (|mods|) when creating or toggling a neoterm window.
+Default value: ''
 
 
 						   *g:neoterm_use_relative_path*
