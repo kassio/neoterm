@@ -6,6 +6,7 @@ let g:neoterm_loaded = 1
 
 let g:neoterm = {
       \ 'last_id': 0,
+      \ 'last_active': 0,
       \ 'open': 0,
       \ 'instances': {}
       \ }
@@ -21,8 +22,12 @@ endfunction
 
 function! g:neoterm.last()
   if l:self.has_any()
-    let l:keys = keys(g:neoterm.instances)
-    return l:self.instances[l:keys[-1]]
+    if has_key(l:self.instances, l:self.last_active)
+      return l:self.instances[l:self.last_active]
+    else
+      let l:keys = keys(g:neoterm.instances)
+      return l:self.instances[l:keys[-1]]
+    end
   end
 endfunction
 

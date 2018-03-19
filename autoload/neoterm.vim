@@ -137,6 +137,7 @@ function! neoterm#exec(opts)
     let l:instance = neoterm#new({ 'mod': get(a:opts, 'mod', '') })
   end
 
+  let g:neoterm.last_active = l:instance.id
   call l:instance.exec(l:command)
 endfunction
 
@@ -167,23 +168,16 @@ function! neoterm#list(arg_lead, cmd_line, cursor_pos)
 endfunction
 
 function! neoterm#next()
-  function! s:next(buffers, index)
-    let l:next_index = a:index + 1
-    let l:next_index = l:next_index > (len(a:buffers) - 1) ? 0 : l:next_index
-    exec printf('%sbuffer', a:buffers[l:next_index])
+  function! s:next(ids, index)
+    let l:next_index = a:index +1
+    return l:next_index > (len(a:ids) - 1) ? 0 : l:next_index
   endfunction
 
-  call s:can_navigate(function('s:next'))
+  call s:navigate_with(function('s:next'))
 endfunction
 
 function! neoterm#previous()
-  function! s:previous(buffers, index)
-    let l:previous_index = a:index - 1
-    let l:previous_index = l:previous_index < 0 ? (len(a:buffers) - 1) : l:previous_index
-    exec printf('%sbuffer', a:buffers[l:previous_index])
-  endfunction
-
-  call s:can_navigate(function('s:previous'))
+  call s:navigate_with({ _, i -> i - 1 })
 endfunction
 
 function! neoterm#destroy(instance)
@@ -196,6 +190,10 @@ function! neoterm#destroy(instance)
       exec printf('%sbdelete!', a:instance.buffer_id)
     end
     call remove(g:neoterm.instances, a:instance.id)
+  end
+
+  if g:neoterm.last_active == a:instance.id
+    g:neoterm.last_active = 0
   end
 endfunction
 
@@ -227,17 +225,17 @@ function! s:target(opts)
   end
 endfunction
 
-function! s:can_navigate(navigate)
+function! s:navigate_with(callback)
   if &buftype ==? 'terminal'
     if len(g:neoterm.instances) > 1
-      let l:buffers = map(copy(g:neoterm.instances), { _, instance -> instance.buffer_id })
-      let l:buffers_ids = values(l:buffers)
-      let l:current_buffer = l:buffers[b:neoterm_id]
-      let l:current_index = index(l:buffers_ids, l:current_buffer)
-      let l:hidden = &hidden
+      let l:ids = keys(g:neoterm.instances)
+      let l:current_index = index(l:ids, string(b:neoterm_id))
+      let l:id = l:ids[a:callback(l:ids, l:current_index)]
+      let g:neoterm.last_active = l:id
 
+      let l:hidden = &hidden
       set hidden
-      call a:navigate(l:buffers_ids, l:current_index)
+      exec printf('%sbuffer', g:neoterm.instances[l:id].buffer_id)
       let &hidden = l:hidden
     else
       echo 'You do not have other terminals'

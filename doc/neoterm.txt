@@ -37,22 +37,22 @@ the command to neoterm `1`.
 
 Besides all suffixed command the user always have the canonical commands, the
 same set of commands without any suffix. Those commands will always be
-executed in the last neoterm's term.
+executed in the last active neoterm.
 
 ===============================================================================
 2. Commands				       *neoterm-cmds* *neoterm-commands*
 
 :[N]T {cmd}								    *:T*
 
-Executes the given command on neoterm with id [N], with no [N] the last
+Executes the given command on neoterm with id [N], with no [N] the last active
 neoterm will be used or a new one will be created. If there is a `%` in the
 given command, this will be expanded to the current file path.
 
 :[N]Texec {cmds}						         *:Texec*
 
 Executes the given commands, one by one, on neoterm with id [N], with no [N]
-the last neoterm will be used or a new one will be created. If there is a `%` in the
-given command, this will be expanded to the current file path.
+the last active neoterm will be used or a new one will be created. If there is
+a `%` in the given command, this will be expanded to the current file path.
 
 :Tnew									 *:Tnew*
 
@@ -61,13 +61,13 @@ Opens a new term buffer. This command accepts |mods| like `:vertical`,
 
 :[N]Tclear								*:Tclear*
 
-Clear the neoterm with [N] id. With no [N] the last neoterm will cleaned. This
-command will send a <C-L> to neoterm.
+Clear the neoterm with [N] id. With no [N] the last active neoterm will
+cleaned. This command will send a <C-L> to neoterm.
 
 :[N]Tkill						 	   	*:Tkill*
 
-Kills the process in the neoterm with [N] id. With no [N] the last neoterm
-will cleaned. This command will send a <C-K> to neoterm.
+Kills the process in the neoterm with [N] id. With no [N] the last active
+neoterm will cleaned. This command will send a <C-K> to neoterm.
 
 :Tmap {cmd}								 *:Tmap*
 
@@ -100,14 +100,14 @@ Sends the current selection to a REPL.
 
 :[N]Topen							        *:Topen*
 
-Opens neoterm with id [N]. With no [N] the last neoterm will be open or a new
-one will be created. This command accepts vim |mods|. The last |mods| used
-will be saved in the neoterm instance.
+Opens neoterm with id [N]. With no [N] the last active neoterm will be open or
+a new one will be created. This command accepts vim |mods|. The last |mods|
+used will be saved in the neoterm instance.
 
 :[N]Tclose[!]							       *:Tclose*
 
-Closes, or hides, the neoterm with id [N]. With no [N] the last neoterm will
-be closed.
+Closes, or hides, the neoterm with id [N]. With no [N] the last active neoterm
+will be closed.
 
 When the [!] is included the |g:neoterm_keep_term_open| is ignored and the
 neoterm buffer is deleted.
@@ -120,9 +120,9 @@ When the [!] is included `:Tclose!`(with the bang) is called.
 
 :[N]Ttoggle							      *:Ttoggle*
 
-Toggles the neoterm with id [N]. With no [N] the last neoterm will be toggled.
-This command accepts vim |mods|. The last |mods| used will be saved in the
-neoterm instance.
+Toggles the neoterm with id [N]. With no [N] the last active neoterm will be
+toggled.  This command accepts vim |mods|. The last |mods| used will be saved
+in the neoterm instance.
 
 :TtoggleAll     						   *:TtoggleAll*
 

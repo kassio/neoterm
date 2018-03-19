@@ -163,3 +163,6 @@ Open a pull request, repls and other features to this plugin. :smiley:
 * 18/03/2018
   - Deprecate `g:neoterm_tnew_mod` and `g:neoterm_position` in favor of
     `g:neoterm_default_mod`, which will be used for every new neoterm window.
+  - Add the feature of the _last active_ neoterm. When sending a command or
+    navigating among neoterms the last one will be marked as the last active and
+    it'll be used by default in the next commands.
