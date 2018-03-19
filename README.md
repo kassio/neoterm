@@ -59,9 +59,6 @@ to consult neoterm's online documentation:
 silent! helptags ALL
 ```
 
-Because the author of this plugin is a weird nerd, this is his preferred
-installation method.
-
 ## test libs (removed on 05/Feb/2017)
 
 *This feature was removed on 05/Feb/2017, please consider to use the
