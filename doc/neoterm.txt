@@ -136,25 +136,6 @@ Navigate to the next neoterm instance, works like `:bnext`
 
 Navigate to the previous neoterm instance, works like `:bprevious`
 
-===============================================================================
-3. Functions						     *neoterm-functions*
-
-:call neoterm#close()					       *neoterm#close()*
-
-Closes, or hides, the current neoterm terminal split according to
-|g:neoterm_keep_term_open|. This function can receive an optional target,
-like: `:call neoterm#close({ 'target': 2 })` .
-
-:call neoterm#do({ 'cmd': {cmd} })	        		  *neoterm#do()*
-
-Executes the given command on a neoterm terminal split. If there is a `%` in
-the given command, this will be expanded to the current file path.
-The command |:T| executes this function.
-
-:call neoterm#exec({ 'cmd': [{cmd}, ""] })	        	*neoterm#exec()*
-
-Executes the given command list on a neoterm terminal split. The argument
-follows the same pattern that |jobsend()| second argument.
 
 ===============================================================================
 4. Options		    *neoterm-vars* *neoterm-variables* *neoterm-options*
@@ -218,7 +199,8 @@ DEPRECATED - See |g:neoterm_default_mod|.
 
 						         *g:neoterm_default_mod*
 
-Default vim mod (|mods|) when creating or toggling a neoterm window.
+Default vim mod (|mods|) when creating or toggling a neoterm window. To see
+the possible values of this variable check `:help mods`
 Default value: ''
 
 
