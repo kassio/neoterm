@@ -45,7 +45,8 @@ executed in the last active neoterm.
 :[N]T {cmd}								    *:T*
 
 Executes the given command on neoterm with id [N], with no [N] the last active
-neoterm will be used or a new one will be created. If there is a `%` in the
+neoterm will be used or a new one will be created. If a new neoterm window is
+created mods are accept to position the new window. If there is a `%` in the
 given command, this will be expanded to the current file path.
 
 :[N]Texec {cmds}						         *:Texec*

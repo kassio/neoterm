@@ -198,17 +198,20 @@ function! neoterm#destroy(instance)
 endfunction
 
 function! s:create_window(instance)
-  let l:hidden=&hidden
-  let &hidden=0
-
   let l:mod = a:instance.mod !=# '' ? a:instance.mod : g:neoterm_default_mod
-  let l:cmd = printf('%s %snew', l:mod, g:neoterm_size)
-  if a:instance.buffer_id > 0
-    let l:cmd .= printf(' +buffer%s', a:instance.buffer_id)
-  end
-  exec l:cmd
 
-  let &hidden=l:hidden
+  if l:mod !=# ''
+    let l:hidden=&hidden
+    let &hidden=0
+
+    let l:cmd = printf('%s %snew', l:mod, g:neoterm_size)
+    if a:instance.buffer_id > 0
+      let l:cmd .= printf(' +buffer%s', a:instance.buffer_id)
+    end
+    exec l:cmd
+
+    let &hidden=l:hidden
+  end
 endfunction
 
 function! s:target(opts)
