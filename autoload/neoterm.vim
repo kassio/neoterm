@@ -36,6 +36,7 @@ function! neoterm#open(...)
 
   if empty(l:instance)
     call neoterm#new({ 'mod': l:opts.mod })
+    let g:neoterm.last_active = g:neoterm.last_id
   elseif bufwinnr(l:instance.buffer_id) == -1
     if l:opts.mod !=# ''
       let l:instance.mod = l:opts.mod
@@ -45,6 +46,7 @@ function! neoterm#open(...)
     call s:create_window(l:instance)
     call s:after_open(l:instance)
 
+    let g:neoterm.last_active = l:instance.id
     if g:neoterm_autoscroll
       call l:instance.normal('G')
     end
