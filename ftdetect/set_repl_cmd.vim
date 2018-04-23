@@ -117,5 +117,10 @@ if has('nvim') || has('terminal')
           \ if executable('sbt') |
           \   call neoterm#repl#set('sbt console') |
           \ end
+    " Racket
+    au FileType racket
+          \ if executable('racket') |
+          \   call neoterm#repl#set('racket') |
+          \ end
   aug END
 end
