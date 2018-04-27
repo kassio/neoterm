@@ -195,7 +195,7 @@ function! neoterm#destroy(instance)
   end
 
   if g:neoterm.last_active == a:instance.id
-    g:neoterm.last_active = 0
+    let g:neoterm.last_active = 0
   end
 endfunction
 
