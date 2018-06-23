@@ -68,8 +68,9 @@ vim-test with `neoterm` strategy to replace this feature*
 
 ## REPL
 
-* `TREPLSend`: sends the current line or the selection to a REPL in a terminal.
 * `TREPLSendFile`: sends the current file to a REPL in a terminal.
+* `TREPLSendLine`: sends the current line to a REPL in a terminal.
+* `TREPLSendSelection`: sends the selection to a REPL in a terminal.
 * `<Plug>(neoterm-repl-send)`: sends with text-objects or motions, or sends the
   selection to a REPL in a terminal.
 * `<Plug>(neoterm-repl-send-line)`: sends the current line to a REPL in a
