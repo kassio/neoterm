@@ -262,6 +262,12 @@ When set to `1` neoterm will automatically open a terminal window and start the
 REPL for you. If set to `0` it will leave you in the shell.
 Default value: `1`
 
+        						       *g:neoterm_shell*
+
+Sets the shell used inside neoterm.
+neovim default: `&shell . ' ' . substitute(&shellcmdflag, '[-/]c', '', '')`
+vim default: `&shell`
+
 ===============================================================================
 6. Operators						     *neoterm-operators*
 
