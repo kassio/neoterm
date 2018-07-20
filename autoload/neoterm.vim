@@ -255,9 +255,9 @@ function! s:winid()
 endfunction
 
 function! s:expand(command)
-  let l:command = substitute(a:command, '%\(:[phtre]\)\+', '\=expand(submatch(0))', 'g')
+  let l:command = substitute(a:command, '[^\\]%\(:[phtre]\)\+', '\=expand(submatch(0))', 'g')
   let l:command = substitute(l:command, '\c\\<cr>', g:neoterm_eof, 'g')
   let l:path = g:neoterm_use_relative_path ? expand('%') : expand('%:p')
 
-  return substitute(l:command, '%', l:path, 'g')
+  return substitute(l:command, '[^\\]%', l:path, 'g')
 endfunction

@@ -132,6 +132,8 @@ Open a pull request, repls and other features to this plugin. :smiley:
 
 ## Changelog
 
+* 20/07/2018
+  - `\%` Will not expand the `%`. (Escaping the `%`)
 * 03/03/2018
   - **DEPRECATE g:neoterm_split_on_tnew** - `:Tnew` now accepts vim mods (`:help mods`).
   - Introduce `g:neoterm_tnew_mod` to set a default `:Tnew` mod (`:help mods`).
