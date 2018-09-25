@@ -211,7 +211,10 @@ function! s:create_window(instance)
       let l:cmd .= printf(' +buffer%s', a:instance.buffer_id)
     end
     exec l:cmd
-    exec('resize ' .g:neoterm_size)
+
+    if !empty(g:neoterm_size)
+      exec('resize ' .g:neoterm_size)
+    endif
 
     let &hidden=l:hidden
   end
