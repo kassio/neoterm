@@ -1,24 +1,17 @@
 # neoterm
 
-Use the same terminal for everything. The main reason for this plugin is reuse
-the terminal easily. All commands opens a terminal if it's not open or reuse the
-open terminal.
-REPL commands, opens a terminal and the proper REPL, if it's not opened.
+Use the same terminal for everything. The main reason for this plugin is to
+reuse the terminal easily. All commands open a terminal if one does not already
+exist. REPL commands open a terminal and the proper REPL if not already opened.
 
-- NeoVim/Vim terminal helper functions/commands.
-- Wraps some REPL to receive current line or selection.
-- Many terminals support:
+- Neovim/Vim terminal helper functions/commands.
+- Wraps REPLs to receive current file, line or selection.
+- Multiple terminal support:
   - ![many-terms](https://cloud.githubusercontent.com/assets/120483/8921869/fe459572-34b1-11e5-93c9-c3b6f3b44719.gif)
 
 ## Installation
 
-To install this plugin, you should use one of the following methods.
-For Windows users, replace usage of the Unix `~/.vim` directory with
-`%USERPROFILE%\_vim`, or another directory if you have configured
-Vim differently. On Windows, your `~/.vimrc` file will be similarly
-stored in `%USERPROFILE%\_vimrc`.
-
-### i. Installation with Vundle/Plug.vim/minpac/any other
+### Vundle/Plug.vim/minpac/any other
 
 You can install this plugin using any vim plugin manager by using the path on
 GitHub for this repository:
@@ -29,18 +22,18 @@ GitHub for this repository:
 
 See the your plugin manager documentation for more information.
 
-### ii. Manual Installation
+### Manual
 
-For installation without a package manager, you can clone this git repository
+For installation without a package manager, you can clone this Git repository
 into a bundle directory as with pathogen, and add the repository to your
-runtime path yourself. First clone the repository.
+runtime path yourself. First clone the repository:
 
 ```console
 cd ~/.vim/bundle
 git clone https://github.com/kassio/neoterm.git
 ```
 
-Then, modify your `~/.vimrc` file to add this plugin to your runtime path.
+Then, modify your `~/.vimrc` file to add this plugin to your runtime path:
 
 ```vim
 set nocompatible
@@ -59,10 +52,17 @@ to consult neoterm's online documentation:
 silent! helptags ALL
 ```
 
+### Windows
+
+For Windows users, replace usage of the Unix `~/.vim` directory with
+`%USERPROFILE%\_vim`, or another directory if you have configured
+Vim differently. On Windows, your `~/.vimrc` file will be similarly
+stored in `%USERPROFILE%\_vimrc`.
+
 ## test libs (removed on 05/Feb/2017)
 
-*This feature was removed on 05/Feb/2017, please consider to use the
-vim-test with `neoterm` strategy to replace this feature*
+*This feature was removed on 05/Feb/2017, please consider using vim-test with
+`neoterm` strategy to replace this feature.*
 
 - [Related issue](https://github.com/kassio/neoterm/issues/123).
 
@@ -76,7 +76,7 @@ vim-test with `neoterm` strategy to replace this feature*
 * `<Plug>(neoterm-repl-send-line)`: sends the current line to a REPL in a
   terminal.
 
-### REPLs supported
+### Supported REPLs
 
 * Ruby: `pry` and `irb`
 * Rails: `bundle exec rails console`
@@ -107,13 +107,13 @@ au VimEnter,BufRead,BufNewFile *.idr set filetype=idris
 au VimEnter,BufRead,BufNewFile *.lidr set filetype=lidris
 ```
 
-## other useful commands:
+## Other useful commands
 
 * `:T {command}`: Opens a terminal, or use an opened terminal, and runs the
                   given command within a terminal.
 * `:Tmap {command}`: maps a the given command to `,tt`.
 
-## dynamic commands:
+## Dynamic commands
 
 * `:3T {command}`: Will send the command to `neoterm-3`.
 
@@ -128,7 +128,7 @@ nnoremap <leader>tl :<c-u>exec v:count.'Tclear'<cr>
 
 ## Contributing
 
-Open a pull request, repls and other features to this plugin. :smiley:
+Open a pull request to add REPLs and other features to this plugin. :smiley:
 
 ## Changelog
 
