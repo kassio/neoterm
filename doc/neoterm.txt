@@ -27,7 +27,7 @@ CONTENTS						      *neoterm-contents*
 neoterm is a neovim terminal wrapper. Its main goal is to provide an easier
 way to interact with neovim's terminal.
 
-1.2 Multiple terminal support                        *multiple-terminal-support*
+1.2 Multiple terminal support                *neoterm-multiple-terminal-support*
 
 neoterm is capable of controlling more than one terminal at a time. To open a
 new terminal, use |:Tnew|. Each neoterm terminal has an `ID` (neoterm jobs are
