@@ -132,6 +132,10 @@ Open a pull request, repls and other features to this plugin. :smiley:
 
 ## Changelog
 
+* 09/11/2018
+  - Yet another work with '%' expandability.
+    - '%' will be expanded to the current file path, respect g:neoterm_use_relative_path;
+    - '\%' will be expanded to '%', not the current file path, useful in Windows.
 * 20/07/2018
   - `\%` Will not expand the `%`. (Escaping the `%`)
 * 03/03/2018
