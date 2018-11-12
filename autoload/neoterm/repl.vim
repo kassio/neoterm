@@ -16,7 +16,7 @@ function! neoterm#repl#handlers()
   return { 'on_exit': function('s:repl_result_handler') }
 endfunction
 
-function! s:repl_result_handler(termid, data, event)
+function! s:repl_result_handler(...)
   let g:neoterm.repl.loaded = 0
 endfunction
 
