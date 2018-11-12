@@ -13,5 +13,5 @@ function! s:neovim.new(opts)
 endfunction
 
 function! s:neovim.termsend(termid, command)
-  return jobsend(a:termid, a:command)
+  return chansend(a:termid, a:command)
 endfunction

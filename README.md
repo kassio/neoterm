@@ -133,6 +133,8 @@ Open a pull request to add REPLs and other features to this plugin. :smiley:
 ## Changelog
 
 * 12/11/2018
+  - Use `chansend` instead of `jobsend`, which was deprecated.
+* 12/11/2018
   - Fix `E119: Not enough arguments for function: <SNR>112_repl_result_handler`
 * 09/11/2018
   - Yet another work with '%' expandability.
