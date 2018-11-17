@@ -132,6 +132,8 @@ Open a pull request to add REPLs and other features to this plugin. :smiley:
 
 ## Changelog
 
+* 17/11/2018
+  - add `:Tclear!`, this will clear the neoterm buffer scrollback (history)
 * 12/11/2018
   - Use `chansend` instead of `jobsend`, which was deprecated.
 * 12/11/2018

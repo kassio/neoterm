@@ -141,6 +141,15 @@ function! neoterm#exec(opts)
 
   let g:neoterm.last_active = l:instance.id
   call l:instance.exec(l:command)
+
+  if get(a:opts, 'force_clear', 0)
+    let l:bufname = bufname(l:instance.buffer_id)
+    let l:scrollback = getbufvar(l:bufname, '&scrollback')
+
+    call setbufvar(l:bufname, "&scrollback", 0)
+    sleep 100m
+    call setbufvar(l:bufname, "&scrollback", l:scrollback)
+  end
 endfunction
 
 function! neoterm#map_for(command)
@@ -150,7 +159,7 @@ function! neoterm#map_for(command)
 endfunction
 
 function! neoterm#clear(...)
-  call neoterm#exec(extend(a:1, { 'cmd': ["\<c-l>"] }))
+  call neoterm#exec(extend(a:1, { 'cmd': ["\<c-l>"], 'force_clear': 0 }, 'keep'))
 endfunction
 
 function! neoterm#kill(...)

@@ -138,8 +138,8 @@ command! -bar -range=0 Ttoggle
       \ call neoterm#toggle({ 'mod': <q-mods>, 'target': <count> })
 command! -bar TtoggleAll
       \ call neoterm#toggleAll()
-command! -bar -range=0 Tclear
-      \ call neoterm#clear({ 'target': <count> })
+command! -bar -bang -range=0 Tclear
+      \ call neoterm#clear({ 'force_clear': <bang>0, 'target': <count> })
 command! -bar -range=0 Tkill
       \ call neoterm#kill({ 'target': <count> })
 command! -complete=shellcmd -nargs=+ Tmap
