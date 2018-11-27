@@ -269,6 +269,16 @@ Sets the shell used inside neoterm.
 neovim default: `&shell . ' ' . substitute(&shellcmdflag, '[-/]c', '', '')`
 vim default: `&shell`
 
+                                                      *g:neoterm_command_prefix*
+
+When set, is used as the prefix to any text sent to the neoterm terminal.
+This can be useful if your shell or REPL is configured to use vi-mode editing
+to ensure the mode is set to insertion mode.   For instance when using a shell
+or REPL in vi-mode, setting this to `"\edda"` will clear the current line then
+leave the prompt in insertion mode.
+Default value: ''
+
+
 ===============================================================================
 6. Operators						     *neoterm-operators*
 

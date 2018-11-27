@@ -109,6 +109,10 @@ if !exists('g:neoterm_auto_repl_cmd')
   let g:neoterm_auto_repl_cmd = 1
 end
 
+if !exists('g:neoterm_command_prefix')
+    let g:neoterm_command_prefix = ''
+end
+
 if exists('g:neoterm_position')
   echoe '*g:neoterm_position* DEPRECATED! see :help g:neoterm_position'
 end
