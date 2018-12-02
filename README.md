@@ -92,6 +92,7 @@ stored in `%USERPROFILE%\_vimrc`.
 * MATLAB: `matlab -nodesktop -nosplash`
 * PARI/GP: `gp`
 * PHP: `psysh` and `php`
+* LFE: `lfe`
 
 ### Troubleshooting
 
@@ -99,12 +100,15 @@ Most standard file extensions for the above REPLs are picked up by Neovim/Vim's
 default filetype plugins. However, there are two exceptions:
 * Julia `.jl` files, which are detected as `filetipe=lisp`
 * Idris `.idr`, `.lidr` files which are not recognised as any filetype
+* LFE `.lfe` files, which are not recognized as any filetype
+
 To fix this, either install a suitable plugin for the language or add something like
 the following to your `init.vim`:
 ```viml
 au VimEnter,BufRead,BufNewFile *.jl set filetype=julia
 au VimEnter,BufRead,BufNewFile *.idr set filetype=idris
 au VimEnter,BufRead,BufNewFile *.lidr set filetype=lidris
+au VimEnter,BufRead,BufNewFile *.lfe, set filetype=lfe
 ```
 
 ## Other useful commands

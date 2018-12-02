@@ -117,5 +117,9 @@ if has('nvim') || has('terminal')
           \ if executable('sbt') |
           \   call neoterm#repl#set('sbt console') |
           \ end
+    au FileType lfe
+          \ if executable('lfe') |
+          \   call neoterm#repl#set('lfe') |
+          \ end
   aug END
 end
