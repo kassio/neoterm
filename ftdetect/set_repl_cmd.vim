@@ -122,5 +122,10 @@ if has('nvim') || has('terminal')
           \ if executable('racket') |
           \   call neoterm#repl#set('racket') |
           \ end
+    " Lisp
+    au FileType lfe
+          \ if executable('lfe') |
+          \   call neoterm#repl#set('lfe') |
+          \ end
   aug END
 end
