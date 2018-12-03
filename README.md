@@ -92,6 +92,7 @@ stored in `%USERPROFILE%\_vimrc`.
 * MATLAB: `matlab -nodesktop -nosplash`
 * PARI/GP: `gp`
 * PHP: `psysh` and `php`
+* Racket: `racket`
 * LFE: `lfe`
 
 ### Troubleshooting
