@@ -109,6 +109,10 @@ if !exists('g:neoterm_auto_repl_cmd')
   let g:neoterm_auto_repl_cmd = 1
 end
 
+if !exists('g:neoterm_command_prefix')
+    let g:neoterm_command_prefix = ''
+end
+
 if !exists('g:neoterm_term_per_tab')
   let g:neoterm_term_per_tab = 0
 end

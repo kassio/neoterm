@@ -31,7 +31,11 @@ function! s:term.normal(cmd)
 endfunction
 
 function! s:term.exec(command)
-  call l:self.termsend(l:self.termid, a:command)
+  if !empty(g:neoterm_command_prefix)
+     call l:self.termsend(l:self.termid, [g:neoterm_command_prefix . a:command[0]] + a:command[1:])
+  else
+      call l:self.termsend(l:self.termid, a:command)
+  end
   if g:neoterm_autoscroll
     call l:self.normal('G')
   end
