@@ -269,6 +269,12 @@ Sets the shell used inside neoterm.
 neovim default: `&shell . ' ' . substitute(&shellcmdflag, '[-/]c', '', '')`
 vim default: `&shell`
 
+        					        *g:neoterm_term_per_tab*
+
+When set to 1 neoterm will send the commands to the neoterm buffer linked to
+the current tab instead of the last active neoterm.
+Default value: 0
+
 ===============================================================================
 6. Operators						     *neoterm-operators*
 

@@ -144,6 +144,8 @@ Open a pull request to add REPLs and other features to this plugin. :smiley:
 ## Changelog
 
 * 21/12/2018
+  - Add `g:neoterm_term_per_tab`, a way to send the commands to the term
+    associated to the vim tab.
   - fix `:Topen` without `g:neoterm_default_mod` wasn't re-opening neoterm
     buffer.
 * 17/11/2018
