@@ -113,6 +113,10 @@ if !exists('g:neoterm_command_prefix')
     let g:neoterm_command_prefix = ''
 end
 
+if !exists('g:neoterm_term_per_tab')
+  let g:neoterm_term_per_tab = 0
+end
+
 if exists('g:neoterm_position')
   echoe '*g:neoterm_position* DEPRECATED! see :help g:neoterm_position'
 end

@@ -19,6 +19,7 @@ function! neoterm#new(...)
   call s:create_window(l:instance)
 
   let l:instance.id = g:neoterm.next_id()
+  let t:neoterm_id = l:instance.id
   let l:instance.name = printf('neoterm-%s', l:instance.id)
   let l:instance.termid = g:neoterm.new(l:instance)
   let l:instance.buffer_id = bufnr('')
@@ -108,7 +109,7 @@ function! neoterm#toggle(...)
   let l:opts = extend(a:1, { 'mod': '', 'target': 0 }, 'keep')
   let l:instance = s:target(l:opts)
 
-  if empty(l:instance)
+  if empty(l:instance) || (g:neoterm_term_per_tab && !has_key(t:, 'neoterm_id'))
     call neoterm#new({ 'mod': l:opts.mod })
   else
     if bufwinnr(l:instance.buffer_id) > 0
@@ -203,6 +204,10 @@ function! neoterm#destroy(instance)
     call remove(g:neoterm.instances, a:instance.id)
   end
 
+  if has_key(t:, 'neoterm_id')
+    unlet! t:neoterm_id
+  end
+
   if g:neoterm.last_active == a:instance.id
     let g:neoterm.last_active = 0
   end
@@ -227,6 +232,10 @@ function! s:create_window(instance)
 
     let &hidden=l:hidden
   end
+
+  if get(a:instance, 'buffer_id', 0) > 0 && bufnr('') != a:instance.buffer_id
+    exec printf('buffer %s', a:instance.buffer_id)
+  end
 endfunction
 
 function! s:target(opts)
@@ -235,6 +244,12 @@ function! s:target(opts)
       return g:neoterm.instances[a:opts.target]
     else
       echoe printf('neoterm-%s not found', a:opts.target)
+    end
+  elseif g:neoterm_term_per_tab && has_key(t:, 'neoterm_id')
+    if has_key(g:neoterm.instances, t:neoterm_id)
+      return g:neoterm.instances[t:neoterm_id]
+    else
+      echoe printf('neoterm-%s not found', t:neoterm_id)
     end
   elseif g:neoterm.has_any()
     return g:neoterm.last()

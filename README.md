@@ -82,16 +82,24 @@ stored in `%USERPROFILE%\_vimrc`.
 * Rails: `bundle exec rails console`
 * Python: `ipython` and `python`
 * JavaScript: `node`
-* Elixir: `iex`
+* Elixir: `iex` and `iex -S mix` (if `config/config.exs` exists)
 * Julia: `julia`
-* R / R Markdown: `R`
-* Haskell: `ghci`
-* Idris: `idris`
-* GNU Octave: `octave`
-  * For Octave 4.0.0 and later, you can enable Qt widgets (dialogs, plots, etc.) using `g:neoterm_repl_octave_qt = 1`
-* MATLAB: `matlab -nodesktop -nosplash`
 * PARI/GP: `gp`
-* PHP: `psysh` and `php`
+* R / R Markdown: `R`
+* GNU Octave: `octave`
+  * For Octave 4.0.0 and later, you can enable Qt widgets (dialogs, plots, etc.)
+    using `g:neoterm_repl_octave_qt = 1`
+* MATLAB: `matlab -nodesktop -nosplash`
+* Idris: `idris`
+* Haskell: `ghci`
+* PHP: `g:neoterm_repl_php` and `psysh` and `php`
+* Clojure: `lein repl`
+* Lua with `lua` and `luap`.
+* TCL: `tclsh`
+* SML: `rlwrap sml` or `sml`
+* Scala: `sbt console`
+* Racket: `racket`
+* LFE: `lfe`
 
 ### Troubleshooting
 
@@ -99,12 +107,15 @@ Most standard file extensions for the above REPLs are picked up by Neovim/Vim's
 default filetype plugins. However, there are two exceptions:
 * Julia `.jl` files, which are detected as `filetipe=lisp`
 * Idris `.idr`, `.lidr` files which are not recognised as any filetype
+* LFE `.lfe` files, which are not recognized as any filetype
+
 To fix this, either install a suitable plugin for the language or add something like
 the following to your `init.vim`:
 ```viml
 au VimEnter,BufRead,BufNewFile *.jl set filetype=julia
 au VimEnter,BufRead,BufNewFile *.idr set filetype=idris
 au VimEnter,BufRead,BufNewFile *.lidr set filetype=lidris
+au VimEnter,BufRead,BufNewFile *.lfe, set filetype=lfe
 ```
 
 ## Other useful commands
@@ -132,6 +143,11 @@ Open a pull request to add REPLs and other features to this plugin. :smiley:
 
 ## Changelog
 
+* 21/12/2018
+  - Add `g:neoterm_term_per_tab`, a way to send the commands to the term
+    associated to the vim tab.
+  - fix `:Topen` without `g:neoterm_default_mod` wasn't re-opening neoterm
+    buffer.
 * 17/11/2018
   - add `:Tclear!`, this will clear the neoterm buffer scrollback (history)
 * 12/11/2018

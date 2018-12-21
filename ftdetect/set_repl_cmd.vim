@@ -113,9 +113,20 @@ if has('nvim') || has('terminal')
           \     call neoterm#repl#set('sml') |
           \   end |
           \ end
+    " Scala
     au FileType scala
           \ if executable('sbt') |
           \   call neoterm#repl#set('sbt console') |
+          \ end
+    " Racket
+    au FileType racket
+          \ if executable('racket') |
+          \   call neoterm#repl#set('racket') |
+          \ end
+    " Lisp Flavored Erlang
+    au FileType lfe
+          \ if executable('lfe') |
+          \   call neoterm#repl#set('lfe') |
           \ end
   aug END
 end
