@@ -143,6 +143,9 @@ Open a pull request to add REPLs and other features to this plugin. :smiley:
 
 ## Changelog
 
+* 21/12/2018
+  - fix `:Topen` without `g:neoterm_default_mod` wasn't re-opening neoterm
+    buffer.
 * 17/11/2018
   - add `:Tclear!`, this will clear the neoterm buffer scrollback (history)
 * 12/11/2018

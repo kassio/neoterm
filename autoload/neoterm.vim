@@ -227,6 +227,10 @@ function! s:create_window(instance)
 
     let &hidden=l:hidden
   end
+
+  if get(a:instance, 'buffer_id', 0) > 0 && bufnr('') != a:instance.buffer_id
+    exec printf('buffer %s', a:instance.buffer_id)
+  end
 endfunction
 
 function! s:target(opts)
