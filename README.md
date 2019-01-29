@@ -143,6 +143,8 @@ Open a pull request to add REPLs and other features to this plugin. :smiley:
 
 ## Changelog
 
+* 29/01/2019
+  - Improve `g:neoterm_open_in_all_tabs` documentation.
 * 21/12/2018
   - Add `g:neoterm_term_per_tab`, a way to send the commands to the term
     associated to the vim tab.
