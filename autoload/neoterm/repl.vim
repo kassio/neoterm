@@ -63,13 +63,21 @@ function! neoterm#repl#opfunc(type)
   let [l:lnum1, l:col1] = getpos("'[")[1:2]
   let [l:lnum2, l:col2] = getpos("']")[1:2]
   let l:lines = getline(l:lnum1, l:lnum2)
-  if a:type ==# 'char'
-    let l:lines[-1] = l:lines[-1][:l:col2 - 1]
-    let l:lines[0] = l:lines[0][l:col1 - 1:]
+  if len(l:lines)
+    if a:type ==# 'char'
+      let l:lines[-1] = l:lines[-1][:l:col2 - 1]
+      let l:lines[0] = l:lines[0][l:col1 - 1:]
+    endif
+    call g:neoterm.repl.exec(l:lines)
   endif
-  call g:neoterm.repl.exec(l:lines)
 endfunction
 
 function! g:neoterm.repl.exec(command)
-  call g:neoterm.repl.instance().exec(add(a:command, g:neoterm_eof))
+  let l:command = a:command
+  if exists('b:neoterm_enable_bracketed_paste')
+        \ && b:neoterm_enable_bracketed_paste
+    let l:command[0] = "\<esc>[200~". l:command[0] 
+    let l:command[-1] = l:command[-1] . "\<esc>[201~" 
+  endif
+  call g:neoterm.repl.instance().exec(add(l:command, g:neoterm_eof))
 endfunction

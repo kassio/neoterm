@@ -10,6 +10,7 @@ if has('nvim') || has('terminal')
           \ end
     " Python
     au FileType python
+          \ let b:neoterm_enable_bracketed_paste = v:true |
           \ let s:argList = split(g:neoterm_repl_python) |
           \ if len(s:argList) > 0 && executable(s:argList[0]) |
           \   call neoterm#repl#set(g:neoterm_repl_python) |
