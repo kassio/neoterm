@@ -42,6 +42,17 @@ function! neoterm#repl#set(value)
   let g:neoterm_repl_command = a:value
 endfunction
 
+function! neoterm#repl#run_bracketed(command)
+  if exists('b:neoterm_bracket') && b:neoterm_bracket
+    let l:command = a:command
+    let l:command[0] = "\<esc>[200~". l:command[0] 
+    let l:command[-1] = l:command[-1] . "\<esc>[201~" 
+    call g:neoterm.repl.exec(l:command)
+  else
+    call g:neoterm.repl.exec(a:command)
+  endif
+endfunction
+
 function! neoterm#repl#selection()
   let [l:lnum1, l:col1] = getpos("'<")[1:2]
   let [l:lnum2, l:col2] = getpos("'>")[1:2]
@@ -51,23 +62,25 @@ function! neoterm#repl#selection()
   let l:lines = getline(l:lnum1, l:lnum2)
   let l:lines[-1] = l:lines[-1][:l:col2 - 1]
   let l:lines[0] = l:lines[0][l:col1 - 1:]
-  call g:neoterm.repl.exec(l:lines)
+  call neoterm#repl#run_bracketed(l:lines)
 endfunction
 
 function! neoterm#repl#line(...)
   let l:lines = getline(a:1, a:2)
-  call g:neoterm.repl.exec(l:lines)
+  call neoterm#repl#run_bracketed(l:lines)
 endfunction
 
 function! neoterm#repl#opfunc(type)
   let [l:lnum1, l:col1] = getpos("'[")[1:2]
   let [l:lnum2, l:col2] = getpos("']")[1:2]
   let l:lines = getline(l:lnum1, l:lnum2)
-  if a:type ==# 'char'
-    let l:lines[-1] = l:lines[-1][:l:col2 - 1]
-    let l:lines[0] = l:lines[0][l:col1 - 1:]
+  if len(l:lines)
+    if a:type ==# 'char'
+      let l:lines[-1] = l:lines[-1][:l:col2 - 1]
+      let l:lines[0] = l:lines[0][l:col1 - 1:]
+    endif
+    call neoterm#repl#run_bracketed(l:lines)
   endif
-  call g:neoterm.repl.exec(l:lines)
 endfunction
 
 function! g:neoterm.repl.exec(command)
