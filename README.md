@@ -143,6 +143,8 @@ Open a pull request to add REPLs and other features to this plugin. :smiley:
 
 ## Changelog
 
+* 11/03/2019
+  - Make the `signcolumn=auto` in neoterm buffer.
 * 29/01/2019
   - Improve `g:neoterm_open_in_all_tabs` documentation.
 * 21/12/2018

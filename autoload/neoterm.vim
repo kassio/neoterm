@@ -88,7 +88,7 @@ function! s:after_open(instance)
   let b:neoterm_id = a:instance.id
   let b:term_title = a:instance.name
   setf neoterm
-  setlocal nonumber norelativenumber
+  setlocal nonumber norelativenumber signcolumn=auto
 
   if g:neoterm_fixedsize
     setlocal winfixheight winfixwidth
