@@ -171,8 +171,9 @@ Default value: `0`.
 
                                                       *g:neoterm_keep_term_open*
 
-When set, neoterm terminal will be kept running in background. When not set,
-`:bdelete!` is used to close neoterm in |:Tclose|.
+When set, neoterm terminal will be kept running in background when the buffer
+is hidden, or when closing via |:Tclose|. When not set, `:bdelete!` is used to
+close neoterm in |:Tclose|.
 Default value: `1`.
 
                                                           *g:neoterm_autoinsert*
