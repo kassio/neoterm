@@ -143,6 +143,8 @@ Open a pull request to add REPLs and other features to this plugin. :smiley:
 
 ## Changelog
 
+* 21/06/2019
+  - Fix bug with window resizing for non-default mods (\#239).
 * 07/06/2019
   - `g:neoterm_keep_term_open` keeps hidden terminals open even if they are
     closed without using `:Tclose`
