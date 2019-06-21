@@ -143,6 +143,9 @@ Open a pull request to add REPLs and other features to this plugin. :smiley:
 
 ## Changelog
 
+* 07/06/2019
+  - `g:neoterm_keep_term_open` keeps hidden terminals open even if they are
+    closed without using `:Tclose`
 * 11/03/2019
   - Make the `signcolumn=auto` in neoterm buffer.
 * 29/01/2019

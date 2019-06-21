@@ -94,6 +94,10 @@ function! s:after_open(instance)
     setlocal winfixheight winfixwidth
   end
 
+  if g:neoterm_keep_term_open
+    setlocal bufhidden=hide
+  end
+
   if g:neoterm_autoinsert
     startinsert
   elseif !g:neoterm_autojump
