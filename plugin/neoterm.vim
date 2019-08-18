@@ -8,7 +8,8 @@ let g:neoterm = {
       \ 'last_id': 0,
       \ 'last_active': 0,
       \ 'open': 0,
-      \ 'instances': {}
+      \ 'instances': {},
+      \ 'managed': []
       \ }
 
 function! g:neoterm.next_id()
@@ -128,6 +129,11 @@ end
 if exists('g:neoterm_tnew_mod')
   echoe '*g:neoterm_tnew_mod* DEPRECATED! see :help g:neoterm_split_on_tnew'
 end
+
+" Load the right adapter for vim or neovim
+call neoterm#term#load()
+
+autocmd TermOpen * call neoterm#new_from_event()
 
 " Handling
 command! -range=0 -complete=shellcmd -nargs=+ T

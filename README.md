@@ -144,6 +144,8 @@ Open a pull request to add REPLs and other features to this plugin. :smiley:
 ## Changelog
 
 * 18/08/2019
+  - Enable neoterm to manage any terminal buffer. The TermOpen event is being
+    used to associate neovim terminal with neoterm.
   - Remove deprecated `g:neoterm_open_in_all_tabs` and fix
     `g:neoterm_term_per_tab` (\#237).
   - Better message when trying to execute a command on an already closed

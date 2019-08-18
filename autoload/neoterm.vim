@@ -5,30 +5,45 @@
 "        handlers: Dictionary with `on_stdout`, `on_stderr` and/or `on_exit`.
 "                   On vim these will be renamed to `out_cb`, `err_cb`,
 "                   `exit_cb`. For more info read `:help job_control.txt`
+"        from_buffer: Set when the neoterm is being created from the TermOpen
+"        eveent. This enables neoterm to manage every term created on neovim.
 function! neoterm#new(...)
-  call neoterm#term#load()
-
   let l:opts = extend(get(a:, 1, {}), {
         \ 'handlers': {},
         \ 'mod': '',
         \ 'buffer_id': 0,
-        \ 'origin': s:winid()
+        \ 'origin': s:winid(),
+        \ 'from_buffer': 0,
         \ }, 'keep')
 
   let l:instance = extend(copy(g:neoterm.prototype), l:opts)
-  call s:create_window(l:instance)
 
+  if !l:opts.from_buffer
+    call s:create_window(l:instance)
+  end
+
+  let l:instance.buffer_id = bufnr('')
   let l:instance.id = g:neoterm.next_id()
   let t:neoterm_id = l:instance.id
   let l:instance.name = printf('neoterm-%s', l:instance.id)
-  let l:instance.termid = g:neoterm.new(l:instance)
-  let l:instance.buffer_id = bufnr('')
+
+  if l:opts.from_buffer
+    let l:instance.termid = b:terminal_job_id
+  else
+    let l:instance.termid = g:neoterm.new(l:instance)
+  end
+
+  let g:neoterm.managed += [l:instance.termid]
 
   call s:after_open(l:instance)
 
   let g:neoterm.instances[l:instance.id] = l:instance
 
   return l:instance
+endfunction
+
+function! neoterm#new_from_event()
+  call neoterm#new({'from_buffer': 1})
 endfunction
 
 function! neoterm#open(...)
