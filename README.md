@@ -143,6 +143,10 @@ Open a pull request to add REPLs and other features to this plugin. :smiley:
 
 ## Changelog
 
+* 18/08/2019
+  - Better message when trying to execute a command on an already closed
+    neoterm. Instead of show the error stacktrace just shows the message:
+    "neoterm-X not found (probably already closed)" (\#242)
 * 21/06/2019
   - Fix bug with window resizing for non-default mods (\#239).
 * 07/06/2019

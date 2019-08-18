@@ -248,13 +248,15 @@ function! s:target(opts)
     if has_key(g:neoterm.instances, a:opts.target)
       return g:neoterm.instances[a:opts.target]
     else
-      echoe printf('neoterm-%s not found', a:opts.target)
+      echo printf('neoterm-%s not found', a:opts.target)
+      return {}
     end
   elseif g:neoterm_term_per_tab && has_key(t:, 'neoterm_id')
     if has_key(g:neoterm.instances, t:neoterm_id)
       return g:neoterm.instances[t:neoterm_id]
     else
-      echoe printf('neoterm-%s not found', t:neoterm_id)
+      echo printf('neoterm-%s not found (probably already closed)', t:neoterm_id)
+      return {}
     end
   elseif g:neoterm.has_any()
     return g:neoterm.last()
