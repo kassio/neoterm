@@ -163,11 +163,11 @@ Default value: `0`.
 Key combination to be used with |:Tmap|.
 Default value: `,tt`.
 
-                                                    *g:neoterm_open_in_all_tabs*
+                                                        *g:neoterm_term_per_tab*
 
-When set neoterm will create one (different) term to each tab, and use the
-current neoterm as target to the commands.
-Default value: `0`.
+When set to 1 neoterm will send the commands to the neoterm buffer linked to
+the current tab instead of the last active neoterm.
+Default value: 0
 
                                                       *g:neoterm_keep_term_open*
 
@@ -276,11 +276,6 @@ to ensure the mode is set to insertion mode.   For instance when using a shell
 or REPL in vi-mode, setting this to `"\edda"` will clear the current line then
 leave the prompt in insertion mode.
 Default value: ''
-                                                        *g:neoterm_term_per_tab*
-
-When set to 1 neoterm will send the commands to the neoterm buffer linked to
-the current tab instead of the last active neoterm.
-Default value: 0
 
 ===============================================================================
 6. Operators                                                 *neoterm-operators*

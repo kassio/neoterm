@@ -113,7 +113,7 @@ function! neoterm#toggle(...)
   let l:opts = extend(a:1, { 'mod': '', 'target': 0 }, 'keep')
   let l:instance = s:target(l:opts)
 
-  if empty(l:instance) || (g:neoterm_term_per_tab && !has_key(t:, 'neoterm_id'))
+  if empty(l:instance)
     call neoterm#new({ 'mod': l:opts.mod })
   else
     if bufwinnr(l:instance.buffer_id) > 0
@@ -140,21 +140,28 @@ function! neoterm#exec(opts)
   let l:command = map(copy(a:opts.cmd), { i, cmd -> s:expand(cmd) })
   let l:instance = s:target({ 'target': get(a:opts, 'target', 0) })
 
-  if empty(l:instance) && !g:neoterm.has_any()
+  if s:requires_new_instance(l:instance)
     let l:instance = neoterm#new({ 'mod': get(a:opts, 'mod', '') })
   end
 
-  let g:neoterm.last_active = l:instance.id
-  call l:instance.exec(l:command)
+  if !empty(l:instance)
+    let g:neoterm.last_active = l:instance.id
+    call l:instance.exec(l:command)
 
-  if get(a:opts, 'force_clear', 0)
-    let l:bufname = bufname(l:instance.buffer_id)
-    let l:scrollback = getbufvar(l:bufname, '&scrollback')
+    if get(a:opts, 'force_clear', 0)
+      let l:bufname = bufname(l:instance.buffer_id)
+      let l:scrollback = getbufvar(l:bufname, '&scrollback')
 
-    call setbufvar(l:bufname, '&scrollback', 0)
-    sleep 100m
-    call setbufvar(l:bufname, '&scrollback', l:scrollback)
+      call setbufvar(l:bufname, '&scrollback', 0)
+      sleep 100m
+      call setbufvar(l:bufname, '&scrollback', l:scrollback)
+    end
   end
+endfunction
+
+function! s:requires_new_instance(instance)
+  return (empty(a:instance) && g:neoterm_term_per_tab && !has_key(t:, 'neoterm_id'))
+        \ || (empty(a:instance) && !g:neoterm.has_any())
 endfunction
 
 function! neoterm#map_for(command)
@@ -244,18 +251,22 @@ function! s:create_window(instance)
 endfunction
 
 function! s:target(opts)
+  let l:not_found_msg = 'neoterm-%s not found (probably already closed)'
+
   if a:opts.target > 0
     if has_key(g:neoterm.instances, a:opts.target)
       return g:neoterm.instances[a:opts.target]
     else
-      echo printf('neoterm-%s not found', a:opts.target)
+      echo printf(l:not_found_msg, a:opts.target)
       return {}
     end
-  elseif g:neoterm_term_per_tab && has_key(t:, 'neoterm_id')
-    if has_key(g:neoterm.instances, t:neoterm_id)
+  elseif g:neoterm_term_per_tab
+    if has_key(t:, 'neoterm_id') && has_key(g:neoterm.instances, t:neoterm_id)
       return g:neoterm.instances[t:neoterm_id]
+    elseif !has_key(t:, 'neoterm_id')
+      return {}
     else
-      echo printf('neoterm-%s not found (probably already closed)', t:neoterm_id)
+      echo printf(l:not_found_msg, t:neoterm_id)
       return {}
     end
   elseif g:neoterm.has_any()
