@@ -111,7 +111,7 @@ if !exists('g:neoterm_auto_repl_cmd')
 end
 
 if !exists('g:neoterm_command_prefix')
-    let g:neoterm_command_prefix = ''
+  let g:neoterm_command_prefix = ''
 end
 
 if !exists('g:neoterm_term_per_tab')
@@ -133,7 +133,9 @@ end
 " Load the right adapter for vim or neovim
 call neoterm#term#load()
 
-autocmd TermOpen * call neoterm#new_from_event()
+if exists('#TermOpen')
+  autocmd TermOpen * call neoterm#new_from_event()
+end
 
 " Handling
 command! -range=0 -complete=shellcmd -nargs=+ T

@@ -143,6 +143,8 @@ Open a pull request to add REPLs and other features to this plugin. :smiley:
 
 ## Changelog
 
+* 19/08/2019
+  - Only use `TermOpen` when it' available. (\#243)
 * 18/08/2019
   - Enable neoterm to manage any terminal buffer. The TermOpen event is being
     used to associate neovim terminal with neoterm.
