@@ -24,11 +24,11 @@ function! neoterm#new(...)
 
   let l:instance.buffer_id = bufnr('')
   let l:instance.id = g:neoterm.next_id()
-  let t:neoterm_id = l:instance.id
   let l:instance.name = printf('neoterm-%s', l:instance.id)
+  let t:neoterm_id = l:instance.id
 
   if l:opts.from_buffer
-    let l:instance.termid = b:terminal_job_id
+    let l:instance.termid = g:neoterm.get_current_termid()
   else
     let l:instance.termid = g:neoterm.new(l:instance)
   end
@@ -43,14 +43,25 @@ function! neoterm#new(...)
 endfunction
 
 function! neoterm#new_from_event()
-  if get(g:, 'SessionLoad', 0) && get(b:, 'term_title', '') =~# 'neoterm'
+  let l:should_load = get(g:, 'SessionLoad', 0)
+        \ && index(g:neoterm.managed, g:neoterm.get_current_termid()) < 0
+
+  if l:should_load
     call neoterm#new({'from_buffer': 1})
   end
 endfunction
 
+function! neoterm#close_from_event()
+  for l:instance in values(g:neoterm.instances)
+    if l:instance.buffer_id == expand('<abuf>')
+      call neoterm#destroy(l:instance)
+    end
+  endfor
+endfunction
+
 function! neoterm#open(...)
   let l:opts = extend(a:1, { 'mod': '', 'target': 0 }, 'keep')
-  let l:instance = s:target(l:opts)
+  let l:instance = neoterm#target#get(l:opts)
 
   if empty(l:instance)
     call neoterm#new({ 'mod': l:opts.mod })
@@ -73,7 +84,7 @@ endfunction
 
 function! neoterm#close(...)
   let l:opts = extend(a:1, { 'target': 0, 'force': 0 }, 'keep')
-  let l:instance = s:target(l:opts)
+  let l:instance = neoterm#target#get(l:opts)
 
   if !empty(l:instance)
     let l:instance.origin = s:winid()
@@ -128,7 +139,7 @@ endfunction
 
 function! neoterm#toggle(...)
   let l:opts = extend(a:1, { 'mod': '', 'target': 0 }, 'keep')
-  let l:instance = s:target(l:opts)
+  let l:instance = neoterm#target#get(l:opts)
 
   if empty(l:instance)
     call neoterm#new({ 'mod': l:opts.mod })
@@ -155,7 +166,7 @@ endfunction
 
 function! neoterm#exec(opts)
   let l:command = map(copy(a:opts.cmd), { i, cmd -> s:expand(cmd) })
-  let l:instance = s:target({ 'target': get(a:opts, 'target', 0) })
+  let l:instance = neoterm#target#get({ 'target': get(a:opts, 'target', 0) })
 
   if s:requires_new_instance(l:instance)
     let l:instance = neoterm#new({ 'mod': get(a:opts, 'mod', '') })
@@ -264,32 +275,6 @@ function! s:create_window(instance)
 
   if get(a:instance, 'buffer_id', 0) > 0 && bufnr('') != a:instance.buffer_id
     exec printf('buffer %s', a:instance.buffer_id)
-  end
-endfunction
-
-function! s:target(opts)
-  let l:not_found_msg = 'neoterm-%s not found (probably already closed)'
-
-  if a:opts.target > 0
-    if has_key(g:neoterm.instances, a:opts.target)
-      return g:neoterm.instances[a:opts.target]
-    else
-      echo printf(l:not_found_msg, a:opts.target)
-      return {}
-    end
-  elseif g:neoterm_term_per_tab
-    if has_key(t:, 'neoterm_id') && has_key(g:neoterm.instances, t:neoterm_id)
-      return g:neoterm.instances[t:neoterm_id]
-    elseif !has_key(t:, 'neoterm_id')
-      return {}
-    else
-      echo printf(l:not_found_msg, t:neoterm_id)
-      return {}
-    end
-  elseif g:neoterm.has_any()
-    return g:neoterm.last()
-  else
-    return {}
   end
 endfunction
 

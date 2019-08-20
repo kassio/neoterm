@@ -133,8 +133,16 @@ end
 " Load the right adapter for vim or neovim
 call neoterm#term#load()
 
+if exists('#TerminalOpen')
+  autocmd TerminalOpen * call neoterm#new_from_event()
+end
+
 if exists('#TermOpen')
-  autocmd TermOpen * call neoterm#new_from_event()
+  autocmd TermOpen term://*neoterm call neoterm#new_from_event()
+end
+
+if exists('#TermClose')
+  autocmd TermClose term://*neoterm call neoterm#close_from_event()
 end
 
 " Handling

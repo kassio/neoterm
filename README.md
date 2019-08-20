@@ -144,6 +144,9 @@ Open a pull request to add REPLs and other features to this plugin. :smiley:
 ## Changelog
 
 * 20/08/2019
+  - Destroy managed neoterm buffer loaded from session
+  - Refactor the neoterm target function, the function the retrieves the desired
+    neoterm to act on, to its own autoload function set (neoterm#target#).
   - Only manage neoterm terminals with `TermOpen`. (\#243)
 * 19/08/2019
   - Only use `TermOpen` when it' available. (\#243)

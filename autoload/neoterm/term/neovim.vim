@@ -15,3 +15,7 @@ endfunction
 function! s:neovim.termsend(termid, command)
   return chansend(a:termid, a:command)
 endfunction
+
+function! s:neovim.get_current_termid()
+  return b:terminal_job_id
+endfunction

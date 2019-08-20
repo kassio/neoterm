@@ -1,15 +1,16 @@
 function! neoterm#term#load()
   if !has_key(g:neoterm, 'prototype')
     if has('nvim')
-      let l:term = neoterm#term#neovim#()
+      let l:adapter = neoterm#term#neovim#()
     elseif has('terminal')
-      let l:term = neoterm#term#vim#()
+      let l:adapter = neoterm#term#vim#()
     else
       throw 'neoterm does not support your vim/neovim version'
     end
 
-    let s:term.termsend = l:term.termsend
-    let g:neoterm.new = l:term.new
+    let s:term.termsend = l:adapter.termsend
+    let g:neoterm.new = l:adapter.new
+    let g:neoterm.get_current_termid = l:adapter.get_current_termid
     let g:neoterm.prototype = s:term
   end
 endfunction
@@ -32,9 +33,9 @@ endfunction
 
 function! s:term.exec(command)
   if !empty(g:neoterm_command_prefix)
-     call l:self.termsend(l:self.termid, [g:neoterm_command_prefix . a:command[0]] + a:command[1:])
+    call l:self.termsend(l:self.termid, [g:neoterm_command_prefix . a:command[0]] + a:command[1:])
   else
-      call l:self.termsend(l:self.termid, a:command)
+    call l:self.termsend(l:self.termid, a:command)
   end
   if g:neoterm_autoscroll
     call l:self.normal('G')

@@ -25,3 +25,7 @@ function! s:vim.termsend(termid, cmd)
   let l:cmd = type(a:cmd) ==# type('') ? a:cmd : join(a:cmd, "\<CR>")
   return term_sendkeys(a:termid, l:cmd)
 endfunction
+
+function! s:vim.get_current_termid()
+  return bufnr('')
+endfunction
