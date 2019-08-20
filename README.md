@@ -143,6 +143,8 @@ Open a pull request to add REPLs and other features to this plugin. :smiley:
 
 ## Changelog
 
+* 20/08/2019
+  - Only manage neoterm terminals with `TermOpen`. (\#243)
 * 19/08/2019
   - Only use `TermOpen` when it' available. (\#243)
 * 18/08/2019

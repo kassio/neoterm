@@ -43,7 +43,9 @@ function! neoterm#new(...)
 endfunction
 
 function! neoterm#new_from_event()
-  call neoterm#new({'from_buffer': 1})
+  if get(g:, 'SessionLoad', 0) && get(b:, 'term_title', '') =~# 'neoterm'
+    call neoterm#new({'from_buffer': 1})
+  end
 endfunction
 
 function! neoterm#open(...)
