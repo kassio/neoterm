@@ -130,6 +130,16 @@ if exists('g:neoterm_tnew_mod')
   echoe '*g:neoterm_tnew_mod* DEPRECATED! see :help g:neoterm_split_on_tnew'
 end
 
+if !exists('g:neoterm_marker')
+  if has('win32') || has('win64')
+    let g:neoterm_marker = '&::neoterm'
+  else
+    let g:neoterm_marker = ';#neoterm'
+  end
+end
+
+let g:neoterm_marked_shell = g:neoterm_shell.g:neoterm_marker
+
 " Load the right adapter for vim or neovim
 call neoterm#term#load()
 

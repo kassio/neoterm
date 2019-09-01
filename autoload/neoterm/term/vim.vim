@@ -17,7 +17,7 @@ function! s:vim.new(opts)
   if g:neoterm_direct_open_repl
     return term_start(g:neoterm_repl_command, l:opts)
   else
-    return term_start(g:neoterm_shell.';#neoterm', l:opts)
+    return term_start(g:neoterm_marked_shell, l:opts)
   end
 endfunction
 

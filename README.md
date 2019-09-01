@@ -143,6 +143,10 @@ Open a pull request to add REPLs and other features to this plugin. :smiley:
 
 ## Changelog
 
+* 01/09/2019
+  - Use a proper terminal marker for each OS. Unix-like uses `;#neoterm` and
+    windows uses `&::neoterm`. (Same strategy used on
+    [FZF](https://github.com/junegunn/fzf/commit/5097e563df9c066e307b7923283cf1609ede693e)) (\#246)
 * 20/08/2019
   - Destroy managed neoterm buffer loaded from session
   - Refactor the neoterm target function, the function the retrieves the desired
