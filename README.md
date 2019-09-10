@@ -1,5 +1,12 @@
 # neoterm
 
+ ```
+ __   _ _______  _____  _______ _______  ______ _______
+ | \  | |______ |     |    |    |______ |_____/ |  |  |
+ |  \_| |______ |_____|    |    |______ |    \_ |  |  |
+```
+
+
 Use the same terminal for everything. The main reason for this plugin is to
 reuse the terminal easily. All commands open a terminal if one does not already
 exist. REPL commands open a terminal and the proper REPL if not already opened.
