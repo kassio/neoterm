@@ -85,28 +85,28 @@ stored in `%USERPROFILE%\_vimrc`.
 
 ### Supported REPLs
 
-* Ruby: `pry` and `irb`
-* Rails: `bundle exec rails console`
-* Python: `ipython` and `python`
-* JavaScript: `node`
+* Clojure: `lein repl`
 * Elixir: `iex` and `iex -S mix` (if `config/config.exs` exists)
-* Julia: `julia`
-* PARI/GP: `gp`
-* R / R Markdown: `R`
 * GNU Octave: `octave`
   * For Octave 4.0.0 and later, you can enable Qt widgets (dialogs, plots, etc.)
     using `g:neoterm_repl_octave_qt = 1`
-* MATLAB: `matlab -nodesktop -nosplash`
-* Idris: `idris`
 * Haskell: `ghci`
-* PHP: `g:neoterm_repl_php` and `psysh` and `php`
-* Clojure: `lein repl`
+* Idris: `idris`
+* JavaScript: `node`
+* Julia: `julia`
+* LFE: `lfe`
 * Lua with `lua` and `luap`.
-* TCL: `tclsh`
+* MATLAB: `matlab -nodesktop -nosplash`
+* PARI/GP: `gp`
+* PHP: `g:neoterm_repl_php` and `psysh` and `php`
+* Python: `ipython` and `python`
+* R / R Markdown: `R`
+* Racket: `racket`
+* Rails: `bundle exec rails console`
+* Ruby: `pry` and `irb`
 * SML: `rlwrap sml` or `sml`
 * Scala: `sbt console`
-* Racket: `racket`
-* LFE: `lfe`
+* TCL: `tclsh`
 
 ### Troubleshooting
 
