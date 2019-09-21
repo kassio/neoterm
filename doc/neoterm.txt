@@ -75,7 +75,7 @@ The default mapping is `,tt`. It can be changed in |g:neoterm_automap_keys|.
 
 DEPRECATED - Commands like |:T| and |:Tnew| accept vim mods (|mods|). If you
 want to choose the default mod use in one of these commands see
-|g:neoterm_default_mods|.
+|g:neoterm_default_mod|.
 
 :TREPLSetTerm {term-id}                                          *:TREPLSetTerm*
 
