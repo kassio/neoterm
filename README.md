@@ -153,6 +153,8 @@ Open a pull request to add REPLs and other features to this plugin. :smiley:
 * 07/11/2019
   - Fix exception when trying to send a command to an inexistent neoterm buffer.
       ([\#254](https://github.com/kassio/neoterm/issues/254))
+  - Fix neoterm on vim. Vim doesn't accept marked shell.
+      ([\#251](https://github.com/kassio/neoterm/issues/251))
 * 01/09/2019
   - Use a proper terminal marker for each OS. Unix-like uses `;#neoterm` and
     windows uses `&::neoterm`. (Same strategy used on
