@@ -16,7 +16,7 @@ function! s:given_target(target)
   if has_key(g:neoterm.instances, a:target)
     return s:ensure_instance(g:neoterm.instances[a:target])
   else
-    echo printf(s:not_found_msg, t:neoterm_id)
+    echo printf(s:not_found_msg, a:target)
     return {}
   end
 endfunction

@@ -188,8 +188,15 @@ function! neoterm#exec(opts)
 endfunction
 
 function! s:requires_new_instance(instance)
-  return (empty(a:instance) && g:neoterm_term_per_tab && !has_key(t:, 'neoterm_id'))
-        \ || (empty(a:instance) && !g:neoterm.has_any())
+  return
+        \ (
+        \   empty(a:instance) &&
+        \   g:neoterm_term_per_tab &&
+        \   !has_key(t:, 'neoterm_id')
+        \ ) || (
+        \   empty(a:instance) &&
+        \   !g:neoterm.has_any()
+        \ )
 endfunction
 
 function! neoterm#map_for(command)

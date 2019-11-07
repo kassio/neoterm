@@ -150,27 +150,30 @@ Open a pull request to add REPLs and other features to this plugin. :smiley:
 
 ## Changelog
 
+* 07/11/2019
+  - Fix exception when trying to send a command to an inexistent neoterm buffer.
+      ([\#254](https://github.com/kassio/neoterm/issues/254))
 * 01/09/2019
   - Use a proper terminal marker for each OS. Unix-like uses `;#neoterm` and
     windows uses `&::neoterm`. (Same strategy used on
-    [FZF](https://github.com/junegunn/fzf/commit/5097e563df9c066e307b7923283cf1609ede693e)) (\#246)
+    [FZF](https://github.com/junegunn/fzf/commit/5097e563df9c066e307b7923283cf1609ede693e)) ([#246](https://github.com/kassio/neoterm/issues/246))
 * 20/08/2019
   - Destroy managed neoterm buffer loaded from session
   - Refactor the neoterm target function, the function the retrieves the desired
     neoterm to act on, to its own autoload function set (neoterm#target#).
-  - Only manage neoterm terminals with `TermOpen`. (\#243)
+  - Only manage neoterm terminals with `TermOpen`. ([#243](https://github.com/kassio/neoterm/issues/243))
 * 19/08/2019
-  - Only use `TermOpen` when it' available. (\#243)
+  - Only use `TermOpen` when it' available. ([#243](https://github.com/kassio/neoterm/issues/243))
 * 18/08/2019
   - Enable neoterm to manage any terminal buffer. The TermOpen event is being
     used to associate neovim terminal with neoterm.
   - Remove deprecated `g:neoterm_open_in_all_tabs` and fix
-    `g:neoterm_term_per_tab` (\#237).
+    `g:neoterm_term_per_tab` ([#237](https://github.com/kassio/neoterm/issues/237)).
   - Better message when trying to execute a command on an already closed
     neoterm. Instead of show the error stacktrace just shows the message:
-    "neoterm-X not found (probably already closed)" (\#242)
+    "neoterm-X not found (probably already closed)" ([#242](https://github.com/kassio/neoterm/issues/242))
 * 21/06/2019
-  - Fix bug with window resizing for non-default mods (\#239).
+  - Fix bug with window resizing for non-default mods ([#239](https://github.com/kassio/neoterm/issues/239)).
 * 07/06/2019
   - `g:neoterm_keep_term_open` keeps hidden terminals open even if they are
     closed without using `:Tclose`
