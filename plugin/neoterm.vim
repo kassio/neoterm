@@ -151,10 +151,6 @@ if exists('#TermOpen')
   autocmd TermOpen term://*neoterm call neoterm#new_from_event()
 end
 
-if exists('#TermClose')
-  autocmd TermClose term://*neoterm call neoterm#close_from_event()
-end
-
 " Handling
 command! -range=0 -complete=shellcmd -nargs=+ T
       \ call neoterm#do({ 'cmd': <q-args>, 'target': <count>, 'mod': <q-mods> })

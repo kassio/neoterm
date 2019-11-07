@@ -51,14 +51,6 @@ function! neoterm#new_from_event()
   end
 endfunction
 
-function! neoterm#close_from_event()
-  for l:instance in values(g:neoterm.instances)
-    if l:instance.buffer_id == expand('<abuf>')
-      call neoterm#destroy(l:instance)
-    end
-  endfor
-endfunction
-
 function! neoterm#open(...)
   let l:opts = extend(a:1, { 'mod': '', 'target': 0 }, 'keep')
   let l:instance = neoterm#target#get(l:opts)
