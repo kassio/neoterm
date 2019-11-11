@@ -150,6 +150,8 @@ Open a pull request to add REPLs and other features to this plugin. :smiley:
 
 ## Changelog
 
+* 11/11/2019
+  - Fix bug with `g:neoterm_fixedsize`. ([\#255](https://github.com/kassio/neoterm/issues/255))
 * 07/11/2019
   - Remove `TermClose` neoterm destroy action. This is already called via
       `on_exit` callback. ([\#252](https://github.com/kassio/neoterm/issues/252))

@@ -266,7 +266,7 @@ function! s:create_window(instance)
     exec l:cmd
 
     if !empty(g:neoterm_size)
-      exec(l:mod . ' resize ' . g:neoterm_size)
+      exec printf('%s resize %s', l:mod, g:neoterm_size)
     endif
 
     let &hidden=l:hidden
