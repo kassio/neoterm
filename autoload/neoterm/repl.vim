@@ -71,5 +71,5 @@ function! neoterm#repl#opfunc(type)
 endfunction
 
 function! g:neoterm.repl.exec(command)
-  call g:neoterm.repl.instance().exec(add(a:command, g:neoterm_eof))
+  call g:neoterm.repl.instance().exec(map(a:command, 'v:val.g:neoterm_eof'))
 endfunction
