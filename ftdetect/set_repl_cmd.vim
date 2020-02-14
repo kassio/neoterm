@@ -128,5 +128,10 @@ if has('nvim') || has('terminal')
           \ if executable('lfe') |
           \   call neoterm#repl#set('lfe') |
           \ end
+    " Rust
+    au FileType rust
+          \ if executable('evcxr') |
+          \   call neoterm#repl#set('evcxr')
+          \ end
   aug END
 end

@@ -104,6 +104,7 @@ stored in `%USERPROFILE%\_vimrc`.
 * Racket: `racket`
 * Rails: `bundle exec rails console`
 * Ruby: `pry` and `irb`
+* Rust: `evcxr`
 * SML: `rlwrap sml` or `sml`
 * Scala: `sbt console`
 * TCL: `tclsh`
@@ -150,6 +151,8 @@ Open a pull request to add REPLs and other features to this plugin. :smiley:
 
 ## Changelog
 
+* 14/02/2020
+  - Add support for [`evcxr`](https://github.com/google/evcxr)(Rust REPL).
 * 11/11/2019
   - Fix bug with `g:neoterm_fixedsize`. ([\#255](https://github.com/kassio/neoterm/issues/255))
 * 07/11/2019
