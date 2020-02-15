@@ -131,7 +131,7 @@ if has('nvim') || has('terminal')
     " Rust
     au FileType rust
           \ if executable('evcxr') |
-          \   call neoterm#repl#set('evcxr')
+          \   call neoterm#repl#set('evcxr') |
           \ end
   aug END
 end
