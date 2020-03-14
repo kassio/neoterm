@@ -93,6 +93,7 @@ stored in `%USERPROFILE%\_vimrc`.
 * Haskell: `ghci`
 * Idris: `idris`
 * JavaScript: `node`
+* Java: `java`
 * Julia: `julia`
 * LFE: `lfe`
 * Lua with `lua` and `luap`.
@@ -151,6 +152,8 @@ Open a pull request to add REPLs and other features to this plugin. :smiley:
 
 ## Changelog
 
+* 14/03/2020
+  - Add support for [`jshell`](https://github.com/christo-auer/neoterm.git)(Java REPL).
 * 14/02/2020
   - Add support for [`evcxr`](https://github.com/google/evcxr)(Rust REPL).
 * 11/11/2019
