@@ -23,6 +23,11 @@ if has('nvim') || has('terminal')
           \ if executable('node') |
           \   call neoterm#repl#set('node') |
           \ end
+    " Java
+    au FileType java
+          \ if executable('jshell') |
+          \   call neoterm#repl#set('jshell') |
+          \ end
     " Elixir
     au FileType elixir
           \ if filereadable('config/config.exs') |
