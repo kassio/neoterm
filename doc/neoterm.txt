@@ -4,9 +4,10 @@
 CONTENTS                                                      *neoterm-contents*
 
         1. Intro ............................................... |neoterm-intro|
-                1.1 What is neoterm? ................  |neoterm-what-is-neoterm|
-                1.2 Many terms support ...........  |neoterm-many-terms-support|
+                1.1 What is neoterm? ................. |neoterm-what-is-neoterm|
+                1.2 Many terms support ............ |neoterm-many-terms-support|
         2. Commands ......................................... |neoterm-commands|
+                2.1 Dynamic mappings ................ |neoterm-dynamic-mappings|
         3. Options ........................................... |neoterm-options|
         4. Operators........................................ |neoterm-operators|
 
@@ -131,9 +132,17 @@ Navigate to the next neoterm instance, works like `:bnext`.
 
 Navigate to the previous neoterm instance, works like `:bprevious`.
 
+===============================================================================
+                                                      *neoterm-dynamic-mappings*
+2.1 Dynamic Mappings
+
+One can map commands to be sent to specific neoterm windows. For example,
+
+    `" 3<leader>tl will clear neoterm-3 window`
+    `nnoremap <leader>tl :<c-u>exec v:count.'Tclear'<cr>`
 
 ===============================================================================
-4. Options                  *neoterm-vars* *neoterm-variables* *neoterm-options*
+3. Options                  *neoterm-vars* *neoterm-variables* *neoterm-options*
 
                                                                 *g:neoterm_size*
 
@@ -271,7 +280,7 @@ leave the prompt in insertion mode.
 Default value: ''
 
 ===============================================================================
-6. Operators                                                 *neoterm-operators*
+4. Operators                                                 *neoterm-operators*
 
                                                      *<Plug>(neoterm-repl-send)*
 
