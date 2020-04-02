@@ -66,6 +66,13 @@ For Windows users, replace usage of the Unix `~/.vim` directory with
 Vim differently. On Windows, your `~/.vimrc` file will be similarly
 stored in `%USERPROFILE%\_vimrc`.
 
+## Default behaviour
+
+Neoterm's default behavior is to replace the current buffer when opening a
+neoterm. You can change this with `g:neoterm_default_mod`. Check the
+[documentation](https://github.com/kassio/neoterm/blob/master/doc/neoterm.txt)
+for more information.
+
 ## Send commands to a neoterm window
 
 * `:T {command}`: Opens a terminal, or use an opened terminal, and runs the
