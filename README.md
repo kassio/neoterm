@@ -68,8 +68,8 @@ stored in `%USERPROFILE%\_vimrc`.
 
 ## Default behaviour
 
-Neoterm's default behavior is to replace the current buffer when opening a
-neoterm. You can change this with `g:neoterm_default_mod`. Check the
+Neoterm's default behavior is to create a new buffer on the current window when
+opening a neoterm. You can change this with `g:neoterm_default_mod`. Check the
 [documentation](https://github.com/kassio/neoterm/blob/master/doc/neoterm.txt)
 for more information.
 

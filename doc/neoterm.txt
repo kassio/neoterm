@@ -19,7 +19,12 @@ CONTENTS                                                      *neoterm-contents*
 neoterm is a neovim terminal wrapper. Its main goal is to provide an easier
 way to interact with neovim's terminal.
 
-1.2 Multiple terminal support                *neoterm-multiple-terminal-support*
+1.2 Default behavior                                   *neoter-default-behavior*
+
+neoterm, by default, will create a new neoterm buffer on the current window.
+This can be changed with `g:neoterm_default_mod`.
+
+1.3 Multiple terminal support                *neoterm-multiple-terminal-support*
 
 neoterm is capable of controlling more than one terminal at a time. To open a
 new terminal, use |:Tnew|. Each neoterm terminal has an `ID` (neoterm jobs are
@@ -204,7 +209,8 @@ DEPRECATED - See |g:neoterm_default_mod|.
                                                          *g:neoterm_default_mod*
 
 Default vim mod (|mods|) when creating or toggling a neoterm window. To see
-the possible values of this variable check `:help mods`
+the possible values of this variable check `:help mods` , many users use
+`botright` to open the neoterm in a new window split.
 Default value: ''
 
 

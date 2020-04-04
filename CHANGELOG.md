@@ -1,4 +1,7 @@
 ### 04/04/2020
+  - Change default behavior to not delete the current buffer, instead creates a
+    new buffer for the neoterm. By default, it'll still use the current window,
+    but no the current buffer.
   - Add `g:neoterm_clear_cmd` to configure how to clear the terminal.
 ### 16/03/2020
   - Extract changelog to [CHANGELOG.md](CHANGELOG.md).
