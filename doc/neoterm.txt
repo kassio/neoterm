@@ -278,6 +278,13 @@ to ensure the mode is set to insertion mode.   For instance when using a shell
 or REPL in vi-mode, setting this to `"\edda"` will clear the current line then
 leave the prompt in insertion mode.
 Default value: ''
+                                                           *g:neoterm_clear_cmd*
+
+Sets how to clear the terminal on `:Tclear`. By default it uses the keybinding
+`ctrl-l`, but it can be replaced by the command `clear`
+Default value: `["\<c-l>"]`
+To use the clear command set to: `["clear", ""]`
+
 
 ===============================================================================
 4. Operators                                                 *neoterm-operators*

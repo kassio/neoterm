@@ -1,3 +1,5 @@
+### 04/04/2020
+  - Add `g:neoterm_clear_cmd` to configure how to clear the terminal.
 ### 16/03/2020
   - Extract changelog to [CHANGELOG.md](CHANGELOG.md).
   - Revamp README and documentation.

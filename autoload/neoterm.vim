@@ -198,7 +198,10 @@ function! neoterm#map_for(command)
 endfunction
 
 function! neoterm#clear(...)
-  call neoterm#exec(extend(a:1, { 'cmd': ["\<c-l>"], 'force_clear': 0 }, 'keep'))
+  call neoterm#exec(extend(a:1, {
+        \ 'cmd': g:neoterm_clear_cmd,
+        \ 'force_clear': 0
+        \ }, 'keep'))
 endfunction
 
 function! neoterm#kill(...)

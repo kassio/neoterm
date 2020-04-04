@@ -138,6 +138,10 @@ if !exists('g:neoterm_marker')
   end
 end
 
+if !exists('g:neoterm_clear_cmd')
+  let g:neoterm_clear_cmd = ["\<c-l>"]
+end
+
 let g:neoterm_marked_shell = g:neoterm_shell.g:neoterm_marker
 
 " Load the right adapter for vim or neovim
