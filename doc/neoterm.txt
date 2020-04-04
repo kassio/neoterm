@@ -55,7 +55,8 @@ path.
 :Tnew                                                                    *:Tnew*
 
 Opens a new term buffer. This command accepts |mods| like `:vertical`,
-`:botright`, `:belowright`, etc.
+`:botright`, `:belowright`, etc. By default it'll use the current window. Its
+default behavior can be changed with |g:neoterm_default_mod|.
 
 :[N]Tclear[!]                                                          *:Tclear*
 
@@ -152,7 +153,8 @@ One can map commands to be sent to specific neoterm windows. For example,
                                                                 *g:neoterm_size*
 
 Set the neoterm terminal split size. The default, empty string, will use half
-of the current window.
+of the current window. This will be used with the |:new| command, you can read
+more about it on `:help :new`
 Default value: `''`.
 
                                                             *g:neoterm_position*

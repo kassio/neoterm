@@ -1,4 +1,5 @@
 ### 04/04/2020
+  - Improve the documentation.
   - Change default behavior to not delete the current buffer, instead creates a
     new buffer for the neoterm. By default, it'll still use the current window,
     but no the current buffer.
