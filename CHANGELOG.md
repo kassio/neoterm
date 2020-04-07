@@ -1,3 +1,5 @@
+### 08/04/2020
+  - Fix `:Tclear!`, the minimum value for `scrollback` is `1`, not `0`.
 ### 04/04/2020
   - Improve the documentation.
   - Change default behavior to not delete the current buffer, instead creates a

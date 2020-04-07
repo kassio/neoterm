@@ -172,7 +172,7 @@ function! neoterm#exec(opts)
       let l:bufname = bufname(l:instance.buffer_id)
       let l:scrollback = getbufvar(l:bufname, '&scrollback')
 
-      call setbufvar(l:bufname, '&scrollback', 0)
+      call setbufvar(l:bufname, '&scrollback', 1)
       sleep 100m
       call setbufvar(l:bufname, '&scrollback', l:scrollback)
     end
