@@ -1,3 +1,7 @@
+### 08/04/2020
+
+  - Add option `g:neoterm_repl_r` to set the REPL for the R files.
+
 ### 04/04/2020
   - Improve the documentation.
   - Change default behavior to not delete the current buffer, instead creates a
