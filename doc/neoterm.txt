@@ -225,7 +225,7 @@ Default value: 0
 
                                                            *g:neoterm_repl_ruby*
 
-Sets what ruby REPl will be used.
+Sets what ruby REPL will be used.
 Default value: irb
 
                                                          *g:neoterm_repl_python*
@@ -234,6 +234,11 @@ Sets what python REPL will be used, and any arguments to be passed to it.
 Defaults to an empty string, in which case NeoTerm will fall back to IPython
 followed by Python.
 Default value: (empty)
+
+                                                              *g:neoterm_repl_r*
+
+Sets what R REPL will be used.
+Default value: R
 
                                                       *g:neoterm_repl_octave_qt*
 
