@@ -1,3 +1,9 @@
+### 12/04/2020
+  - Fix `:Tclose` and `:TcloseAll`. When the default behavior changed to not
+      replace the current buffer these commands stop working. To fix, besides
+      saving the window of orignin, not the buffer of origin is also being
+      saved, when closing a neoterm buffer if there's no window to return,
+      neoterm will return to the origin buffer.
 ### 08/04/2020
   - Fix `:Tclear!`, the minimum value for `scrollback` is `1`, not `0`.
   - Add option `g:neoterm_repl_r` to set the REPL for the R files.
