@@ -64,7 +64,7 @@ default behavior can be changed with |g:neoterm_default_mod|.
 Clear the neoterm with [N] id. With no [N] the last active neoterm will be
 cleared. This command will send a <C-L> to neoterm.
 
-Wen the [!] is included the buffer 'scrollback' cleaned (it is set to 1 and
+When the [!] is included the buffer 'scrollback' cleaned (it is set to 1 and
 then set back to the original value).
 
 :[N]Tkill                                                               *:Tkill*
