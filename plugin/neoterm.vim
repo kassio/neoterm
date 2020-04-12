@@ -82,10 +82,6 @@ if !exists('g:neoterm_repl_python')
   let g:neoterm_repl_python = ''
 end
 
-if !exists('g:neoterm_repl_r')
-  let g:neoterm_repl_r = 'R'
-end
-
 if !exists('g:neoterm_repl_octave_qt')
   let g:neoterm_repl_octave_qt = 0
 end

@@ -47,9 +47,7 @@ if has('nvim') || has('terminal')
           \ end
     " R
     au FileType r,rmd
-          \ if executable(g:neoterm_repl_r) |
-          \   call neoterm#repl#set(g:neoterm_repl_r) |
-          \ elseif executable('R') |
+          \ if executable('R') |
           \   call neoterm#repl#set('R') |
           \ end
     " Octave

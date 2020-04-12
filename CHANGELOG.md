@@ -1,14 +1,9 @@
-### 08/04/2020
-  - Fix `:Tclear!`, the minimum value for `scrollback` is `1`, not `0`.
-  - Add option `g:neoterm_repl_r` to set the REPL for the R files.
-
 ### 04/04/2020
   - Improve the documentation.
   - Change default behavior to not delete the current buffer, instead creates a
     new buffer for the neoterm. By default, it'll still use the current window,
     but no the current buffer.
   - Add `g:neoterm_clear_cmd` to configure how to clear the terminal.
-  
 ### 16/03/2020
   - Extract changelog to [CHANGELOG.md](CHANGELOG.md).
   - Revamp README and documentation.
