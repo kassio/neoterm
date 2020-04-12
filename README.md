@@ -11,10 +11,11 @@ Forked from:
 https://github.com/kassio/neoterm
 
 
-Feature demo:
-![1](https://github.com/incoggnito/neoterm/tree/master/assets/sample.gif)
+Branch demo:
+![1](https://raw.githubusercontent.com/incoggnito/neoterm/master/assets/sample.gif)
 
 
+Some new settings:
 ```vim
 let g:neoterm_default_mod = 'vertical'
 
