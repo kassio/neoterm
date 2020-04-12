@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 ### 12/04/2020
   - [neovim only] Add neoterm id on the buffer name. ([\#272](https://github.com/kassio/neoterm/issues/272))
   - Fix `:Tclose` and `:TcloseAll`. When the default behavior changed to not
@@ -12,17 +10,13 @@
   - Fix `:Tclear!`, the minimum value for `scrollback` is `1`, not `0`. ([\#267](https://github.com/kassio/neoterm/issues/267))
   - Add option `g:neoterm_repl_r` to set the REPL for the R files. ([\#264](https://github.com/kassio/neoterm/issues/264))
 
->>>>>>> 964745a9a8c2a61b876f3082fedcb321c415ab5e
 ### 04/04/2020
   - Improve the documentation.
   - Change default behavior to not delete the current buffer, instead creates a
     new buffer for the neoterm. By default, it'll still use the current window,
     but no the current buffer.
   - Add `g:neoterm_clear_cmd` to configure how to clear the terminal.
-<<<<<<< HEAD
-=======
 
->>>>>>> 964745a9a8c2a61b876f3082fedcb321c415ab5e
 ### 16/03/2020
   - Extract changelog to [CHANGELOG.md](CHANGELOG.md).
   - Revamp README and documentation.
