@@ -12,7 +12,7 @@ function! neoterm#new(...)
         \ 'handlers': {},
         \ 'mod': '',
         \ 'buffer_id': 0,
-        \ 'origin': s:winid(),
+        \ 'origin': neoterm#origin#new(),
         \ 'from_event': 0,
         \ }, 'keep')
 
@@ -63,7 +63,7 @@ function! neoterm#open(...)
       let l:instance.mod = l:opts.mod
     end
 
-    let l:instance.origin = s:winid()
+    let l:instance.origin = neoterm#origin#new()
     call s:create_window(l:instance)
     call s:after_open(l:instance)
 
@@ -79,7 +79,7 @@ function! neoterm#close(...)
   let l:instance = neoterm#target#get(l:opts)
 
   if !empty(l:instance)
-    let l:instance.origin = s:winid()
+    let l:instance.origin = neoterm#origin#new()
 
     try
       if l:opts.force || !g:neoterm_keep_term_open
@@ -88,12 +88,9 @@ function! neoterm#close(...)
         exec printf('%shide', bufwinnr(l:instance.buffer_id))
       end
 
-      if l:instance.origin
-        call win_gotoid(l:instance.origin)
-      end
+      call neoterm#origin#return(l:instance.origin)
     catch /^Vim\%((\a\+)\)\=:E444/
-      " noop
-      " Avoid messages when the terminal is the last window
+      call neoterm#origin#return(l:instance.origin, 'buffer')
     endtry
   end
 endfunction
@@ -121,11 +118,7 @@ function! s:after_open(instance)
   if g:neoterm_autoinsert
     startinsert
   elseif !g:neoterm_autojump
-    if a:instance.origin
-      call win_gotoid(a:instance.origin)
-    else
-      wincmd p
-    end
+    call neoterm#origin#return(a:instance.origin)
   end
 endfunction
 
@@ -300,10 +293,6 @@ function! s:navigate_with(callback)
   else
     echo 'You must be in a terminal to use this command'
   end
-endfunction
-
-function! s:winid()
-  return exists('*win_getid') ? win_getid() : 0
 endfunction
 
 function! s:expand(command)
