@@ -8,7 +8,10 @@ function! s:neovim.new(opts)
   if g:neoterm_direct_open_repl
     return termopen(g:neoterm_repl_command, a:opts)
   else
-    return termopen(g:neoterm_marked_shell, a:opts)
+    return termopen(
+          \ printf('%s-%s', g:neoterm_marked_shell, a:opts.id),
+          \ a:opts
+          \ )
   end
 endfunction
 
