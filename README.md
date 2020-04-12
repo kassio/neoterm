@@ -12,8 +12,7 @@ https://github.com/kassio/neoterm
 
 
 Feature demo:
-![](https://github.com/assets/sample.gif
-"python workflow")
+![1](https://github.com/incoggnito/neoterm/tree/master/assets/sample.gif)
 
 
 ```vim
