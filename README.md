@@ -31,7 +31,7 @@ See the your plugin manager documentation for more information.
 
 ### Manual
 
-For installation without a package manager, you canclone this Git repository
+For installation without a package manager, you can clone this Git repository
 into a bundle directory as with pathogen, and add the repository to your
 runtime path yourself. First clone the repository:
 

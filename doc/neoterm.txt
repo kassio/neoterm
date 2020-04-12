@@ -4,10 +4,11 @@
 CONTENTS                                                      *neoterm-contents*
 
         1. Intro ............................................... |neoterm-intro|
-                1.1 What is neoterm? ................. |neoterm-what-is-neoterm|
-                1.2 Many terms support ............ |neoterm-many-terms-support|
+             1.1 What is neoterm? .................... |neoterm-what-is-neoterm|
+             1.2 Default behavior .................... |neoter-default-behavior|
+             1.3 Multiple terminal support . |neoterm-multiple-terminal-support|
         2. Commands ......................................... |neoterm-commands|
-                2.1 Dynamic mappings ................ |neoterm-dynamic-mappings|
+             2.1 Dynamic mappings ................... |neoterm-dynamic-mappings|
         3. Options ........................................... |neoterm-options|
         4. Operators........................................ |neoterm-operators|
 
@@ -63,7 +64,7 @@ default behavior can be changed with |g:neoterm_default_mod|.
 Clear the neoterm with [N] id. With no [N] the last active neoterm will be
 cleared. This command will send a <C-L> to neoterm.
 
-When the [!] is included the buffer 'scrollback' cleaned (it is set to 0 and
+Wen the [!] is included the buffer 'scrollback' cleaned (it is set to 1 and
 then set back to the original value).
 
 :[N]Tkill                                                               *:Tkill*
@@ -224,7 +225,7 @@ Default value: 0
 
                                                            *g:neoterm_repl_ruby*
 
-Sets what ruby REPl will be used.
+Sets what ruby REPL will be used.
 Default value: irb
 
                                                          *g:neoterm_repl_python*
@@ -233,6 +234,11 @@ Sets what python REPL will be used, and any arguments to be passed to it.
 Defaults to an empty string, in which case NeoTerm will fall back to IPython
 followed by Python.
 Default value: (empty)
+
+                                                              *g:neoterm_repl_r*
+
+Sets what R REPL will be used.
+Default value: R
 
                                                       *g:neoterm_repl_octave_qt*
 
@@ -321,3 +327,4 @@ Then you could use `gxx` or `2gxx` to send current or 2 lines to REPL.
 ===============================================================================
 
 vim:fo=:ts=8:sw=4:et:tw=78:norl:nosta:nosr:ft=help
+h
