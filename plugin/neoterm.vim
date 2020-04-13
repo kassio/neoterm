@@ -45,7 +45,8 @@ let g:neoterm_statusline = ''
 
 if !exists('g:neoterm_shell')
   if has('nvim') && exists('&shellcmdflag')
-    let g:neoterm_shell = &shell . ' ' . substitute(&shellcmdflag, '[-/]c', '', '')
+    let g:neoterm_shell =
+          \ trim(&shell . ' ' . substitute(&shellcmdflag, '[-/]c', '', ''))
   else
     let g:neoterm_shell = &shell
   end
@@ -154,8 +155,6 @@ end
 if !exists('g:neoterm_clear_cmd')
   let g:neoterm_clear_cmd = ["\<c-l>"]
 end
-
-let g:neoterm_marked_shell = g:neoterm_shell.g:neoterm_marker
 
 " Load the right adapter for vim or neovim
 call neoterm#term#load()
