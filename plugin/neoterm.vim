@@ -12,9 +12,18 @@ let g:neoterm = {
       \ 'managed': []
       \ }
 
+" Calculates the next neoterm's ID.
+" The ID is a sequential number starting from 1.
+" To avoid big ID numbers, the ID is reseted to 1
+" when there is no instance of a neoterm windows open
 function! g:neoterm.next_id()
-  let l:self.last_id += 1
-  return l:self.last_id
+  if len(keys(l:self.instances)) == 0
+    let l:self.last_id = 1
+    return l:self.last_id
+  else
+    let l:self.last_id += 1
+    return l:self.last_id
+  end
 endfunction
 
 function! g:neoterm.has_any()

@@ -1,3 +1,6 @@
+### 13/04/2020
+  - Change the ID calculation. To avoid big ID numbers, the ID is reseted to 1
+    when there is no instance of a neoterm windows open.
 ### 12/04/2020
   - [neovim only] Add neoterm id on the buffer name. ([\#272](https://github.com/kassio/neoterm/issues/272))
   - Fix `:Tclose` and `:TcloseAll`. When the default behavior changed to not
