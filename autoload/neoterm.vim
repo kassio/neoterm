@@ -247,6 +247,16 @@ function! neoterm#destroy(instance)
   end
 endfunction
 
+function! neoterm#list_ids()
+      echom 'Open neoterm ids:'
+      for id in keys(g:neoterm.instances)
+        echom printf('ID: %s | name: %s | bufnr: %s',
+              \ id,
+              \ g:neoterm.instances[id].name,
+              \ g:neoterm.instances[id].buffer_id)
+      endfor
+endfunction
+
 function! s:create_window(instance)
   let l:mod = a:instance.mod !=# '' ? a:instance.mod : g:neoterm_default_mod
 

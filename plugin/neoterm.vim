@@ -196,6 +196,8 @@ command! Tnext
       \ call neoterm#next()
 command! Tprevious
       \ call neoterm#previous()
+command! Tls
+      \ call neoterm#list_ids()
 " REPL
 command! -bar -complete=customlist,neoterm#list -nargs=1 TREPLSetTerm
       \ call neoterm#repl#term(<q-args>)

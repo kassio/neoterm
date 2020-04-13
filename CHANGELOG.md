@@ -1,4 +1,5 @@
 ### 13/04/2020
+  - Add `:Tls` to list neoterm instances
   - Change the ID calculation. To avoid big ID numbers, the ID is reseted to 1
     when there is no instance of a neoterm windows open.
 ### 12/04/2020

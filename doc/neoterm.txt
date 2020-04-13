@@ -137,6 +137,10 @@ in the neoterm instance.
 
 Toggles all neoterm windows in the current tab.
 
+:Tls                                                                      *:Tls*
+
+List neoterm instances.
+
 :Tnext                                                                  *:Tnext*
 
 Navigate to the next neoterm instance, works like `:bnext`.
