@@ -78,10 +78,14 @@ then set back to the original value).
 Kills the process in the neoterm with [N] id. With no [N] the last active
 neoterm will be killed. This command will send a <C-K> to neoterm.
 
-:Tmap {cmd}                                                              *:Tmap*
+:[N]Tmap {cmd}                                                           *:Tmap*
 
-Maps the given command. Each time the mapping is executed the command is sent
-to a neoterm terminal buffer.
+Maps the given command to the neoterm with [N] id. With no [N] the last active
+neoterm will be the map target. Each time the mapping is executed the command
+is sent to a neoterm terminal buffer.
+
+When the `Tmap` is executed the "last active" won't be updated, not affecting
+future commands.
 
 The default mapping is `,tt`. It can be changed in |g:neoterm_automap_keys|.
 

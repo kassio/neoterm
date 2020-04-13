@@ -1,4 +1,5 @@
 ### 13/04/2020
+  - Add support to neoterm ID in the `:Tmap`. ([\#276](https://github.com/kassio/neoterm/issues/276))
   - Allow to set `g:neoterm_marker` to empty. ([\#277](https://github.com/kassio/neoterm/issues/277))
   - Add a [contributing guide](https://github.com/kassio/neoterm/blob/master/CONTRIBUTING.md)
   - Add `:Tls` to list neoterm instances

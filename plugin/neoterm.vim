@@ -188,8 +188,8 @@ command! -bar -bang -range=0 Tclear
       \ call neoterm#clear({ 'force_clear': <bang>0, 'target': <count> })
 command! -bar -range=0 Tkill
       \ call neoterm#kill({ 'target': <count> })
-command! -complete=shellcmd -nargs=+ Tmap
-      \ call neoterm#map_for(<q-args>)
+command! -range=0 -complete=shellcmd -nargs=+ Tmap
+      \ call neoterm#map_for({ 'cmd': <q-args>, 'target': <count> })
 " Navigation
 command! Tnext
       \ call neoterm#next()

@@ -150,18 +150,21 @@ function! neoterm#do(opts)
 endfunction
 
 function! neoterm#exec(opts)
-  let l:command = map(copy(a:opts.cmd), { i, cmd -> s:expand(cmd) })
-  let l:instance = neoterm#target#get({ 'target': get(a:opts, 'target', 0) })
+  let l:opts = extend(a:opts, { 'update_last_active': v:true }, 'keep')
+  let l:command = map(copy(l:opts.cmd), { i, cmd -> s:expand(cmd) })
+  let l:instance = neoterm#target#get({ 'target': get(l:opts, 'target', 0) })
 
   if s:requires_new_instance(l:instance)
-    let l:instance = neoterm#new({ 'mod': get(a:opts, 'mod', '') })
+    let l:instance = neoterm#new({ 'mod': get(l:opts, 'mod', '') })
   end
 
   if !empty(l:instance)
-    let g:neoterm.last_active = l:instance.id
+    if l:opts.update_last_active
+      let g:neoterm.last_active = l:instance.id
+    end
     call l:instance.exec(l:command)
 
-    if get(a:opts, 'force_clear', 0)
+    if get(l:opts, 'force_clear', 0)
       let l:bufname = bufname(l:instance.buffer_id)
       let l:scrollback = getbufvar(l:bufname, '&scrollback')
 
@@ -184,10 +187,20 @@ function! s:requires_new_instance(instance)
         \ )
 endfunction
 
-function! neoterm#map_for(command)
-  exec 'nnoremap <silent> '
-        \ . g:neoterm_automap_keys .
-        \ ' :T ' . s:expand(a:command) . '<cr>'
+function! neoterm#map_for(...)
+  let l:opts = extend(a:1, { 'target': 0 }, 'keep')
+  let l:instance = neoterm#target#get(l:opts)
+  let l:do_opts = string({
+        \ 'cmd': l:opts.cmd,
+        \ 'target': l:instance.id,
+        \ 'update_last_active': v:false
+        \ })
+
+  exec printf(
+        \ 'nnoremap <silent> %s :call neoterm#do(%s)<cr>',
+        \ g:neoterm_automap_keys,
+        \ l:do_opts
+        \ )
 endfunction
 
 function! neoterm#clear(...)
