@@ -90,6 +90,10 @@ function! neoterm#close(...)
 
       call neoterm#origin#return(l:instance.origin)
     catch /^Vim\%((\a\+)\)\=:E444/
+      if len(getbufinfo()) == 1
+        echoe 'neoterm is the only opened window. To close it use `:Tclose!`'
+      end
+
       call neoterm#origin#return(l:instance.origin, 'buffer')
     endtry
   end
