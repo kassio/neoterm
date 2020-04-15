@@ -10,20 +10,13 @@ if has('nvim') || has('terminal')
           \ end
     " Python
     au FileType python
-          \ let s:argList = split(g:neoterm_repl_python) |
-          \ if len(s:argList) > 0 && executable(s:argList[0]) |
-          \   call neoterm#repl#set(g:neoterm_repl_python) |
-          \   if g:neoterm_repl_python == 'ipython' |
-          \     let neoterm_repl_run = "%run " . expand('%') |
-          \   else |
-          \     let neoterm_repl_run = 'exec(open("' . expand('%') . '").read())' |
-          \   end |
+          \ let s:argList = split(g:neoterm_repl_python, '\s*,\s*') |
+          \ if len(s:argList) > 0 && executable(s:argList[-1]) |
+          \   call neoterm#repl#set(s:argList) |
           \ elseif executable('ipython') |
           \   call neoterm#repl#set('ipython --no-autoindent') |
-          \   let neoterm_repl_run = "%run " . expand('%') |
           \ elseif executable('python') |
           \   call neoterm#repl#set('python') |
-          \   let neoterm_repl_run = 'exec(open("' . expand('%') . '").read()' |
           \ end
     " JavaScript
     au FileType javascript

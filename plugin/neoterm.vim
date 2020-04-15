@@ -42,22 +42,6 @@ if !exists('g:neoterm_shell')
   end
 end
 
-if !exists('g:neoterm_repl_ipython_magic')
-  let g:neoterm_repl_ipython_magic = 0
-end
-
-if !exists('g:neoterm_repl_cellmarker')
-  let g:neoterm_repl_cellmarker = "# %%"
-end
-
-if !exists('g:neoterm_clean_startup')
-  g:neoterm_clean_startup = 0
-end
-
-if !exists('g:neoterm_repl_python_venv')
-  let g:neoterm_repl_python_venv=''
-end
-
 if !exists('g:neoterm_size')
   let g:neoterm_size = ''
 end
@@ -213,9 +197,9 @@ command! -range TREPLSendSelection
 command! -range TREPLSendLine
       \ call neoterm#repl#line(<line1>, <line2>)
 command! -range TREPLSendCell
-      \ call neoterm#repl#cell()
+      \ call neoterm#repl#python#cell()
 command! -bar -range=0 TREPLRunFile
-      \ call neoterm#repl#run()
+      \ call neoterm#repl#python#run()
 " REPL selection mappings
 nnoremap <silent> <Plug>(neoterm-repl-send)
       \ :<c-u>set opfunc=neoterm#repl#opfunc<cr>g@
