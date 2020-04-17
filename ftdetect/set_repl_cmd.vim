@@ -10,9 +10,8 @@ if has('nvim') || has('terminal')
           \ end
     " Python
     au FileType python
-          \ let s:argList = split(g:neoterm_repl_python, '\s*,\s*') |
-          \ if len(s:argList) > 0 && executable(s:argList[-1]) |
-          \   call neoterm#repl#set(s:argList) |
+          \ if executable(g:neoterm_repl_python[-1]) |
+          \   call neoterm#repl#set(g:neoterm_repl_python) |
           \ elseif executable('ipython') |
           \   call neoterm#repl#set('ipython --no-autoindent') |
           \ elseif executable('python') |

@@ -24,7 +24,6 @@ function! neoterm#repl#term(id)
   if has_key(g:neoterm.instances, a:id)
     let g:neoterm.repl.instance_id = a:id
     let g:neoterm.repl.loaded = 1
-    call add(g:neoterm_repl_command, g:neoterm_eof)
     if !empty(get(g:, 'neoterm_repl_command', ''))
           \ && g:neoterm_auto_repl_cmd
           \ && !g:neoterm_direct_open_repl
@@ -40,9 +39,9 @@ endfunction
 
 function! neoterm#repl#set(value)
   if type(a:value) == v:t_list
-    let g:neoterm_repl_command = a:value
+    let g:neoterm_repl_command = add(a:value, g:neoterm_eof)
   else
-    let g:neoterm_repl_command = [a:value]
+    let g:neoterm_repl_command = [a:value, g:neoterm_eof]
   endif
 endfunction
 
