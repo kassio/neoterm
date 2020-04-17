@@ -39,6 +39,8 @@ function! neoterm#new(...)
 
   let g:neoterm.instances[l:instance.id] = l:instance
 
+  call s:update_last_active(l:opts, l:instance)
+
   return l:instance
 endfunction
 
@@ -56,8 +58,7 @@ function! neoterm#open(...)
   let l:instance = neoterm#target#get(l:opts)
 
   if empty(l:instance)
-    call neoterm#new({ 'mod': l:opts.mod })
-    let g:neoterm.last_active = g:neoterm.last_id
+    call neoterm#new({ 'mod': l:opts.mod, 'update_last_active': v:true })
   elseif bufwinnr(l:instance.buffer_id) == -1
     if l:opts.mod !=# ''
       let l:instance.mod = l:opts.mod
@@ -131,8 +132,10 @@ function! neoterm#toggle(...)
   let l:instance = neoterm#target#get(l:opts)
 
   if empty(l:instance)
-    call neoterm#new({ 'mod': l:opts.mod })
+    call neoterm#new({ 'mod': l:opts.mod, 'update_last_active': v:true })
   else
+    call s:update_last_active({ 'update_last_active': v:true}, l:instance)
+
     if bufwinnr(l:instance.buffer_id) > 0
       call neoterm#close(l:opts)
     else
@@ -163,9 +166,7 @@ function! neoterm#exec(opts)
   end
 
   if !empty(l:instance)
-    if l:opts.update_last_active
-      let g:neoterm.last_active = l:instance.id
-    end
+    call s:update_last_active(l:opts, l:instance)
     call l:instance.exec(l:command)
 
     if get(l:opts, 'force_clear', 0)
@@ -331,4 +332,10 @@ function! s:expand(command)
   let l:command = substitute(l:command, '\\%', '%', 'g')
 
   return l:command
+endfunction
+
+function! s:update_last_active(opts, instance)
+  if get(a:opts, 'update_last_active', v:false)
+    let g:neoterm.last_active = a:instance.id
+  end
 endfunction

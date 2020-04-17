@@ -173,7 +173,7 @@ command! -range=0 -complete=shellcmd -nargs=+ T
 command! -range=0 -complete=shellcmd -nargs=+ Texec
       \ call neoterm#exec({ 'cmd': [<f-args>, ''], 'target': <count> })
 command! -bar Tnew
-      \ call neoterm#new({ 'mod': <q-mods> })
+      \ call neoterm#new({ 'mod': <q-mods>, 'update_last_active': v:true })
 command! -bar -range=0 Topen
       \ call neoterm#open({ 'mod': <q-mods>, 'target': <count> })
 command! -bar -bang -range=0 Tclose

@@ -1,3 +1,5 @@
+### 17/04/2020
+  - Update how _last active_ is updated. Also document when it's updated.
 ### 14/04/2020
   - Add an error message when trying to close neoterm, and it's the last opened
     window, with `:Tclose`.
