@@ -3,27 +3,37 @@ if !exists('g:neoterm_repl_ipy_magic')
   let g:neoterm_repl_ipy_magic = 0
 end
 
-if !exists('g:neoterm_ipy_cellmark')
-  let g:neoterm_repl_ipy_cellmark = "# %%"
-end
-
-function! neoterm#repl#python#cell()
-    let l:lnum1 = search(g:neoterm_repl_ipy_cellmark, 'Wb') + 1
-    let l:lnum2 = search(g:neoterm_repl_ipy_cellmark, 'W') - 1
-    if l:lnum2 == -1
-      let l:lnum2 = line('$')
-    endif
-    let l:lines = getline(l:lnum1, l:lnum2)
-    call g:neoterm.repl.exec(l:lines)
-endfunction
-
-function! neoterm#repl#python#run()
-  if join(g:neoterm_repl_command) =~ "ipython"
-    let l:cmd = ["%run " . expand('%')]
+function! neoterm#repl#python#is_valid(value)
+  let l:pyCmd = 0
+  let l:invalid = 0
+  if type(a:value) == v:t_list
+    for i in range(len(a:value))
+      if a:value[i] =~ 'python'
+        let l:pyCmd = 1
+        if a:value[i] == 'ipython'
+          let g:neoterm_repl_python[i] = 'ipython --no-autoindent'
+        endif
+      endif
+      if executable(split(a:value[i])[0]) == 0
+        let l:invalid = 1
+      endif
+    endfor
   else
-    let l:cmd = ['exec(open("' . expand('%') . '").read())']
+    if a:value =~ 'python'
+      let l:pyCmd = 1
+      if a:value == 'ipython'
+       let g:neoterm_repl_python = 'ipython --no-autoindent'
+    endif
+    endif
+    if executable(split(a:value)[0]) == 0
+      let l:invalid = 1
+    endif
   endif
-  call g:neoterm.repl.instance().exec(add(l:cmd, g:neoterm_eof))
+  if l:pyCmd == 1 && l:invalid == 0
+      return 1
+  else
+      return 0
+  endif
 endfunction
 
 function! neoterm#repl#python#exec(command)

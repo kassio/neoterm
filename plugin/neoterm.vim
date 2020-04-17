@@ -196,10 +196,6 @@ command! -range TREPLSendSelection
       \ call neoterm#repl#selection()
 command! -range TREPLSendLine
       \ call neoterm#repl#line(<line1>, <line2>)
-command! -range TREPLSendCell
-      \ call neoterm#repl#python#cell()
-command! -bar -range=0 TREPLRunFile
-      \ call neoterm#repl#python#run()
 " REPL selection mappings
 nnoremap <silent> <Plug>(neoterm-repl-send)
       \ :<c-u>set opfunc=neoterm#repl#opfunc<cr>g@

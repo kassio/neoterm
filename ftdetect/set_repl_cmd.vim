@@ -10,12 +10,8 @@ if has('nvim') || has('terminal')
           \ end
     " Python
     au FileType python
-          \ if executable(g:neoterm_repl_python[-1]) |
+          \ if neoterm#repl#python#is_valid(g:neoterm_repl_python) == 1 |
           \   call neoterm#repl#set(g:neoterm_repl_python) |
-          \ elseif executable('ipython') |
-          \   call neoterm#repl#set('ipython --no-autoindent') |
-          \ elseif executable('python') |
-          \   call neoterm#repl#set('python') |
           \ end
     " JavaScript
     au FileType javascript
