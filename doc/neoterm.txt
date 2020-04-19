@@ -7,6 +7,8 @@ CONTENTS                                                      *neoterm-contents*
              1.1 What is neoterm? .................... |neoterm-what-is-neoterm|
              1.2 Default behavior .................... |neoter-default-behavior|
              1.3 Multiple terminal support . |neoterm-multiple-terminal-support|
+             1.4 ID calculation ....................... |neoterm-id-calculation|
+             1.5 Last Active ............................. |neoterm-last-active|
         2. Commands ......................................... |neoterm-commands|
              2.1 Dynamic mappings ................... |neoterm-dynamic-mappings|
         3. Options ........................................... |neoterm-options|
@@ -34,6 +36,20 @@ prefixed by its `ID`. For instance, `:1T` `command` will always send the command
 to neoterm `1`.
 
 Commands lacking a prefix will always be executed in the last active neoterm.
+
+1.4 ID calculation                                      *neoterm-id-calculation*
+
+The ID is a sequential number starting from 1. To avoid big ID numbers, the ID
+is reseted to 1 when there is no instance of a neoterm windows open.
+
+1.4 Last Active                                            *neoterm-last-active*
+
+neoterm last active is updated on the following events:
+  - `:T`
+  - `:Texec`
+  - `:Tnew`
+  - `:Ttoggle`
+  - `:Topen`
 
 ===============================================================================
                                                               *neoterm-commands*
@@ -72,10 +88,14 @@ then set back to the original value).
 Kills the process in the neoterm with [N] id. With no [N] the last active
 neoterm will be killed. This command will send a <C-K> to neoterm.
 
-:Tmap {cmd}                                                              *:Tmap*
+:[N]Tmap {cmd}                                                           *:Tmap*
 
-Maps the given command. Each time the mapping is executed the command is sent
-to a neoterm terminal buffer.
+Maps the given command to the neoterm with [N] id. With no [N] the last active
+neoterm will be the map target. Each time the mapping is executed the command
+is sent to a neoterm terminal buffer.
+
+When the `Tmap` is executed the "last active" won't be updated, not affecting
+future commands.
 
 The default mapping is `,tt`. It can be changed in |g:neoterm_automap_keys|.
 
@@ -130,6 +150,10 @@ in the neoterm instance.
 :TtoggleAll                                                        *:TtoggleAll*
 
 Toggles all neoterm windows in the current tab.
+
+:Tls                                                                      *:Tls*
+
+List neoterm instances.
 
 :Tnext                                                                  *:Tnext*
 

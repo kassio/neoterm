@@ -39,6 +39,8 @@ function! neoterm#new(...)
 
   let g:neoterm.instances[l:instance.id] = l:instance
 
+  call s:update_last_active(l:opts, l:instance)
+
   return l:instance
 endfunction
 
@@ -56,8 +58,7 @@ function! neoterm#open(...)
   let l:instance = neoterm#target#get(l:opts)
 
   if empty(l:instance)
-    call neoterm#new({ 'mod': l:opts.mod })
-    let g:neoterm.last_active = g:neoterm.last_id
+    call neoterm#new({ 'mod': l:opts.mod, 'update_last_active': v:true })
   elseif bufwinnr(l:instance.buffer_id) == -1
     if l:opts.mod !=# ''
       let l:instance.mod = l:opts.mod
@@ -90,6 +91,10 @@ function! neoterm#close(...)
 
       call neoterm#origin#return(l:instance.origin)
     catch /^Vim\%((\a\+)\)\=:E444/
+      if len(getbufinfo()) == 1
+        echoe 'neoterm is the only opened window. To close it use `:Tclose!`'
+      end
+
       call neoterm#origin#return(l:instance.origin, 'buffer')
     endtry
   end
@@ -127,8 +132,10 @@ function! neoterm#toggle(...)
   let l:instance = neoterm#target#get(l:opts)
 
   if empty(l:instance)
-    call neoterm#new({ 'mod': l:opts.mod })
+    call neoterm#new({ 'mod': l:opts.mod, 'update_last_active': v:true })
   else
+    call s:update_last_active({ 'update_last_active': v:true}, l:instance)
+
     if bufwinnr(l:instance.buffer_id) > 0
       call neoterm#close(l:opts)
     else
@@ -150,18 +157,19 @@ function! neoterm#do(opts)
 endfunction
 
 function! neoterm#exec(opts)
-  let l:command = map(copy(a:opts.cmd), { i, cmd -> s:expand(cmd) })
-  let l:instance = neoterm#target#get({ 'target': get(a:opts, 'target', 0) })
+  let l:opts = extend(a:opts, { 'update_last_active': v:true }, 'keep')
+  let l:command = map(copy(l:opts.cmd), { i, cmd -> s:expand(cmd) })
+  let l:instance = neoterm#target#get({ 'target': get(l:opts, 'target', 0) })
 
   if s:requires_new_instance(l:instance)
-    let l:instance = neoterm#new({ 'mod': get(a:opts, 'mod', '') })
+    let l:instance = neoterm#new({ 'mod': get(l:opts, 'mod', '') })
   end
 
   if !empty(l:instance)
-    let g:neoterm.last_active = l:instance.id
+    call s:update_last_active(l:opts, l:instance)
     call l:instance.exec(l:command)
 
-    if get(a:opts, 'force_clear', 0)
+    if get(l:opts, 'force_clear', 0)
       let l:bufname = bufname(l:instance.buffer_id)
       let l:scrollback = getbufvar(l:bufname, '&scrollback')
 
@@ -184,10 +192,20 @@ function! s:requires_new_instance(instance)
         \ )
 endfunction
 
-function! neoterm#map_for(command)
-  exec 'nnoremap <silent> '
-        \ . g:neoterm_automap_keys .
-        \ ' :T ' . s:expand(a:command) . '<cr>'
+function! neoterm#map_for(...)
+  let l:opts = extend(a:1, { 'target': 0 }, 'keep')
+  let l:instance = neoterm#target#get(l:opts)
+  let l:do_opts = string({
+        \ 'cmd': l:opts.cmd,
+        \ 'target': l:instance.id,
+        \ 'update_last_active': v:false
+        \ })
+
+  exec printf(
+        \ 'nnoremap <silent> %s :call neoterm#do(%s)<cr>',
+        \ g:neoterm_automap_keys,
+        \ l:do_opts
+        \ )
 endfunction
 
 function! neoterm#clear(...)
@@ -247,6 +265,16 @@ function! neoterm#destroy(instance)
   end
 endfunction
 
+function! neoterm#list_ids()
+      echom 'Open neoterm ids:'
+      for id in keys(g:neoterm.instances)
+        echom printf('ID: %s | name: %s | bufnr: %s',
+              \ id,
+              \ g:neoterm.instances[id].name,
+              \ g:neoterm.instances[id].buffer_id)
+      endfor
+endfunction
+
 function! s:create_window(instance)
   let l:mod = a:instance.mod !=# '' ? a:instance.mod : g:neoterm_default_mod
 
@@ -304,4 +332,10 @@ function! s:expand(command)
   let l:command = substitute(l:command, '\\%', '%', 'g')
 
   return l:command
+endfunction
+
+function! s:update_last_active(opts, instance)
+  if get(a:opts, 'update_last_active', v:false)
+    let g:neoterm.last_active = a:instance.id
+  end
 endfunction

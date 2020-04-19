@@ -153,9 +153,6 @@ au VimEnter,BufRead,BufNewFile *.lidr set filetype=lidris
 au VimEnter,BufRead,BufNewFile *.lfe set filetype=lfe
 ```
 
-## Contributing
-
-Open a pull request to add REPLs and other features to this plugin. :smiley:
-
+## [Contributing](CONTRIBUTING.md)
 ## [Changelog](CHANGELOG.md)
 ## [Documentation](doc/neoterm.txt)
