@@ -6,12 +6,14 @@
   - Paste Magic to send a code block to ipthon cells
     ([\#270](https://github.com/kassio/neoterm/issues/270))
   - Added a python specfic repl file
-  
+
 ### 17/04/2020
   - Update how _last active_ is updated. Also document when it's updated.
+
 ### 14/04/2020
   - Add an error message when trying to close neoterm, and it's the last opened
     window, with `:Tclose`.
+
 ### 13/04/2020
   - Add support to neoterm ID in the `:Tmap`. ([\#276](https://github.com/kassio/neoterm/issues/276))
   - Allow to set `g:neoterm_marker` to empty. ([\#277](https://github.com/kassio/neoterm/issues/277))
