@@ -231,17 +231,18 @@ Default value: irb
                                                          *g:neoterm_repl_python*
 
 Sets what python REPL will be used, and any arguments to be passed to it.
-Both a string and a list can be passed to. Defaults to an empty string,
-in which case NeoTerm will fall back to IPython followed by Python.
+This option accepts either a String or a list of commands. Its default
+value is an empty string, which will try to use `ipython` or `python`,
+in this order, to execute the REPL.
 Default value: (empty)
 
 Example for a valid command list:
-|g:neoterm_repl_python| = `['conda activate venv', 'clear', 'ipython']``
+`let g:neoterm_repl = ['conda activate venv', 'clear', 'ipython']`
 
 In this example ipython is loaded in a virtual environment.
 The screen output is cleared after activating the venv.
 
-                                                 *g:neoterm_ipython_magic_paste*
+                                      *g:neoterm_repl_enable_ipython_paste_magic*
 
 Allows you to paste & execute a pre-formatted code block from clipboard.
 This command is currently only supported in ipython.

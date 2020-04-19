@@ -1,3 +1,12 @@
+### 19/04/2020
+  - `g:neoterm_repl_commands` supports lists
+  - neoterm#repl#exec supports filetype specific execution
+  - Fix problems sending code blocks with blank lines to ipython or python repl
+    ([\#273](https://github.com/kassio/neoterm/issues/273))
+  - Paste Magic to send a code block to ipthon cells
+    ([\#270](https://github.com/kassio/neoterm/issues/270))
+  - Added a python specfic repl file
+
 ### 12/04/2020
   - [neovim only] Add neoterm id on the buffer name. ([\#272](https://github.com/kassio/neoterm/issues/272))
   - Fix `:Tclose` and `:TcloseAll`. When the default behavior changed to not
