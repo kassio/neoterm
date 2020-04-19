@@ -261,7 +261,7 @@ in this order, to execute the REPL.
 Default value: (empty)
 
 Example for a valid command list:
-`let g:neoterm_repl = ['conda activate venv', 'clear', 'ipython']`
+`let g:neoterm_repl_python = ['conda activate venv', 'clear', 'ipython']`
 
 In this example ipython is loaded in a virtual environment.
 The screen output is cleared after activating the venv.
