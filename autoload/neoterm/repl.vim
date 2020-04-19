@@ -24,12 +24,11 @@ function! neoterm#repl#term(id)
   if has_key(g:neoterm.instances, a:id)
     let g:neoterm.repl.instance_id = a:id
     let g:neoterm.repl.loaded = 1
-
     if !empty(get(g:, 'neoterm_repl_command', ''))
           \ && g:neoterm_auto_repl_cmd
           \ && !g:neoterm_direct_open_repl
       call neoterm#exec({
-            \ 'cmd': [g:neoterm_repl_command, g:neoterm_eof],
+            \ 'cmd': g:neoterm_repl_command,
             \ 'target': g:neoterm.repl.instance().id
             \ })
     end
@@ -39,7 +38,11 @@ function! neoterm#repl#term(id)
 endfunction
 
 function! neoterm#repl#set(value)
-  let g:neoterm_repl_command = a:value
+  if type(a:value) == v:t_list
+    let g:neoterm_repl_command = add(a:value, g:neoterm_eof)
+  else
+    let g:neoterm_repl_command = [a:value, g:neoterm_eof]
+  endif
 endfunction
 
 function! neoterm#repl#selection()
@@ -71,5 +74,11 @@ function! neoterm#repl#opfunc(type)
 endfunction
 
 function! g:neoterm.repl.exec(command)
-  call g:neoterm.repl.instance().exec(add(a:command, g:neoterm_eof))
+  let l:ft_exec = printf('neoterm#repl#%s#exec', &filetype)
+  try
+    let ExecByFiletype = function(l:ft_exec)
+    call ExecByFiletype(a:command)
+  catch /^Vim\%((\a\+)\)\=:E117/
+    call g:neoterm.repl.instance().exec(add(a:command, g:neoterm_eof))
+  endtry
 endfunction
