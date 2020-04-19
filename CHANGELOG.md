@@ -1,4 +1,6 @@
 ### 19/04/2020
+  - refactor `:Tmap`. Use the `g:neoterm_automap_keys` to call `neoterm#map_do`,
+    which will use the new `g:neoterm.map_options` to run `neoterm#do`
   - `g:neoterm_repl_commands` supports lists
   - neoterm#repl#exec supports filetype specific execution
   - Fix problems sending code blocks with blank lines to ipython or python repl

@@ -167,6 +167,11 @@ if exists('#TermOpen')
   autocmd TermOpen term://*neoterm call neoterm#new_from_event()
 end
 
+exec printf(
+      \ 'nnoremap <silent> %s :call neoterm#map_do()<cr>',
+      \ g:neoterm_automap_keys
+      \ )
+
 " Handling
 command! -range=0 -complete=shellcmd -nargs=+ T
       \ call neoterm#do({ 'cmd': <q-args>, 'target': <count>, 'mod': <q-mods> })

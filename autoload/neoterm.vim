@@ -193,19 +193,14 @@ function! s:requires_new_instance(instance)
 endfunction
 
 function! neoterm#map_for(...)
-  let l:opts = extend(a:1, { 'target': 0 }, 'keep')
-  let l:instance = neoterm#target#get(l:opts)
-  let l:do_opts = string({
-        \ 'cmd': l:opts.cmd,
-        \ 'target': l:instance.id,
+  let g:neoterm.map_options = extend(a:1, {
+        \ 'target': 0,
         \ 'update_last_active': v:false
-        \ })
+        \ }, 'keep')
+endfunction
 
-  exec printf(
-        \ 'nnoremap <silent> %s :call neoterm#do(%s)<cr>',
-        \ g:neoterm_automap_keys,
-        \ l:do_opts
-        \ )
+function! neoterm#map_do()
+  call neoterm#do(copy(g:neoterm.map_options))
 endfunction
 
 function! neoterm#clear(...)
