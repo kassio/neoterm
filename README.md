@@ -1,5 +1,7 @@
 # neoterm
 
+![Vint](https://github.com/kassio/neoterm/workflows/Vint/badge.svg?branch=master)
+
  ```
  __   _ _______  _____  _______ _______  ______ _______
  | \  | |______ |     |    |    |______ |_____/ |  |  |
