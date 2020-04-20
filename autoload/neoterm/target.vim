@@ -1,6 +1,6 @@
 let s:not_found_msg = 'neoterm-%s not found (probably already closed)'
 
-function! neoterm#target#get(opts)
+function! neoterm#target#get(opts) abort
   if a:opts.target > 0
     return s:given_target(a:opts.target)
   elseif g:neoterm_term_per_tab
@@ -12,7 +12,7 @@ function! neoterm#target#get(opts)
   end
 endfunction
 
-function! s:given_target(target)
+function! s:given_target(target) abort
   if has_key(g:neoterm.instances, a:target)
     return s:ensure_instance(g:neoterm.instances[a:target])
   else
@@ -21,7 +21,7 @@ function! s:given_target(target)
   end
 endfunction
 
-function! s:target_per_tab()
+function! s:target_per_tab() abort
   if has_key(t:, 'neoterm_id') && has_key(g:neoterm.instances, t:neoterm_id)
     return s:ensure_instance(g:neoterm.instances[t:neoterm_id])
   elseif !has_key(t:, 'neoterm_id')
@@ -32,7 +32,7 @@ function! s:target_per_tab()
   end
 endfunction
 
-function! s:ensure_instance(instance)
+function! s:ensure_instance(instance) abort
   if bufexists(a:instance.buffer_id)
     return a:instance
   else

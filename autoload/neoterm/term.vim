@@ -1,4 +1,4 @@
-function! neoterm#term#load()
+function! neoterm#term#load() abort
   if !has_key(g:neoterm, 'prototype')
     if has('nvim')
       let l:adapter = neoterm#term#neovim#()
@@ -17,7 +17,7 @@ endfunction
 
 let s:term = {}
 
-function! s:term.vim_exec(cmd)
+function! s:term.vim_exec(cmd) abort
   let l:winnr = bufwinnr(l:self.buffer_id)
   if l:winnr > 0
     let l:win_id = exists('*win_getid') ? win_getid() : 0
@@ -27,11 +27,11 @@ function! s:term.vim_exec(cmd)
   end
 endfunction
 
-function! s:term.normal(cmd)
+function! s:term.normal(cmd) abort
   call l:self.vim_exec(printf('normal! %s', a:cmd))
 endfunction
 
-function! s:term.exec(command)
+function! s:term.exec(command) abort
   if !empty(g:neoterm_command_prefix)
     call l:self.termsend(l:self.termid, [g:neoterm_command_prefix . a:command[0]] + a:command[1:])
   else
@@ -42,19 +42,19 @@ function! s:term.exec(command)
   end
 endfunction
 
-function! s:term.on_stdout(...)
+function! s:term.on_stdout(...) abort
   if has_key(l:self.handlers, 'on_stdout')
     call l:self.handlers['on_stdout'](a:)
   end
 endfunction
 
-function! s:term.on_stderr(...)
+function! s:term.on_stderr(...) abort
   if has_key(l:self.handlers, 'on_stderr')
     call l:self.handlers['on_stderr'](a:)
   end
 endfunction
 
-function! s:term.on_exit(...)
+function! s:term.on_exit(...) abort
   if has_key(l:self.handlers, 'on_exit')
     call l:self.handlers['on_exit'](a:)
   end

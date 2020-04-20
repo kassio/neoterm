@@ -2,7 +2,7 @@ if !exists('g:neoterm_repl_enable_ipython_paste_magic')
   let g:neoterm_repl_enable_ipython_paste_magic = 0
 end
 
-function! neoterm#repl#python#is_valid(value)
+function! neoterm#repl#python#is_valid(value) abort
   let l:cmd =  type(a:value) == v:t_list ? join(a:value) : a:value
 
   if l:cmd =~# '\<ipython\>'
@@ -14,8 +14,8 @@ function! neoterm#repl#python#is_valid(value)
   end
 endfunction
 
-function! neoterm#repl#python#exec(command)
-  if  join(g:neoterm_repl_command) =~ "ipython"
+function! neoterm#repl#python#exec(command) abort
+  if  join(g:neoterm_repl_command) =~# 'ipython'
     if g:neoterm_repl_enable_ipython_paste_magic  == 1
       let l:cmd = s:ipython_magic_command_for(a:command)
     else
@@ -28,18 +28,19 @@ function! neoterm#repl#python#exec(command)
   call g:neoterm.repl.instance().exec(add(l:cmd, g:neoterm_eof))
 endfunction
 
-function! s:ipython_magic_command_for(command)
+function! s:ipython_magic_command_for(command) abort
   call setreg('+', a:command, 'l')
-  return ["%paste"]
+  return ['%paste']
 endfunction
 
-function! s:ipython_command_for(command)
-  let pycommand = filter(a:command, 'v:val !~ "^\\s*$"')
+function! s:ipython_command_for(command) abort
+  let pycommand = filter(a:command, { _idx, val -> val !~# "^\\s*$" })
+
   return get(l:, 'ipycommand', pycommand)
 endfunction
 
-function! s:python_command_for(command)
-  let pycommand = filter(a:command, 'v:val !~ "^\\s*$"')
+function! s:python_command_for(command) abort
+  let pycommand = filter(a:command, { _idx, val -> val !~ "^\\s*$" })
   let index = 0
   let ipycommand = []
   let prev_line = ''
@@ -59,5 +60,4 @@ function! s:python_command_for(command)
   endwhile
 
   return get(l:, 'ipycommand', pycommand)
-
 endfunction
