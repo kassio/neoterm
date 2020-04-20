@@ -1,6 +1,7 @@
 # neoterm
 
-![Vint](https://github.com/kassio/neoterm/workflows/Vint/badge.svg?branch=master)
+[![Vint](https://github.com/kassio/neoterm/workflows/Vint/badge.svg?branch=master)](https://github.com/kassio/neoterm/actions?query=workflow%3AVint)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
  ```
  __   _ _______  _____  _______ _______  ______ _______
