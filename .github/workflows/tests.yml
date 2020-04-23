@@ -1,17 +1,6 @@
-name: main
+name: tests
 on: [push, pull_request]
 jobs:
-
-  vint:
-    runs-on: ubuntu-latest
-    steps:
-    - name: Checkout
-      uses: actions/checkout@master
-    - name: Run vint with reviewdog
-      uses: reviewdog/action-vint@v1.0.1
-      with:
-        github_token: ${{ secrets.github_token }}
-        reporter: github-pr-review
 
   neovim:
     env:
