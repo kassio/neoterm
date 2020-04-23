@@ -1,7 +1,8 @@
 name: main
 on: [push, pull_request]
 jobs:
-  lint:
+
+  vint:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
@@ -11,7 +12,8 @@ jobs:
       with:
         github_token: ${{ secrets.github_token }}
         reporter: github-pr-review
-  neovim-tests:
+
+  neovim:
     env:
       PLUGIN_PATH: ./neoterm
       VMTEST_PATH: ./vmtest
@@ -34,7 +36,8 @@ jobs:
         run: nvim --version
       - name: Run tests
         run: neoterm/bin/test
-  vim-tests:
+
+  vim:
     env:
       PLUGIN_PATH: ./neoterm
       VMTEST_PATH: ./vmtest
