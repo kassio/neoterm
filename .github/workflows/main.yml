@@ -1,0 +1,58 @@
+name: main
+on: [push, pull_request]
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@master
+    - name: Run vint with reviewdog
+      uses: reviewdog/action-vint@v1.0.1
+      with:
+        github_token: ${{ secrets.github_token }}
+        reporter: github-pr-review
+  neovim-tests:
+    env:
+      PLUGIN_PATH: ./neoterm
+      VMTEST_PATH: ./vmtest
+    runs-on: ubuntu-latest
+    steps:
+      - uses: rhysd/action-setup-vim@v1
+        with:
+          neovim: true
+          version: stable
+      - uses: actions/checkout@master
+        with:
+          fetch-depth: 1
+          path: neoterm
+      - uses: actions/checkout@master
+        with:
+          repository: 'kassio/vmtest'
+          fetch-depth: 1
+          path: vmtest
+      - name: neovim version
+        run: nvim --version
+      - name: Run tests
+        run: neoterm/bin/test
+  vim-tests:
+    env:
+      PLUGIN_PATH: ./neoterm
+      VMTEST_PATH: ./vmtest
+    runs-on: ubuntu-latest
+    steps:
+      - uses: rhysd/action-setup-vim@v1
+        with:
+          version: stable
+      - uses: actions/checkout@master
+        with:
+          fetch-depth: 1
+          path: neoterm
+      - uses: actions/checkout@master
+        with:
+          repository: 'kassio/vmtest'
+          fetch-depth: 1
+          path: vmtest
+      - name: vim version
+        run: vim --version
+      - name: Run tests
+        run: neoterm/bin/test vim

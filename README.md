@@ -26,7 +26,7 @@ exist. REPL commands open a terminal and the proper REPL if not already opened.
 You can install this plugin using any vim plugin manager by using the path on
 GitHub for this repository:
 
-```vim
+```viml
 [Plugin|Plug|...] 'kassio/neoterm'
 ```
 
@@ -45,7 +45,7 @@ git clone https://github.com/kassio/neoterm.git
 
 Then, modify your `~/.vimrc` file to add this plugin to your runtime path:
 
-```vim
+```viml
 set nocompatible
 filetype off
 
@@ -58,7 +58,7 @@ You can add the following line to generate documentation tags automatically,
 if you don't have something similar already, so you can use the `:help` command
 to consult neoterm's online documentation:
 
-```vim
+```viml
 silent! helptags ALL
 ```
 
