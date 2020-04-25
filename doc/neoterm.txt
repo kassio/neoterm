@@ -51,7 +51,7 @@ neoterm last active is updated on the following events:
   - `:Ttoggle`
   - `:Topen`
 
-===============================================================================
+==============================================================================
                                                               *neoterm-commands*
 2. Commands
 
@@ -380,3 +380,4 @@ Then you could use `gxx` or `2gxx` to send current or 2 lines to REPL.
 ===============================================================================
 
 vim:fo=:ts=8:sw=4:et:tw=78:norl:nosta:nosr:ft=help
+=

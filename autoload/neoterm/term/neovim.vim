@@ -6,7 +6,7 @@ let s:neovim = {}
 
 function! s:neovim.new(opts) abort
   if g:neoterm_direct_open_repl && len(g:neoterm_repl_command) < 2
-      return termopen(g:neoterm_repl_command, a:opts)
+    return termopen(g:neoterm_repl_command, a:opts)
   else
     if g:neoterm_marker ==# ''
       let l:neoterm_marked_shell = g:neoterm_shell
