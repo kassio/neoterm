@@ -1,3 +1,8 @@
+### 25/04/2020
+  - Fix `g:neoterm_direct_open_repl=1` and `:Tnew` related blank buffer on python
+    files by converting the `g:neoterm_repl_commands` list to a string.
+    ([\#280](https://github.com/kassio/neoterm/issues/280))
+
 ### 19/04/2020
   - refactor `:Tmap`. Use the `g:neoterm_automap_keys` to call `neoterm#map_do`,
     which will use the new `g:neoterm.map_options` to run `neoterm#do`

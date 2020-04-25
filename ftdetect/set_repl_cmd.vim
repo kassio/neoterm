@@ -13,7 +13,7 @@ if has('nvim') || has('terminal')
           \ if neoterm#repl#python#is_valid(g:neoterm_repl_python) == 1 |
           \   call neoterm#repl#set(g:neoterm_repl_python) |
           \ elseif executable('ipython') |
-          \   call neoterm#repl#set('ipython --no-autoindent') |
+          \   call neoterm#repl#set('ipython') |
           \ elseif executable('python') |
           \   call neoterm#repl#set('python') |
           \ end

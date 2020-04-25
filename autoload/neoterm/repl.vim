@@ -37,24 +37,12 @@ function! neoterm#repl#term(id) abort
   end
 endfunction
 
-<<<<<<< HEAD
-function! neoterm#repl#set(value)
-  if type(a:value) == v:t_list
-    let g:neoterm_repl_command = add(a:value, g:neoterm_eof)
-  else
-    let g:neoterm_repl_command = [a:value, g:neoterm_eof]
-  endif
-||||||| e011fa1
-function! neoterm#repl#set(value)
-  let g:neoterm_repl_command = a:value
-=======
 function! neoterm#repl#set(value) abort
   if type(a:value) == v:t_list
     let g:neoterm_repl_command = add(a:value, g:neoterm_eof)
   else
     let g:neoterm_repl_command = [a:value, g:neoterm_eof]
   endif
->>>>>>> upstream/master
 endfunction
 
 function! neoterm#repl#selection() abort
@@ -85,19 +73,6 @@ function! neoterm#repl#opfunc(type) abort
   call g:neoterm.repl.exec(l:lines)
 endfunction
 
-<<<<<<< HEAD
-function! g:neoterm.repl.exec(command)
-  let l:ft_exec = printf('neoterm#repl#%s#exec', &filetype)
-  try
-    let ExecByFiletype = function(l:ft_exec)
-    call ExecByFiletype(a:command)
-  catch /^Vim\%((\a\+)\)\=:E117/
-    call g:neoterm.repl.instance().exec(add(a:command, g:neoterm_eof))
-  endtry
-||||||| e011fa1
-function! g:neoterm.repl.exec(command)
-  call g:neoterm.repl.instance().exec(add(a:command, g:neoterm_eof))
-=======
 function! g:neoterm.repl.exec(command) abort
   let l:ft_exec = printf('neoterm#repl#%s#exec', &filetype)
   try
@@ -106,5 +81,4 @@ function! g:neoterm.repl.exec(command) abort
   catch /^Vim\%((\a\+)\)\=:E117/
     call g:neoterm.repl.instance().exec(add(a:command, g:neoterm_eof))
   endtry
->>>>>>> upstream/master
 endfunction

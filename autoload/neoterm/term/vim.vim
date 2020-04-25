@@ -14,7 +14,7 @@ function! s:vim.new(opts) abort
         \ 'close_cb': a:opts.on_exit,
         \ 'exit_cb': a:opts.on_exit
         \ }
-  if g:neoterm_direct_open_repl
+  if g:neoterm_direct_open_repl && len(g:neoterm_repl_command) < 2
     return term_start(g:neoterm_repl_command, l:opts)
   else
     return term_start(g:neoterm_shell, l:opts)
