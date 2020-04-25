@@ -1,10 +1,10 @@
-function! neoterm#term#vim#()
+function! neoterm#term#vim#() abort
   return s:vim
 endfunction
 
 let s:vim = {}
 
-function! s:vim.new(opts)
+function! s:vim.new(opts) abort
   let l:opts = {
         \ 'curwin': 1,
         \ 'term_finish': 'close',
@@ -21,11 +21,11 @@ function! s:vim.new(opts)
   end
 endfunction
 
-function! s:vim.termsend(termid, cmd)
+function! s:vim.termsend(termid, cmd) abort
   let l:cmd = type(a:cmd) ==# type('') ? a:cmd : join(a:cmd, "\<CR>")
   return term_sendkeys(a:termid, l:cmd)
 endfunction
 
-function! s:vim.get_current_termid()
+function! s:vim.get_current_termid() abort
   return bufnr('')
 endfunction

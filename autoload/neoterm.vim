@@ -7,7 +7,7 @@
 "                   `exit_cb`. For more info read `:help job_control.txt`
 "        from_event: Set when the neoterm is being created from the TermOpen
 "        event. This enables neoterm to manage every term created on neovim.
-function! neoterm#new(...)
+function! neoterm#new(...) abort
   let l:opts = extend(get(a:, 1, {}), {
         \ 'handlers': {},
         \ 'mod': '',
@@ -44,7 +44,7 @@ function! neoterm#new(...)
   return l:instance
 endfunction
 
-function! neoterm#new_from_event()
+function! neoterm#new_from_event() abort
   let l:should_load = get(g:, 'SessionLoad', 0)
         \ && index(g:neoterm.managed, g:neoterm.get_current_termid()) < 0
 
@@ -53,7 +53,7 @@ function! neoterm#new_from_event()
   end
 endfunction
 
-function! neoterm#open(...)
+function! neoterm#open(...) abort
   let l:opts = extend(a:1, { 'mod': '', 'target': 0 }, 'keep')
   let l:instance = neoterm#target#get(l:opts)
 
@@ -75,7 +75,7 @@ function! neoterm#open(...)
   end
 endfunction
 
-function! neoterm#close(...)
+function! neoterm#close(...) abort
   let l:opts = extend(a:1, { 'target': 0, 'force': 0 }, 'keep')
   let l:instance = neoterm#target#get(l:opts)
 
@@ -100,13 +100,13 @@ function! neoterm#close(...)
   end
 endfunction
 
-function! neoterm#closeAll(...)
+function! neoterm#closeAll(...) abort
   for l:instance in values(g:neoterm.instances)
     call neoterm#close(extend(a:1, { 'target': l:instance.id }))
   endfor
 endfunction
 
-function! s:after_open(instance)
+function! s:after_open(instance) abort
   let b:neoterm_id = a:instance.id
   let b:term_title = a:instance.name
   setf neoterm
@@ -127,7 +127,7 @@ function! s:after_open(instance)
   end
 endfunction
 
-function! neoterm#toggle(...)
+function! neoterm#toggle(...) abort
   let l:opts = extend(a:1, { 'mod': '', 'target': 0 }, 'keep')
   let l:instance = neoterm#target#get(l:opts)
 
@@ -144,19 +144,19 @@ function! neoterm#toggle(...)
   end
 endfunction
 
-function! neoterm#toggleAll()
+function! neoterm#toggleAll() abort
   for l:id in keys(g:neoterm.instances)
     call neoterm#toggle({ 'target': l:id })
   endfor
 endfunction
 
-function! neoterm#do(opts)
+function! neoterm#do(opts) abort
   let l:opts = extend(a:opts, { 'mod': '', 'target': 0 }, 'keep')
   let l:opts.cmd = [l:opts.cmd, g:neoterm_eof]
   call neoterm#exec(l:opts)
 endfunction
 
-function! neoterm#exec(opts)
+function! neoterm#exec(opts) abort
   let l:opts = extend(a:opts, { 'update_last_active': v:true }, 'keep')
   let l:command = map(copy(l:opts.cmd), { i, cmd -> s:expand(cmd) })
   let l:instance = neoterm#target#get({ 'target': get(l:opts, 'target', 0) })
@@ -180,7 +180,7 @@ function! neoterm#exec(opts)
   end
 endfunction
 
-function! s:requires_new_instance(instance)
+function! s:requires_new_instance(instance) abort
   return
         \ (
         \   empty(a:instance) &&
@@ -192,47 +192,42 @@ function! s:requires_new_instance(instance)
         \ )
 endfunction
 
-function! neoterm#map_for(...)
-  let l:opts = extend(a:1, { 'target': 0 }, 'keep')
-  let l:instance = neoterm#target#get(l:opts)
-  let l:do_opts = string({
-        \ 'cmd': l:opts.cmd,
-        \ 'target': l:instance.id,
+function! neoterm#map_for(...) abort
+  let g:neoterm.map_options = extend(a:1, {
+        \ 'target': 0,
         \ 'update_last_active': v:false
-        \ })
-
-  exec printf(
-        \ 'nnoremap <silent> %s :call neoterm#do(%s)<cr>',
-        \ g:neoterm_automap_keys,
-        \ l:do_opts
-        \ )
+        \ }, 'keep')
 endfunction
 
-function! neoterm#clear(...)
+function! neoterm#map_do() abort
+  call neoterm#do(copy(g:neoterm.map_options))
+endfunction
+
+function! neoterm#clear(...) abort
   call neoterm#exec(extend(a:1, {
         \ 'cmd': g:neoterm_clear_cmd,
         \ 'force_clear': 0
         \ }, 'keep'))
 endfunction
 
-function! neoterm#kill(...)
+function! neoterm#kill(...) abort
   call neoterm#exec(extend(a:1, { 'cmd': ["\<c-c>"] }))
 endfunction
 
-function! neoterm#normal(cmd)
+function! neoterm#normal(cmd) abort
   silent call g:neoterm.last().normal(a:cmd)
 endfunction
 
-function! neoterm#vim_exec(cmd)
+function! neoterm#vim_exec(cmd) abort
   silent call g:neoterm.last().vim_exec(a:cmd)
 endfunction
 
-function! neoterm#list(arg_lead, cmd_line, cursor_pos)
+function! neoterm#list(arg_lead, cmd_line, cursor_pos) abort
   return filter(keys(g:neoterm.instances), 'v:val =~? "'. a:arg_lead. '"')
 endfunction
 
-function! neoterm#next()
-  function! s:next(ids, index)
+function! neoterm#next() abort
+  function! s:next(ids, index) abort
     let l:next_index = a:index +1
     return l:next_index > (len(a:ids) - 1) ? 0 : l:next_index
   endfunction
@@ -240,11 +235,11 @@ function! neoterm#next()
   call s:navigate_with(function('s:next'))
 endfunction
 
-function! neoterm#previous()
+function! neoterm#previous() abort
   call s:navigate_with({ _, i -> i - 1 })
 endfunction
 
-function! neoterm#destroy(instance)
+function! neoterm#destroy(instance) abort
   if has_key(g:neoterm, 'repl') && get(g:neoterm.repl, 'instance_id') ==# a:instance.id
     call remove(g:neoterm.repl, 'instance_id')
   end
@@ -265,7 +260,7 @@ function! neoterm#destroy(instance)
   end
 endfunction
 
-function! neoterm#list_ids()
+function! neoterm#list_ids() abort
       echom 'Open neoterm ids:'
       for id in keys(g:neoterm.instances)
         echom printf('ID: %s | name: %s | bufnr: %s',
@@ -275,7 +270,7 @@ function! neoterm#list_ids()
       endfor
 endfunction
 
-function! s:create_window(instance)
+function! s:create_window(instance) abort
   let l:mod = a:instance.mod !=# '' ? a:instance.mod : g:neoterm_default_mod
 
   if l:mod !=# ''
@@ -303,7 +298,7 @@ function! s:create_window(instance)
   end
 endfunction
 
-function! s:navigate_with(callback)
+function! s:navigate_with(callback) abort
   if &buftype ==? 'terminal'
     if len(g:neoterm.instances) > 1
       let l:ids = keys(g:neoterm.instances)
@@ -323,7 +318,7 @@ function! s:navigate_with(callback)
   end
 endfunction
 
-function! s:expand(command)
+function! s:expand(command) abort
   let l:command = substitute(a:command, '[^\\]\zs%\(:[phtre]\)\+', '\=expand(submatch(0))', 'g')
   let l:command = substitute(l:command, '\c\\<cr>', g:neoterm_eof, 'g')
   let l:path = g:neoterm_use_relative_path ? expand('%') : expand('%:p')
@@ -334,7 +329,7 @@ function! s:expand(command)
   return l:command
 endfunction
 
-function! s:update_last_active(opts, instance)
+function! s:update_last_active(opts, instance) abort
   if get(a:opts, 'update_last_active', v:false)
     let g:neoterm.last_active = a:instance.id
   end

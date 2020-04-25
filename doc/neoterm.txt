@@ -260,6 +260,7 @@ value is an empty string, which will try to use `ipython` or `python`,
 in this order, to execute the REPL.
 Default value: (empty)
 
+<<<<<<< HEAD
 Example for a valid command list:
 `let g:neoterm_repl = ['conda activate venv', 'clear', 'ipython']`
 
@@ -272,6 +273,21 @@ Allows you to paste & execute a pre-formatted code block from clipboard.
 This command is currently only supported in ipython.
 Default value: 0
 
+||||||| e011fa1
+=======
+Example for a valid command list:
+`let g:neoterm_repl_python = ['conda activate venv', 'clear', 'ipython']`
+
+In this example ipython is loaded in a virtual environment.
+The screen output is cleared after activating the venv.
+
+                                      *g:neoterm_repl_enable_ipython_paste_magic*
+
+Allows you to paste & execute a pre-formatted code block from clipboard.
+This command is currently only supported in ipython.
+Default value: 0
+
+>>>>>>> upstream/master
                                                               *g:neoterm_repl_r*
 
 Sets what R REPL will be used.

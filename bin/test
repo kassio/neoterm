@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+_pwd() {
+  cd "$1" || exit 1
+  pwd
+}
+
+[ "$PLUGIN_PATH" = "" ] && PLUGIN_PATH="$(_pwd "$(dirname "$0")/..")"
+[ "$VMTEST_PATH" = "" ] && VMTEST_PATH="$(_pwd "${PLUGIN_PATH}/../vmtest")"
+
+export PLUGIN_PATH
+export VMTEST_PATH
+
+if [ "$1" = "vim" ]; then
+  VIMBIN="vim vim -T dumb --not-a-term -u ${PLUGIN_PATH}/test-config/vim/vimrc"
+else
+  VIMBIN="nvim --headless"
+  XDG_CONFIG_HOME="${PLUGIN_PATH}/test-config"
+  export XDG_CONFIG_HOME
+fi
+
+$VIMBIN +"VMTestRun neoterm" +"VMTestQuit"
