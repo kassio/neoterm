@@ -5,17 +5,14 @@ endfunction
 let s:neovim = {}
 
 function! s:neovim.new(opts) abort
-  if g:neoterm_direct_open_repl
-    return termopen(g:neoterm_repl_command, a:opts)
-  else
-    if g:neoterm_marker ==# ''
-      let l:neoterm_marked_shell = g:neoterm_shell
-    else
-      let l:neoterm_marked_shell =
-            \ printf('%s%s-%s', g:neoterm_shell, g:neoterm_marker, a:opts.id)
-    end
+  return termopen(s:shell(a:opts), a:opts)
+endfunction
 
-    return termopen(l:neoterm_marked_shell, a:opts)
+function! s:shell(opts)
+  if g:neoterm_marker ==# ''
+    return a:opts.shell
+  else
+    return printf('%s%s-%s', a:opts.shell, g:neoterm_marker, a:opts.id)
   end
 endfunction
 

@@ -14,16 +14,13 @@ function! s:vim.new(opts) abort
         \ 'close_cb': a:opts.on_exit,
         \ 'exit_cb': a:opts.on_exit
         \ }
-  if g:neoterm_direct_open_repl
-    return term_start(g:neoterm_repl_command, l:opts)
-  else
-    return term_start(g:neoterm_shell, l:opts)
-  end
+
+  return term_start(a:opts.shell, l:opts)
 endfunction
 
-function! s:vim.termsend(termid, cmd) abort
-  let l:cmd = type(a:cmd) ==# type('') ? a:cmd : join(a:cmd, "\<CR>")
-  return term_sendkeys(a:termid, l:cmd)
+function! s:vim.termsend(termid, command) abort
+  let l:command = type(a:command) ==# type('') ? a:command : join(a:command, "\<CR>")
+  return term_sendkeys(a:termid, l:command)
 endfunction
 
 function! s:vim.get_current_termid() abort

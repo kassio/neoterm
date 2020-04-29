@@ -3,13 +3,24 @@ let g:neoterm.repl = { 'loaded': 0 }
 function! g:neoterm.repl.instance() abort
   if !has_key(l:self, 'instance_id')
     if !g:neoterm.has_any()
-      call neoterm#new({ 'handlers': neoterm#repl#handlers() })
+      call neoterm#new({
+            \ 'handlers': neoterm#repl#handlers(),
+            \ 'shell': s:shell()
+            \ })
     end
 
     call neoterm#repl#term(g:neoterm.last_id)
   end
 
   return g:neoterm.instances[l:self.instance_id]
+endfunction
+
+function! s:shell()
+  if g:neoterm_direct_open_repl
+    return join(g:neoterm_repl_command)
+  else
+    return g:neoterm_shell
+  end
 endfunction
 
 function! neoterm#repl#handlers() abort

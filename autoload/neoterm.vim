@@ -14,6 +14,7 @@ function! neoterm#new(...) abort
         \ 'buffer_id': 0,
         \ 'origin': neoterm#origin#new(),
         \ 'from_event': 0,
+        \ 'shell': g:neoterm_shell
         \ }, 'keep')
 
   let l:instance = extend(copy(g:neoterm.prototype), l:opts)
