@@ -20,15 +20,22 @@ Steps to reproduce the behavior:
 **Expected behavior**
 A clear and concise description of what you expected to happen.
 
-**Screenshots**
-If applicable, add screenshots to help explain your problem.
+**Screenshots/gifs**
+If applicable, add screenshots/gifs to help explain your problem.
 
-**Versions (please complete the following information):**
- - OS: [e.g. iOS]
- - neoterm commit sha1
+**Versions (Issues without this information will take longer to be answered/solved):**
+ - OS: [e.g. macos/linux Ubuntu/etc]
+ - neoterm commit master/a8238fa84
+ - Add all the configuration you have for neoterm
+   ```viml
+   let g:neoterm_default_mod = 'botright'
+   let g:neoterm_automap_keys = '<leader>tm'
+   let g:neoterm_use_relative_path = 1
+   let g:neoterm_autoscroll = 1
+   ```
  - Vim or Neovim
-   - [ ] Vim
-   - [ ] Vim
+   - [ ] vim
+   - [ ] neovim
  - Version [vim --version]
 
 **Additional context**
