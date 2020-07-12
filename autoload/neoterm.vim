@@ -66,7 +66,9 @@ function! neoterm#open(...) abort
     end
 
     let l:instance.origin = neoterm#origin#new()
-    call s:create_window(l:instance)
+    if get(l:instance, 'buffer_id', 0) > 0 && bufnr('') != l:instance.buffer_id
+      exec printf('buffer %s', l:instance.buffer_id)
+    end
     call s:after_open(l:instance)
 
     let g:neoterm.last_active = l:instance.id
