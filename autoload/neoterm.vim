@@ -61,11 +61,8 @@ function! neoterm#open(...) abort
   if empty(l:instance)
     call neoterm#new({ 'mod': l:opts.mod, 'update_last_active': v:true })
   elseif bufwinnr(l:instance.buffer_id) == -1
-    if l:opts.mod !=# ''
-      let l:instance.mod = l:opts.mod
-    end
-
     let l:instance.origin = neoterm#origin#new()
+
     if get(l:instance, 'buffer_id', 0) > 0 && bufnr('') != l:instance.buffer_id
       exec printf('buffer %s', l:instance.buffer_id)
     end
@@ -135,7 +132,7 @@ function! neoterm#toggle(...) abort
   let l:instance = neoterm#target#get(l:opts)
 
   if empty(l:instance)
-    call neoterm#new({ 'mod': l:opts.mod, 'update_last_active': v:true })
+    call neoterm#new(l:opts)
   else
     call s:update_last_active({ 'update_last_active': v:true}, l:instance)
 
@@ -165,7 +162,7 @@ function! neoterm#exec(opts) abort
   let l:instance = neoterm#target#get({ 'target': get(l:opts, 'target', 0) })
 
   if s:requires_new_instance(l:instance)
-    let l:instance = neoterm#new({ 'mod': get(l:opts, 'mod', '') })
+    let l:instance = neoterm#new(l:opts)
   end
 
   if !empty(l:instance)
@@ -274,13 +271,15 @@ function! neoterm#list_ids() abort
 endfunction
 
 function! s:create_window(instance) abort
-  let l:mod = a:instance.mod !=# '' ? a:instance.mod : g:neoterm_default_mod
+  if empty(a:instance.mod)
+    let a:instance.mod = g:neoterm_default_mod
+  end
 
-  if l:mod !=# ''
+  if a:instance.mod !=# ''
     let l:hidden=&hidden
     let &hidden=0
 
-    let l:cmd = printf('%s %snew', l:mod, g:neoterm_size)
+    let l:cmd = printf('%s %snew', a:instance.mod, g:neoterm_size)
     if a:instance.buffer_id > 0
       let l:cmd .= printf(' +buffer%s', a:instance.buffer_id)
     end
@@ -288,7 +287,7 @@ function! s:create_window(instance) abort
     exec l:cmd
 
     if !empty(g:neoterm_size)
-      exec printf('%s resize %s', l:mod, g:neoterm_size)
+      exec printf('%s resize %s', a:instance.mod, g:neoterm_size)
     endif
 
     let &hidden=l:hidden

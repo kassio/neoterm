@@ -1,6 +1,12 @@
 let s:not_found_msg = 'neoterm-%s not found (probably already closed)'
 
 function! neoterm#target#get(opts) abort
+  let l:instance = s:get(a:opts)
+
+  return s:set_instance_opts(l:instance, a:opts)
+endfunction
+
+function! s:get(opts) abort
   if a:opts.target > 0
     return s:given_target(a:opts.target)
   elseif g:neoterm_term_per_tab
@@ -40,4 +46,18 @@ function! s:ensure_instance(instance) abort
     call neoterm#destroy(a:instance)
     return {}
   end
+endfunction
+
+function! s:set_instance_opts(instance, opts)
+  if empty(a:instance)
+    return a:instance
+  end
+
+  for [key, value] in items(a:opts)
+    if !empty(value)
+      let a:instance[key] = value
+    end
+  endfor
+
+  return a:instance
 endfunction
