@@ -45,11 +45,11 @@ is reseted to 1 when there is no instance of a neoterm windows open.
 1.4 Last Active                                            *neoterm-last-active*
 
 neoterm last active is updated on the following events:
+  - `:Tnew`
   - `:T`
   - `:Texec`
-  - `:Tnew`
-  - `:Ttoggle`
   - `:Topen`
+  - `:Ttoggle` - if it opens a neoterm
 
 ===============================================================================
                                                               *neoterm-commands*

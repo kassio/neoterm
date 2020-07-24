@@ -40,7 +40,7 @@ function! neoterm#new(...) abort
 
   let g:neoterm.instances[l:instance.id] = l:instance
 
-  call s:update_last_active(l:opts, l:instance)
+  call s:update_last_active(l:instance)
 
   return l:instance
 endfunction
@@ -59,9 +59,10 @@ function! neoterm#open(...) abort
   let l:instance = neoterm#target#get(l:opts)
 
   if empty(l:instance)
-    call neoterm#new({ 'mod': l:opts.mod, 'update_last_active': v:true })
+    call neoterm#new({ 'mod': l:opts.mod })
   elseif bufwinnr(l:instance.buffer_id) == -1
     let l:instance.origin = neoterm#origin#new()
+    call s:update_last_active(l:instance)
 
     if get(l:instance, 'buffer_id', 0) > 0 && bufnr('') != l:instance.buffer_id
       exec printf('buffer %s', l:instance.buffer_id)
@@ -134,8 +135,6 @@ function! neoterm#toggle(...) abort
   if empty(l:instance)
     call neoterm#new(l:opts)
   else
-    call s:update_last_active({ 'update_last_active': v:true}, l:instance)
-
     if bufwinnr(l:instance.buffer_id) > 0
       call neoterm#close(l:opts)
     else
@@ -157,19 +156,18 @@ function! neoterm#do(opts) abort
 endfunction
 
 function! neoterm#exec(opts) abort
-  let l:opts = extend(a:opts, { 'update_last_active': v:true }, 'keep')
-  let l:command = map(copy(l:opts.cmd), { i, cmd -> s:expand(cmd) })
-  let l:instance = neoterm#target#get({ 'target': get(l:opts, 'target', 0) })
+  let l:command = map(copy(a:opts.cmd), { i, cmd -> s:expand(cmd) })
+  let l:instance = neoterm#target#get({ 'target': get(a:opts, 'target', 0) })
 
   if s:requires_new_instance(l:instance)
-    let l:instance = neoterm#new(l:opts)
+    let l:instance = neoterm#new(a:opts)
   end
 
   if !empty(l:instance)
-    call s:update_last_active(l:opts, l:instance)
+    call s:update_last_active(l:instance)
     call l:instance.exec(l:command)
 
-    if get(l:opts, 'force_clear', 0)
+    if get(a:opts, 'force_clear', 0)
       let l:bufname = bufname(l:instance.buffer_id)
       let l:scrollback = getbufvar(l:bufname, '&scrollback')
 
@@ -331,8 +329,6 @@ function! s:expand(command) abort
   return l:command
 endfunction
 
-function! s:update_last_active(opts, instance) abort
-  if get(a:opts, 'update_last_active', v:false)
-    let g:neoterm.last_active = a:instance.id
-  end
+function! s:update_last_active(instance) abort
+  let g:neoterm.last_active = a:instance.id
 endfunction
