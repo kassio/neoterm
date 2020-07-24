@@ -244,7 +244,7 @@ function! neoterm#destroy(instance) abort
 
   if has_key(g:neoterm.instances, a:instance.id)
     if bufexists(a:instance.buffer_id)
-      exec printf('%sbdelete!', a:instance.buffer_id)
+      silent! exec printf('%sbdelete!', a:instance.buffer_id)
     end
     call remove(g:neoterm.instances, a:instance.id)
   end
