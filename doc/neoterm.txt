@@ -121,11 +121,15 @@ Sends the current line to a REPL.
 
 Sends the current selection to a REPL.
 
-:[N]Topen                                                               *:Topen*
+:[N]Topen [resize=V]                                                    *:Topen*
 
 Opens the neoterm with id [N]. With no [N] the last active neoterm will be
 opened or a new one will be created. This command accepts vim |mods|. The last
 |mods| used will be saved in the neoterm instance.
+
+'resize=V' option can be passed, this will resize the new window to the given
+size. The resize will be used in the direction of the |mods| used. The value
+will also be cached in the neoterm instance.
 
 :[N]Tclose[!]                                                          *:Tclose*
 
@@ -141,11 +145,15 @@ Call |:Tclose| for each neoterm instance.
 
 When the [!] is included `:Tclose!`(with the bang) is called.
 
-:[N]Ttoggle                                                           *:Ttoggle*
+:[N]Ttoggle [resize=V]                                                *:Ttoggle*
 
 Toggles the neoterm with id [N]. With no [N] the last active neoterm will be
 toggled.  This command accepts vim |mods|. The last |mods| used will be saved
 in the neoterm instance.
+
+'resize=V' option can be passed, this will resize the new window to the given
+size. The resize will be used in the direction of the |mods| used. The value
+will also be cached in the neoterm instance.
 
 :TtoggleAll                                                        *:TtoggleAll*
 

@@ -14,7 +14,8 @@ endfunction
 function! g:vmtests.neoterm.origin.test_new()
   call assert_equal(
         \ {'win_id': s:current_win(), 'last_buffer_id': self.original_buffer},
-        \ neoterm#origin#new())
+        \ neoterm#origin#new()
+        \ )
 endfunction
 
 function! g:vmtests.neoterm.origin.return_to_buffer()
