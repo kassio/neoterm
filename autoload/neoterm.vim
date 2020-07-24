@@ -63,10 +63,7 @@ function! neoterm#open(...) abort
   elseif bufwinnr(l:instance.buffer_id) == -1
     let l:instance.origin = neoterm#origin#new()
     call s:update_last_active(l:instance)
-
-    if get(l:instance, 'buffer_id', 0) > 0 && bufnr('') != l:instance.buffer_id
-      exec printf('buffer %s', l:instance.buffer_id)
-    end
+    call s:create_window(l:instance)
     call s:after_open(l:instance)
 
     let g:neoterm.last_active = l:instance.id
