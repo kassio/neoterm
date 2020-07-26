@@ -86,6 +86,10 @@ endfunction
 
 function! g:neoterm.repl.exec(command) abort
   let l:ft_exec = printf('neoterm#repl#%s#exec', &filetype)
+  if g:neoterm_bracketed_paste
+    let a:command[0] = "\x1b[200~" . a:command[0]
+    let a:command[-1] = a:command[-1] . "\x1b[201~"
+  endif
   try
     let ExecByFiletype = function(l:ft_exec)
     call ExecByFiletype(a:command)

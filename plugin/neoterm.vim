@@ -156,6 +156,10 @@ if !exists('g:neoterm_clear_cmd')
   let g:neoterm_clear_cmd = ["\<c-l>"]
 end
 
+if !exists('g:neoterm_bracketed_paste')
+  let g:neoterm_bracketed_paste = 0
+end
+
 " Load the right adapter for vim or neovim
 call neoterm#term#load()
 
