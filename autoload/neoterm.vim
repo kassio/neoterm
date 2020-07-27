@@ -14,6 +14,7 @@ function! neoterm#new(...) abort
         \ 'buffer_id': 0,
         \ 'origin': neoterm#origin#new(),
         \ 'from_event': 0,
+        \ 'args': '',
         \ 'shell': g:neoterm_shell
         \ }, 'keep')
 
@@ -59,7 +60,7 @@ function! neoterm#open(...) abort
   let l:instance = neoterm#target#get(l:opts)
 
   if empty(l:instance)
-    call neoterm#new({ 'mod': l:opts.mod })
+    call neoterm#new(l:opts)
   elseif bufwinnr(l:instance.buffer_id) == -1
     let l:instance.origin = neoterm#origin#new()
     call s:update_last_active(l:instance)
@@ -117,6 +118,8 @@ function! s:after_open(instance) abort
   if g:neoterm_keep_term_open
     setlocal bufhidden=hide
   end
+
+  call s:resize_instance(a:instance)
 
   if g:neoterm_autoinsert
     startinsert
@@ -328,4 +331,13 @@ endfunction
 
 function! s:update_last_active(instance) abort
   let g:neoterm.last_active = a:instance.id
+endfunction
+
+function! s:resize_instance(instance) abort
+  let size = neoterm#args#size(a:instance.args, g:neoterm_size)
+
+  if size > 0
+    echom printf('%s resize %s', a:instance.mod, size)
+    exec printf('%s resize %s', a:instance.mod, size)
+  endif
 endfunction
