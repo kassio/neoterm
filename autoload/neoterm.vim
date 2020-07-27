@@ -337,7 +337,6 @@ function! s:resize_instance(instance) abort
   let size = neoterm#args#size(a:instance.args, g:neoterm_size)
 
   if size > 0
-    echom printf('%s resize %s', a:instance.mod, size)
     exec printf('%s resize %s', a:instance.mod, size)
   endif
 endfunction
