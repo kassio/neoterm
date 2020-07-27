@@ -1,7 +1,7 @@
 # neoterm
 
 [![lint](https://github.com/kassio/neoterm/workflows/lint/badge.svg?branch=master)](https://github.com/kassio/neoterm/actions?query=workflow%3Alint)
-[![tests](https://github.com/kassio/neoterm/workflows/tests/badge.svg)](https://github.com/kassio/neoterm/actions?query=workflow%3Atests)
+[![tests](https://github.com/kassio/neoterm/workflows/tests/badge.svg?branch=master)](https://github.com/kassio/neoterm/actions?query=workflow%3Atests)
 [![license](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
  ```
