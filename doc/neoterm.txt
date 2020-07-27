@@ -336,6 +336,14 @@ Sets how to clear the terminal on `:Tclear`. By default it uses the keybinding
 Default value: `["\<c-l>"]`
 To use the clear command set to: `["clear", ""]`
 
+                                                      *g:neoterm_bracketed_paste*
+
+When set to `1` neoterm will send text to the neoterm buffer in bracketed
+paste mode. This is useful to enable sending multiline statements when working
+with some interactive REPL environments (such as radian for R and ipython for
+Python). Note that when used with pure python, can give `SyntaxError: multiple
+statements found while compiling a single statement`.
+Default value: `0`
 
 ===============================================================================
 4. Operators                                                 *neoterm-operators*

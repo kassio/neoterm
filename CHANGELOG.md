@@ -1,3 +1,6 @@
+### 26/07/2020
+  - Add option `g:neoterm_bracketed_paste` to allow sending text to terminal in bracketed paste mode. ([\#295](https://github.com/kassio/neoterm/issues/295))
+
 ### 29/04/2020
   - Add a `shell` option on `neoterm#new` to be able to handle
     `g:neoterm_direct_open_repl` within the repl namespace. ([\#280](https://github.com/kassio/neoterm/issues/280))
