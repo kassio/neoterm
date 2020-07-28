@@ -1,3 +1,6 @@
+### 28/07/2020
+  - Add clear default values for neoterm.
+
 ### 27/07/2020
   - Dynamically set neoterm window size with `:Topen resize=N` and
     `:Ttoggle resize=N`. ([\#289](https://github.com/kassio/neoterm/issues/289))
