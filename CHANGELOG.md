@@ -2,6 +2,7 @@
   - Dynamically set neoterm window size with `:Topen resize=N` and
     `:Ttoggle resize=N`. ([\#289](https://github.com/kassio/neoterm/issues/289))
   - Add a CHANGELOG enforcer action.
+  - Fixes creation of extra buffer. ([\#294](https://github.com/kassio/neoterm/issues/294))
 
 ### 26/07/2020
   - Add option `g:neoterm_bracketed_paste` to allow sending text to terminal in bracketed paste mode. ([\#295](https://github.com/kassio/neoterm/issues/295))

@@ -289,12 +289,10 @@ function! s:create_window(instance) abort
     endif
 
     let &hidden=l:hidden
+  elseif get(a:instance, 'buffer_id', 0) > 0 && bufnr('') != a:instance.buffer_id
+    exec printf('buffer %s', a:instance.buffer_id)
   else
     enew
-  end
-
-  if get(a:instance, 'buffer_id', 0) > 0 && bufnr('') != a:instance.buffer_id
-    exec printf('buffer %s', a:instance.buffer_id)
   end
 endfunction
 
