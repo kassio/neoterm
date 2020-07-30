@@ -1,26 +1,26 @@
 function! neoterm#term#new(opts) abort
-  call neoterm#term#load()
-
   return extend(
-        \   copy(g:neoterm.prototype),
+        \   extend(copy(s:term), copy(s:adapter()), 'error'),
         \   neoterm#default#opts(a:opts)
         \ )
 endfunction
 
-function! neoterm#term#load() abort
-  if !has_key(g:neoterm, 'prototype')
+function! s:adapter()
+  return get(g:neoterm, 'adapter', s:set_adapter())
+endfunction
+
+function! s:set_adapter()
+  if !has_key(g:neoterm, 'adapter')
     if has('nvim')
-      let l:adapter = neoterm#term#neovim#()
+      let g:neoterm.adapter = neoterm#term#neovim#()
     elseif has('terminal')
-      let l:adapter = neoterm#term#vim#()
+      let g:neoterm.adapter = neoterm#term#vim#()
     else
       throw 'neoterm does not support your vim/neovim version'
     end
-
-    call extend(s:term, copy(l:adapter), 'error')
-
-    let g:neoterm.prototype = s:term
   end
+
+  return g:neoterm.adapter
 endfunction
 
 let s:term = {}
