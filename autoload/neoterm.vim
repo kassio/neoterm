@@ -8,19 +8,10 @@
 "        from_event: Set when the neoterm is being created from the TermOpen
 "        event. This enables neoterm to manage every term created on neovim.
 function! neoterm#new(...) abort
-  let l:opts = extend(get(a:, 1, {}), {
-        \ 'handlers': {},
-        \ 'mod': '',
-        \ 'buffer_id': 0,
-        \ 'origin': neoterm#origin#new(),
-        \ 'from_event': 0,
-        \ 'args': '',
-        \ 'shell': g:neoterm_shell
-        \ }, 'keep')
-
+  let l:opts = neoterm#default#opts(get(a:, 1, {}))
   let l:instance = extend(copy(g:neoterm.prototype), l:opts)
 
-  if !l:opts.from_event
+  if !l:instance.from_event
     call s:create_window(l:instance)
   end
 

@@ -160,6 +160,16 @@ if !exists('g:neoterm_bracketed_paste')
   let g:neoterm_bracketed_paste = 0
 end
 
+let g:neoterm.default_opts = {
+      \ 'handlers': {},
+      \ 'mod': '',
+      \ 'args': '',
+      \ 'buffer_id': 0,
+      \ 'from_event': v:false,
+      \ 'origin': neoterm#origin#new(),
+      \ 'shell': g:neoterm_shell
+      \ }
+
 " Load the right adapter for vim or neovim
 call neoterm#term#load()
 
