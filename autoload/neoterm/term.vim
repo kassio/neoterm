@@ -1,7 +1,10 @@
-function! neoterm#term#prototype(opts)
+function! neoterm#term#new(opts) abort
   call neoterm#term#load()
 
-  return extend(copy(g:neoterm.prototype), a:opts)
+  return extend(
+        \   copy(g:neoterm.prototype),
+        \   neoterm#default#opts(a:opts)
+        \ )
 endfunction
 
 function! neoterm#term#load() abort
@@ -14,9 +17,8 @@ function! neoterm#term#load() abort
       throw 'neoterm does not support your vim/neovim version'
     end
 
-    let s:term.termsend = l:adapter.termsend
-    let g:neoterm.new = l:adapter.new
-    let g:neoterm.get_current_termid = l:adapter.get_current_termid
+    call extend(s:term, copy(l:adapter), 'error')
+
     let g:neoterm.prototype = s:term
   end
 endfunction

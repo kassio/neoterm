@@ -8,8 +8,7 @@
 "        from_event: Set when the neoterm is being created from the TermOpen
 "        event. This enables neoterm to manage every term created on neovim.
 function! neoterm#new(...) abort
-  let l:opts = neoterm#default#opts(get(a:, 1, {}))
-  let l:instance = neoterm#term#prototype(l:opts)
+  let l:instance = neoterm#term#new(get(a:, 1, {}))
 
   if !l:instance.from_event
     call s:create_window(l:instance)
@@ -20,10 +19,10 @@ function! neoterm#new(...) abort
   let l:instance.name = printf('neoterm-%s', l:instance.id)
   let t:neoterm_id = l:instance.id
 
-  if l:opts.from_event
-    let l:instance.termid = g:neoterm.get_current_termid()
+  if l:instance.from_event
+    let l:instance.termid = l:instance.get_current_termid()
   else
-    let l:instance.termid = g:neoterm.new(l:instance)
+    let l:instance.termid = l:instance.new(l:instance)
   end
 
   let g:neoterm.managed += [l:instance.termid]
