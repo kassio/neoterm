@@ -170,9 +170,6 @@ let g:neoterm.default_opts = {
       \ 'shell': g:neoterm_shell
       \ }
 
-" Load the right adapter for vim or neovim
-call neoterm#term#load()
-
 if exists('#TerminalOpen')
   autocmd TerminalOpen * call neoterm#new_from_event()
 end

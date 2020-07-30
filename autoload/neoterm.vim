@@ -9,7 +9,7 @@
 "        event. This enables neoterm to manage every term created on neovim.
 function! neoterm#new(...) abort
   let l:opts = neoterm#default#opts(get(a:, 1, {}))
-  let l:instance = extend(copy(g:neoterm.prototype), l:opts)
+  let l:instance = neoterm#term#prototype(l:opts)
 
   if !l:instance.from_event
     call s:create_window(l:instance)

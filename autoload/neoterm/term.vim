@@ -1,3 +1,9 @@
+function! neoterm#term#prototype(opts)
+  call neoterm#term#load()
+
+  return extend(copy(g:neoterm.prototype), a:opts)
+endfunction
+
 function! neoterm#term#load() abort
   if !has_key(g:neoterm, 'prototype')
     if has('nvim')
