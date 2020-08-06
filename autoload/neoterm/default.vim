@@ -1,3 +1,12 @@
 function! neoterm#default#opts(opts) abort
-  return extend(copy(a:opts), g:neoterm.default_opts, 'keep')
+  let l:default_opts = {
+        \ 'handlers': {},
+        \ 'mod': '',
+        \ 'args': '',
+        \ 'buffer_id': 0,
+        \ 'from_event': v:false,
+        \ 'origin': neoterm#origin#new(),
+        \ 'shell': g:neoterm_shell
+        \ }
+  return extend(copy(a:opts), l:default_opts, 'keep')
 endfunction

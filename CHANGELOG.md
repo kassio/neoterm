@@ -1,3 +1,7 @@
+### 06/08/2020
+  - Fix defaults loading. Defaults must be calculated when used, not before.
+    This fix buffer overwriting, due to early `origin` calculation.
+
 ### 28/07/2020
   - Add clear default values for neoterm.
 
