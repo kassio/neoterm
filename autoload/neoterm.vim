@@ -1,12 +1,3 @@
-" Creates a new neoterm instance.
-"
-" Params: Optional dictionary with the optional keys:
-"        mod: Which could be one of vim mods (`:help mods`).
-"        handlers: Dictionary with `on_stdout`, `on_stderr` and/or `on_exit`.
-"                   On vim these will be renamed to `out_cb`, `err_cb`,
-"                   `exit_cb`. For more info read `:help job_control.txt`
-"        from_event: Set when the neoterm is being created from the TermOpen
-"        event. This enables neoterm to manage every term created on neovim.
 function! neoterm#new(...) abort
   let l:instance = neoterm#term#new(get(a:, 1, {}))
 
