@@ -7,6 +7,8 @@ function! neoterm#repl#python#is_valid(value) abort
 
   if l:cmd =~# '\<ipython\>'
     return executable('ipython')
+  elseif l:cmd =~# '\<jupyter\>'
+    return executable('jupyter')
   elseif l:cmd =~# '\<python\>'
     return executable('python')
   else
