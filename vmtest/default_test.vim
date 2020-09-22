@@ -2,8 +2,15 @@ call vmtest#plugin('neoterm')
 let g:vmtests.neoterm.default = { '_name': 'Default Options Test' }
 
 function! g:vmtests.neoterm.default.test_with_no_given_opts()
-  call assert_equal(
-        \ g:neoterm.default_opts,
+  call assert_equal({
+        \ 'handlers': {},
+        \ 'mod': '',
+        \ 'args': '',
+        \ 'buffer_id': 0,
+        \ 'from_event': v:false,
+        \ 'origin': neoterm#origin#new(),
+        \ 'shell': g:neoterm_shell
+        \ },
         \ neoterm#default#opts({})
         \ )
 endfunction
