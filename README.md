@@ -130,7 +130,7 @@ nnoremap <leader>tl :<c-u>exec v:count.'Tclear'<cr>
 * MATLAB: `matlab -nodesktop -nosplash`
 * PARI/GP: `gp`
 * PHP: `g:neoterm_repl_php` and `psysh` and `php`
-* Python: `ipython` and `python`
+* Python: `ipython`, `jupyter console` and `python`
 * R / R Markdown: `R`
 * Racket: `racket`
 * Rails: `bundle exec rails console`
