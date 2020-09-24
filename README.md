@@ -159,7 +159,7 @@ au VimEnter,BufRead,BufNewFile *.lfe set filetype=lfe
 
 If you want to use the jupyter console REPL present on your path, you can use
 this configuration in your `init.vim`:
-```
+```vim
 function! Chomp(string)
     return substitute(a:string, '\n\+$', '', '')
 endfunction
