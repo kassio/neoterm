@@ -86,14 +86,23 @@ endfunction
 
 function! g:neoterm.repl.exec(command) abort
   let l:ft_exec = printf('neoterm#repl#%s#exec', &filetype)
-  if g:neoterm_bracketed_paste
-    let a:command[0] = "\x1b[200~" . a:command[0]
-    let a:command[-1] = a:command[-1] . "\x1b[201~"
-  endif
+  let l:command = s:bracketed_paste(a:command)
+
   try
     let ExecByFiletype = function(l:ft_exec)
-    call ExecByFiletype(a:command)
+    call ExecByFiletype(l:command)
   catch /^Vim\%((\a\+)\)\=:E117/
-    call g:neoterm.repl.instance().exec(add(a:command, g:neoterm_eof))
+    call g:neoterm.repl.instance().exec(add(l:command, g:neoterm_eof))
   endtry
+endfunction
+
+function! s:bracketed_paste(command)
+  let l:command = a:command
+
+  if g:neoterm_bracketed_paste
+    let l:command[0] = "\x1b[200~" . l:command[0]
+    let l:command[-1] = l:command[-1] . "\x1b[201~"
+  else
+    return l:command
+  endif
 endfunction
