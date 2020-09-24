@@ -157,6 +157,15 @@ au VimEnter,BufRead,BufNewFile *.lidr set filetype=lidris
 au VimEnter,BufRead,BufNewFile *.lfe set filetype=lfe
 ```
 
+If you want to use the jupyter console REPL present on your path, you can use
+this configuration in your `init.vim`:
+```
+function! Chomp(string)
+    return substitute(a:string, '\n\+$', '', '')
+endfunction
+let g:neoterm_repl_python = Chomp(system('which jupyter')) . ' console'
+```
+
 ## [Contributing](CONTRIBUTING.md)
 ## [Changelog](CHANGELOG.md)
 ## [Documentation](doc/neoterm.txt)
