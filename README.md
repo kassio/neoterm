@@ -130,7 +130,7 @@ nnoremap <leader>tl :<c-u>exec v:count.'Tclear'<cr>
 * MATLAB: `matlab -nodesktop -nosplash`
 * PARI/GP: `gp`
 * PHP: `g:neoterm_repl_php` and `psysh` and `php`
-* Python: `ipython` and `python`
+* Python: `ipython`, `jupyter console` and `python`
 * R / R Markdown: `R`
 * Racket: `racket`
 * Rails: `bundle exec rails console`
@@ -155,6 +155,15 @@ au VimEnter,BufRead,BufNewFile *.jl set filetype=julia
 au VimEnter,BufRead,BufNewFile *.idr set filetype=idris
 au VimEnter,BufRead,BufNewFile *.lidr set filetype=lidris
 au VimEnter,BufRead,BufNewFile *.lfe set filetype=lfe
+```
+
+If you want to use the jupyter console REPL present on your path, you can use
+this configuration in your `init.vim`:
+```viml
+function! Chomp(string)
+    return substitute(a:string, '\n\+$', '', '')
+endfunction
+let g:neoterm_repl_python = Chomp(system('which jupyter')) . ' console'
 ```
 
 ## [Contributing](CONTRIBUTING.md)

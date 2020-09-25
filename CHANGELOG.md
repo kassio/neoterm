@@ -1,3 +1,6 @@
+### 23/09/2020
+  - Add `jupyter console` as a valid python REPL.
+
 ### 06/08/2020
   - Fix defaults loading. Defaults must be calculated when used, not before.
     This fix buffer overwriting, due to early `origin` calculation.
