@@ -102,7 +102,7 @@ function! s:bracketed_paste(command)
   if g:neoterm_bracketed_paste
     let l:command[0] = "\x1b[200~" . l:command[0]
     let l:command[-1] = l:command[-1] . "\x1b[201~"
-  else
-    return l:command
   endif
+
+  return l:command
 endfunction
