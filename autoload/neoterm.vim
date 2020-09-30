@@ -70,12 +70,8 @@ function! neoterm#close(...) abort
       end
 
       call neoterm#origin#return(l:instance.origin)
-    catch /^Vim\%((\a\+)\)\=:E444/
-      if len(getbufinfo()) == 1
-        echoe 'neoterm is the only opened window. To close it use `:Tclose!`'
-      end
-
-      call neoterm#origin#return(l:instance.origin, 'buffer')
+    catch /.*E444/
+      throw 'Error: neoterm is the only opened window. To close it use `:Tclose!`'
     endtry
   end
 endfunction
@@ -117,7 +113,11 @@ function! neoterm#toggle(...) abort
     call neoterm#new(l:opts)
   else
     if bufwinnr(l:instance.buffer_id) > 0
-      call neoterm#close(l:opts)
+      try
+        call neoterm#close(l:opts)
+      catch
+        echoe v:exception
+      endtry
     else
       call neoterm#open(l:opts)
     end
@@ -240,13 +240,13 @@ function! neoterm#destroy(instance) abort
 endfunction
 
 function! neoterm#list_ids() abort
-      echom 'Open neoterm ids:'
-      for id in keys(g:neoterm.instances)
-        echom printf('ID: %s | name: %s | bufnr: %s',
-              \ id,
-              \ g:neoterm.instances[id].name,
-              \ g:neoterm.instances[id].buffer_id)
-      endfor
+  echom 'Open neoterm ids:'
+  for id in keys(g:neoterm.instances)
+    echom printf('ID: %s | name: %s | bufnr: %s',
+          \ id,
+          \ g:neoterm.instances[id].name,
+          \ g:neoterm.instances[id].buffer_id)
+  endfor
 endfunction
 
 function! s:create_window(instance) abort

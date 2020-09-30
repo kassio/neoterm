@@ -1,3 +1,6 @@
+### 05/11/2020
+  - Better exception handling when toggling neoterm and it's the last open
+    window.
 ### 23/09/2020
   - Add `jupyter console` as a valid python REPL.
 
