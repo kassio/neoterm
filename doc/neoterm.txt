@@ -12,7 +12,8 @@ CONTENTS                                                      *neoterm-contents*
         2. Commands ......................................... |neoterm-commands|
              2.1 Dynamic mappings ................... |neoterm-dynamic-mappings|
         3. Options ........................................... |neoterm-options|
-        4. Operators........................................ |neoterm-operators|
+        4. Callbacks........................................ |neoterm-callbacks|
+        5. Operators........................................ |neoterm-operators|
 
 ===============================================================================
 1. Intro                                                         *neoterm-intro*
@@ -337,6 +338,7 @@ to ensure the mode is set to insertion mode.   For instance when using a shell
 or REPL in vi-mode, setting this to `"\edda"` will clear the current line then
 leave the prompt in insertion mode.
 Default value: ''
+
                                                            *g:neoterm_clear_cmd*
 
 Sets how to clear the terminal on `:Tclear`. By default it uses the keybinding
@@ -354,7 +356,32 @@ statements found while compiling a single statement`.
 Default value: `0`
 
 ===============================================================================
-4. Operators                                                 *neoterm-operators*
+4. Callbacks                                                  *neoterm-callbacks*
+
+Callbacks are functions that are called before/after a neoterm event. They can
+be set in the global variable `g:neoterm_callbacks`.
+
+                                               *g:neoterm_callbacks.before_new()*
+
+This callback is called before a neoterm is created with any command, like
+`:Tnew`, `:Topen`, `:Ttoggle`, etc.
+
+- Example of usage:
+
+Open the neoterm in a vertical split if current window width is bigger than
+100, otherwise use a horizontal split.
+>
+    let g:neoterm_callbacks = {}
+    function! g:neoterm_callbacks.before_new()
+      if winwidth('.') > 100
+        let g:neoterm_default_mod = 'botright vertical'
+      else
+        let g:neoterm_default_mod = 'botright'
+      end
+    endfunction
+<
+===============================================================================
+5. Operators                                                 *neoterm-operators*
 
                                                      *<Plug>(neoterm-repl-send)*
 

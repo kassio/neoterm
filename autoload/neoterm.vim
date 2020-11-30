@@ -1,4 +1,8 @@
 function! neoterm#new(...) abort
+  if exists('*g:neoterm_callbacks.before_new')
+    call g:neoterm_callbacks.before_new()
+  end
+
   let l:instance = neoterm#term#new(get(a:, 1, {}))
 
   if !l:instance.from_event

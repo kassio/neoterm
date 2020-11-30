@@ -1,6 +1,9 @@
 ### 30/11/2020
   - Change the next id calculation to use the minimum available value.
     ([\#309](https://github.com/kassio/neoterm/issues/309))
+  - Add `g:neoterm_callbacks.before_new` support. Custom callback to be executed
+    at the top of the `neoterm#new()`. Useful to customize `g:neoterm_` vars
+    before each neoterm starts.
 ### 05/11/2020
   - Better exception handling when toggling neoterm and it's the last open
     window.
