@@ -39,8 +39,8 @@ Commands lacking a prefix will always be executed in the last active neoterm.
 
 1.4 ID calculation                                      *neoterm-id-calculation*
 
-The ID is a sequential number starting from 1. To avoid big ID numbers, the ID
-is reseted to 1 when there is no instance of a neoterm windows open.
+The ID is a numeric value. It's calculates the minimum available value,
+starting from 1.
 
 1.4 Last Active                                            *neoterm-last-active*
 

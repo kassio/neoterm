@@ -319,3 +319,19 @@ function! s:resize_instance(instance) abort
     exec printf('%s resize %s', a:instance.mod, size)
   endif
 endfunction
+
+" Calculates the next neoterm's ID.
+" Returns the minimum next available id, an id not related
+" to an neoterm instance.
+function! neoterm#next_id(instances, last_id)
+  let l:instance_ids = map(keys(a:instances), {_, v -> str2nr(v) })
+
+  for i in range(1, max(l:instance_ids) + 1)
+    if index(l:instance_ids, i) < 0
+      let l:last_id = i
+      return l:last_id
+    end
+  endfor
+
+  return a:last_id + 1
+endfunction

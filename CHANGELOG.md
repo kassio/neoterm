@@ -1,3 +1,6 @@
+### 30/11/2020
+  - Change the next id calculation to use the minimum available value.
+    ([\#309](https://github.com/kassio/neoterm/issues/309))
 ### 05/11/2020
   - Better exception handling when toggling neoterm and it's the last open
     window.
