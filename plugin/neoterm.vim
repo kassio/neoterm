@@ -13,9 +13,16 @@ let g:neoterm = {
       \ }
 
 function! g:neoterm.next_id()
-  let l:self.last_id = neoterm#next_id(l:self.instances, l:self.last_id)
+  let l:self.last_id = neoterm#next_id(
+        \ l:self.ids(),
+        \ l:self.last_id
+        \ )
 
   return l:self.last_id
+endfunction
+
+function! g:neoterm.ids()
+  return map(keys(self.instances), {_, v -> str2nr(v) })
 endfunction
 
 function! g:neoterm.has_any()
@@ -152,12 +159,12 @@ if !exists('g:neoterm_bracketed_paste')
   let g:neoterm_bracketed_paste = 0
 end
 
-if exists('#TerminalOpen')
-  autocmd TerminalOpen * call neoterm#new_from_event()
+if exists('##TerminalOpen')
+  autocmd TerminalOpen * call neoterm#load_session()
 end
 
-if exists('#TermOpen')
-  autocmd TermOpen term://*neoterm call neoterm#new_from_event()
+if exists('##TermOpen')
+  autocmd TermOpen *neoterm* call neoterm#load_session()
 end
 
 exec printf(

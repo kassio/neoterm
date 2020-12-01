@@ -5,6 +5,10 @@ function! neoterm#term#new(opts) abort
         \ )
 endfunction
 
+function! neoterm#term#current_id()
+  return s:adapter().get_current_termid()
+endfunction
+
 function! s:adapter()
   return get(g:neoterm, 'adapter', s:set_adapter())
 endfunction

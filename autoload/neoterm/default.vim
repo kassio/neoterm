@@ -4,7 +4,7 @@ function! neoterm#default#opts(opts) abort
         \ 'mod': '',
         \ 'args': '',
         \ 'buffer_id': 0,
-        \ 'from_event': v:false,
+        \ 'from_session': v:false,
         \ 'origin': neoterm#origin#new(),
         \ 'shell': g:neoterm_shell
         \ }

@@ -1,3 +1,5 @@
+### 01/12/2020
+  - Fix neoterm loading on session load.
 ### 30/11/2020
   - Change the next id calculation to use the minimum available value.
     ([\#309](https://github.com/kassio/neoterm/issues/309))

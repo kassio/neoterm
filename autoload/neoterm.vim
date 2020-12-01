@@ -5,7 +5,7 @@ function! neoterm#new(...) abort
 
   let l:instance = neoterm#term#new(get(a:, 1, {}))
 
-  if !l:instance.from_event
+  if !l:instance.from_session
     call s:create_window(l:instance)
   end
 
@@ -14,13 +14,9 @@ function! neoterm#new(...) abort
   let l:instance.name = printf('neoterm-%s', l:instance.id)
   let t:neoterm_id = l:instance.id
 
-  if l:instance.from_event
-    let l:instance.termid = l:instance.get_current_termid()
-  else
+  if !l:instance.from_session
     let l:instance.termid = l:instance.new(l:instance)
   end
-
-  let g:neoterm.managed += [l:instance.termid]
 
   call s:after_open(l:instance)
 
@@ -31,12 +27,11 @@ function! neoterm#new(...) abort
   return l:instance
 endfunction
 
-function! neoterm#new_from_event() abort
-  let l:should_load = get(g:, 'SessionLoad', 0)
-        \ && index(g:neoterm.managed, g:neoterm.get_current_termid()) < 0
+function! neoterm#load_session() abort
+  let l:id = neoterm#term#current_id()
 
-  if l:should_load
-    call neoterm#new({'from_event': 1})
+  if get(g:, 'SessionLoad', 0) && index(g:neoterm.ids(), l:id) < 0
+    call neoterm#new({'from_session': 1, 'id': l:id, 'termid': l:id})
   end
 endfunction
 
@@ -327,11 +322,11 @@ endfunction
 " Calculates the next neoterm's ID.
 " Returns the minimum next available id, an id not related
 " to an neoterm instance.
-function! neoterm#next_id(instances, last_id)
-  let l:instance_ids = map(keys(a:instances), {_, v -> str2nr(v) })
+function! neoterm#next_id(ids, last_id)
+  let l:ids = map(a:ids, {_, v -> str2nr(v) })
 
-  for i in range(1, max(l:instance_ids) + 1)
-    if index(l:instance_ids, i) < 0
+  for i in range(1, max(l:ids) + 1)
+    if index(l:ids, i) < 0
       let l:last_id = i
       return l:last_id
     end

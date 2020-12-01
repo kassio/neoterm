@@ -7,7 +7,7 @@ function! g:vmtests.neoterm.default.test_with_no_given_opts()
         \ 'mod': '',
         \ 'args': '',
         \ 'buffer_id': 0,
-        \ 'from_event': v:false,
+        \ 'from_session': v:false,
         \ 'origin': neoterm#origin#new(),
         \ 'shell': g:neoterm_shell
         \ },
