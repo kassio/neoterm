@@ -124,6 +124,11 @@ if has('nvim') || has('terminal')
           \ if executable('sbt') |
           \   call neoterm#repl#set('sbt console') |
           \ end
+    " Stata
+    au FileType stata
+          \ if executable('stata') |
+          \   call neoterm#repl#set('stata -q') |
+          \ end
     " Racket
     au FileType racket
           \ if executable('racket') |

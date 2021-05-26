@@ -1,3 +1,6 @@
+### 26/05/2021
+  - Add support for [`Stata`](https://www.stata.com/).
+
 ### 01/12/2020
   - Fix neoterm loading on session load.
 ### 30/11/2020

@@ -138,6 +138,7 @@ nnoremap <leader>tl :<c-u>exec v:count.'Tclear'<cr>
 * Rust: `evcxr`
 * SML: `rlwrap sml` or `sml`
 * Scala: `sbt console`
+* Stata: `stata -q`
 * TCL: `tclsh`
 
 ### Troubleshooting
@@ -165,6 +166,8 @@ function! Chomp(string)
 endfunction
 let g:neoterm_repl_python = Chomp(system('which jupyter')) . ' console'
 ```
+
+Note that the same approach may be used to use Jupyter for R or Stata, provided the appropriate kernels ([IRkernel](https://github.com/IRkernel/IRkernel) and [stata_kernel](https://kylebarron.dev/stata_kernel/)) are installed.
 
 ## [Contributing](CONTRIBUTING.md)
 ## [Changelog](CHANGELOG.md)
