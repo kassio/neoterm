@@ -145,7 +145,7 @@ nnoremap <leader>tl :<c-u>exec v:count.'Tclear'<cr>
 ### Troubleshooting
 
 Most standard file extensions for the above REPLs are picked up by Neovim/Vim's
-default filetype plugins. However, there are three exceptions:
+default filetype plugins. However, there are some exceptions:
 * Julia `.jl` files, which are detected as `filetipe=lisp`
 * Idris `.idr`, `.lidr` files which are not recognised as any filetype
 * LFE `.lfe` files, which are not recognized as any filetype
