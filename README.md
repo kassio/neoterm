@@ -122,6 +122,7 @@ nnoremap <leader>tl :<c-u>exec v:count.'Tclear'<cr>
     using `g:neoterm_repl_octave_qt = 1`
 * Haskell: `ghci`
 * Idris: `idris`
+* Janet: `janet`
 * JavaScript: `node`
 * Java: `java`
 * Julia: `julia`
@@ -144,7 +145,7 @@ nnoremap <leader>tl :<c-u>exec v:count.'Tclear'<cr>
 ### Troubleshooting
 
 Most standard file extensions for the above REPLs are picked up by Neovim/Vim's
-default filetype plugins. However, there are two exceptions:
+default filetype plugins. However, there are three exceptions:
 * Julia `.jl` files, which are detected as `filetipe=lisp`
 * Idris `.idr`, `.lidr` files which are not recognised as any filetype
 * LFE `.lfe` files, which are not recognized as any filetype
