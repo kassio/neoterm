@@ -1,3 +1,6 @@
+### 22/07/2021
+  - Add support for [`Janet`](https://janet-lang.org/).
+
 ### 26/05/2021
   - Add support for [`Stata`](https://www.stata.com/).
 
