@@ -144,5 +144,10 @@ if has('nvim') || has('terminal')
           \ if executable('evcxr') |
           \   call neoterm#repl#set('evcxr') |
           \ end
+    " Janet
+    au FileType janet
+         \ if executable('janet') |
+         \    call neoterm#repl#set('janet') |
+         \ end
   aug END
 end
