@@ -136,6 +136,10 @@ function! neoterm#do(opts) abort
 endfunction
 
 function! neoterm#exec(opts) abort
+  if exists('*g:neoterm_callbacks.before_exec')
+    call g:neoterm_callbacks.before_exec()
+  end
+
   let l:command = map(copy(a:opts.cmd), { i, cmd -> s:expand(cmd) })
   let l:instance = neoterm#target#get({ 'target': get(a:opts, 'target', 0) })
 

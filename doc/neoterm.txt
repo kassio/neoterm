@@ -379,6 +379,20 @@ Open the neoterm in a vertical split if current window width is bigger than
         let g:neoterm_default_mod = 'botright'
       end
     endfunction
+
+                                               *g:neoterm_callbacks.before_exec()*
+
+This callback is called before neoterm sends a command to its terminal, like
+in `:T`.
+
+- Example of usage:
+
+Save all buffers before executing a command
+>
+    let g:neoterm_callbacks = {}
+    function! g:neoterm_callbacks.before_exec()
+      wall
+    endfunction
 <
 ===============================================================================
 5. Operators                                                 *neoterm-operators*

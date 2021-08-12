@@ -1,3 +1,6 @@
+### 22/08/2021
+  - Add `g:neoterm_callbacks.before_exec` support. Custom callback to be executed
+    at the top of the `neoterm#exec()`.
 ### 22/07/2021
   - Add support for [`Janet`](https://janet-lang.org/).
 
