@@ -132,7 +132,16 @@ endfunction
 function! neoterm#do(opts) abort
   let l:opts = extend(a:opts, { 'mod': '', 'target': 0 }, 'keep')
   let l:opts.cmd = [l:opts.cmd, g:neoterm_eof]
+
+  let g:neoterm.last_command = l:opts
+
   call neoterm#exec(l:opts)
+endfunction
+
+function neoterm#redo() abort
+  if type(g:neoterm.last_command) != type(v:null)
+    call neoterm#exec(g:neoterm.last_command)
+  end
 endfunction
 
 function! neoterm#exec(opts) abort

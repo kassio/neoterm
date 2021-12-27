@@ -1,3 +1,5 @@
+### 27/12/2021
+  - Add `:Tredo` to repeat the last command passed to `neoterm#do`
 ### 22/08/2021
   - Add `g:neoterm_callbacks.before_exec` support. Custom callback to be executed
     at the top of the `neoterm#exec()`.

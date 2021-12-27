@@ -9,7 +9,8 @@ let g:neoterm = {
       \ 'last_active': 0,
       \ 'open': 0,
       \ 'instances': {},
-      \ 'managed': []
+      \ 'managed': [],
+      \ 'last_command': v:null
       \ }
 
 function! g:neoterm.next_id()
@@ -175,6 +176,8 @@ exec printf(
 " Handling
 command! -range=0 -complete=shellcmd -nargs=+ T
       \ call neoterm#do({ 'cmd': <q-args>, 'target': <count>, 'mod': <q-mods> })
+command! Tredo
+      \ call neoterm#redo()
 command! -range=0 -complete=shellcmd -nargs=+ Texec
       \ call neoterm#exec({ 'cmd': [<f-args>, ''], 'target': <count> })
 command! -bar Tnew

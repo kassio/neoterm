@@ -63,6 +63,10 @@ active neoterm will be used (or a new one will be created). If a new neoterm
 window is created, mods are accepted to position the new window. If there is a
 `%` in the given command, this will be expanded to the current file path.
 
+:Tredo                                                                  *:Tredo*
+
+Repeat the last command passed to `:T`
+
 :[N]Texec {cmds}                                                        *:Texec*
 
 Executes the given commands, one by one, on the neoterm with id [N]. With no
