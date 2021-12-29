@@ -70,5 +70,5 @@ function! s:term.on_exit(...) abort
   if has_key(l:self.handlers, 'on_exit')
     call l:self.handlers['on_exit'](a:)
   end
-  " call neoterm#destroy(l:self)
+  call neoterm#destroy(l:self)
 endfunction
