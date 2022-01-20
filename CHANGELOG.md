@@ -1,4 +1,8 @@
 ### 27/12/2021
+  - Add `g:neoterm_callbacks.before_create_window` support. Custom callback to
+    be executed just before a window is created. Useful to dynamically set
+    neoterm's window properties, like size.
+### 27/12/2021
   - Add `:Tredo` to repeat the last command passed to `neoterm#do`
 ### 22/08/2021
   - Add `g:neoterm_callbacks.before_exec` support. Custom callback to be executed

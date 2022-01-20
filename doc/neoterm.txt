@@ -384,7 +384,25 @@ Open the neoterm in a vertical split if current window width is bigger than
       end
     endfunction
 
-                                               *g:neoterm_callbacks.before_exec()*
+                            *g:neoterm_callbacks.before_create_window(instance)*
+
+This callback is called before a neoterm window is created with any command, like
+`:Tnew`, `:Topen`, `:Ttoggle`, etc.
+
+- Example of usage:
+
+Ensforce neoterm window size only when using it in horizontal mode:
+>
+    let g:neoterm_callbacks = {}
+    function! g:neoterm_callbacks.before_create_window(instance)
+      if a:instance.mod =~ 'vert'
+        let g:neoterm_size = ''
+      else
+        let g:neoterm_size = 30
+      end
+    endfunction
+
+                                             *g:neoterm_callbacks.before_exec()*
 
 This callback is called before neoterm sends a command to its terminal, like
 in `:T`.

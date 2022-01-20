@@ -1,6 +1,6 @@
 function! neoterm#args#size(args, default) abort
-  let l:size = matchstr(a:args, 'resize=\zs\d\+')
-  let l:size = empty(l:size) ? a:default : l:size
+  let l:size = str2nr(matchstr(a:args, 'resize=\zs\d\+'))
+  let l:size = l:size > 0 ? l:size : a:default
 
-  return str2nr(l:size)
+  return str2nr(l:size) == 0 ? '' : l:size
 endfunction
