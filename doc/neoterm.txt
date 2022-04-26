@@ -260,6 +260,11 @@ When set, the `%` will always be expanded to the file relative path instead of
 its absolute path.
 Default value: 0
 
+                                                     *g:neoterm_repl_same_shell*
+
+When set, neoterm will send REPL to instance with same shell command.
+Default value: `0`.
+
                                                            *g:neoterm_repl_ruby*
 
 Sets what ruby REPL will be used.
