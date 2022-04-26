@@ -421,6 +421,20 @@ Save all buffers before executing a command
       wall
     endfunction
 <
+                                         *g:neoterm_callbacks.after_repl_exec()*
+
+This callback is called after neoterm sends a repl command to its terminal.
+
+- Example of usage:
+
+Avoid in insert mode once has autocmd like: `autocmd BufEnter term://* startinsert`
+>
+    let g:neoterm_callbacks = {}
+    function! g:neoterm_callbacks.after_repl_exec()
+      stopinsert
+    endfunction
+<
+
 ===============================================================================
 5. Operators                                                 *neoterm-operators*
 

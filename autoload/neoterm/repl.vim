@@ -109,6 +109,10 @@ function! g:neoterm.repl.exec(command) abort
   catch /^Vim\%((\a\+)\)\=:E117/
     call g:neoterm.repl.instance().exec(add(l:command, g:neoterm_eof))
   endtry
+
+  if exists('*g:neoterm_callbacks.after_repl_exec')
+    call g:neoterm_callbacks.after_repl_exec()
+  endif
 endfunction
 
 function! s:bracketed_paste(command)
