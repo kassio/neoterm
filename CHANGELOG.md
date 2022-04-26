@@ -1,3 +1,6 @@
+### 26/04/2022
+  - Add `g:neoterm_repl_same_shell` support. Will try to run repl in
+    term instance with same shell command once enabled.
 ### 27/12/2021
   - Add `g:neoterm_callbacks.before_create_window` support. Custom callback to
     be executed just before a window is created. Useful to dynamically set
