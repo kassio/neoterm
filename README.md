@@ -1,3 +1,5 @@
+# 2022-05-28 - MOVED TO: https://github.com/kassio/dotfiles/tree/main/stow/nvim/.config/nvim
+---
 # neoterm
 
 [![lint](https://github.com/kassio/neoterm/workflows/lint/badge.svg?branch=master)](https://github.com/kassio/neoterm/actions?query=workflow%3Alint)
