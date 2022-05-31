@@ -10,6 +10,13 @@
  |  \_| |______ |_____|    |    |______ |    \_ |  |  |
 ```
 
+## Current status
+
+:warning: This plugin is in low maintenance mode. I still use it frequently and I hope most of its features are mature enough for most of its users. However, I understand it has some bugs with python and windows, but debugging these are very hard to me and I'm not willing to code much in vimscript anymore. 
+
+Pull requests are welcome, and if you want to become a contributor/maintainer I can also give you the right accesses to the codebase. :smile:
+
+---
 
 Use the same terminal for everything. The main reason for this plugin is to
 reuse the terminal easily. All commands open a terminal if one does not already
