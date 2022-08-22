@@ -1,3 +1,5 @@
+### 22/08/2022
+  - Avoid error if the Tmap is called without any map set
 ### 26/04/2022
   - Add `g:neoterm_callbacks.after_repl_exec` support. Custom callback to be
     executed after repl command executed. Could fix issue #146.

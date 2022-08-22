@@ -189,7 +189,11 @@ function! neoterm#map_for(...) abort
 endfunction
 
 function! neoterm#map_do() abort
-  call neoterm#do(copy(g:neoterm.map_options))
+  if get(g:neoterm, 'map_options', '') != ''
+    call neoterm#do(copy(g:neoterm.map_options))
+  else
+    echo 'neoterm: no Tmap set'
+  end
 endfunction
 
 function! neoterm#clear(...) abort
