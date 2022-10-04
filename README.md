@@ -122,7 +122,7 @@ nnoremap <leader>tl :<c-u>exec v:count.'Tclear'<cr>
 
 ### Supported REPLs
 
-* Clojure: `lein repl`
+* Clojure: `lein repl` (if `project.clj` exists) or `clj` (if `deps.edn` exists)
 * Elixir: `iex` and `iex -S mix` (if `config/config.exs` exists)
 * GNU Octave: `octave`
   * For Octave 4.0.0 and later, you can enable Qt widgets (dialogs, plots, etc.)
