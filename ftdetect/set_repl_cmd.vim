@@ -92,8 +92,10 @@ if has('nvim') || has('terminal')
           \ end
     " Clojure
     au FileType clojure
-          \ if executable('lein') |
+          \ if executable('lein') && filereadable('project.clj') |
           \   call neoterm#repl#set('lein repl') |
+          \ elseif executable('clj') && filereadable('deps.edn') |
+          \   call neoterm#repl#set('clj') |
           \ end
     " Fennel
     au FileType fennel
