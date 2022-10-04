@@ -135,6 +135,7 @@ nnoremap <leader>tl :<c-u>exec v:count.'Tclear'<cr>
 * Julia: `julia`
 * LFE: `lfe`
 * Lua with `lua` and `luap`.
+* Fennel with `fennel`
 * MATLAB: `matlab -nodesktop -nosplash`
 * PARI/GP: `gp`
 * PHP: `g:neoterm_repl_php` and `psysh` and `php`
