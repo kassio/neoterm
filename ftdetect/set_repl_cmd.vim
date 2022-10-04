@@ -95,6 +95,11 @@ if has('nvim') || has('terminal')
           \ if executable('lein') |
           \   call neoterm#repl#set('lein repl') |
           \ end
+    " Fennel
+    au FileType fennel
+          \ if executable('fennel') |
+          \   call neoterm#repl#set('fennel') |
+          \ end
     " Lua
     au FileType lua
           \ if executable('luap') |

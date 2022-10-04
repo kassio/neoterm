@@ -1,3 +1,5 @@
+### 04/10/2022
+  - Add support for [`fennel`](https://fennel-lang.org/).
 ### 22/08/2022
   - Avoid error if the Tmap is called without any map set
 ### 26/04/2022
