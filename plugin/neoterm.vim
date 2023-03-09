@@ -168,10 +168,12 @@ if exists('##TermOpen')
   autocmd TermOpen *neoterm* call neoterm#load_session()
 end
 
-exec printf(
-      \ 'nnoremap <silent> %s :call neoterm#map_do()<cr>',
-      \ g:neoterm_automap_keys
-      \ )
+if g:neoterm_automap_keys !=# ''
+  exec printf(
+        \ 'nnoremap <silent> %s :call neoterm#map_do()<cr>',
+        \ g:neoterm_automap_keys
+        \ )
+end
 
 " Handling
 command! -range=0 -complete=shellcmd -nargs=+ T
